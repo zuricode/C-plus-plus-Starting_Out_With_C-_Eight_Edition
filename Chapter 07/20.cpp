@@ -243,7 +243,7 @@ void salesReport(char array[][COLUMNS], vector<double>& row_pricing, int& sales_
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLUMNS; j++) {
 			if (array[i][j] == SOLD) {
-					cout << "(" << i+1 << "/" << j+1 << "), ";
+					cout << "(" << i+1 << "/" << j+1 << ")" << "[$" << row_pricing[i] << "] ";
 			}
 		}
 		
