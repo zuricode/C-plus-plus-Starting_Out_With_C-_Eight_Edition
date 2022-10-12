@@ -2,36 +2,62 @@
 
 using namespace std;
 
-void selectionSort(int[], int);
-void swap(int&, int&);
 void displayArray(int[], int);
+void swap(int&, int&);
+void sortArray(int[], int);
 
 int main() {
 
-	const int	SIZE{ 10 };
-	int			list[SIZE]{ 45,3,7,1,98,-76,3459,0,-34534,42 };
+	const int			SIZE{ 15};
+	int					list[SIZE]{ 34,67,21,45,63,4564,2,45,12,6594, -56675, -567, 5675636, 10, 999 };
 
 	displayArray(list, SIZE);
-	selectionSort(list, SIZE);
+	sortArray(list, SIZE);
 	displayArray(list, SIZE);
-	
+
 
 }
 
-void selectionSort(int array[], int size) {
+void displayArray(int array[], int size) {
 
-	int minIndex, minValue;
+	cout << "List of numbers: ";
 
-	for (int start = 0; start < (size - 1); start++) {
-		minIndex = start;
-		minValue = array[start];
-		for (int index = start + 1; index < size; index++) {
-			if (array[index] < minValue) {
-				minValue = array[index];
-				minIndex = index;
-			}
+	for (int i = 0; i < size; i++) {
+
+		if (i != size - 1) {
+			cout << array[i] << " ";
 		}
-		swap(array[minIndex], array[start]);
+		else {
+			cout << array[i] << endl;
+		}
+
+	}
+
+	cout << endl;
+
+}
+
+void sortArray(int array[], int size) {
+
+	int min_index, min_value;
+
+	for (int start = 0; start < size - 1; start++) {
+
+		min_value = array[start];
+		min_index = start;
+
+		for (int index = start + 1; index < size; index++) {
+
+			if (array[index] < min_value) {
+				min_index = index;
+				min_value = array[index];
+			}
+
+		}
+
+		swap(array[min_index], array[start]);
+
+
 	}
 
 }
@@ -43,16 +69,4 @@ void swap(int& a, int& b) {
 	a = b;
 	b = temp;
 
-}
-
-void displayArray(int array[], int size) {
-
-	for (int i = 0; i < size; i++) {
-		if (i == size - 1) {
-			cout << array[i] << endl << endl;
-		}
-		else {
-			cout << array[i] << " ";
-		}
-	}
 }
