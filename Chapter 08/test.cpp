@@ -1,41 +1,63 @@
 #include <iostream>
 
-
 using namespace std;
 
-void sortHighToLow(int[], const int);
+void displayArray(int[], int);
 void swap(int&, int&);
-void displayArray(int[], const int);
-int  findElement(int[], const int, int, int&);
+void sortArray(int[], int);
 
 int main() {
 
-	const int		SIZE{ 6 };
-	int				list[SIZE]{ 3,7890769,9,5,12,765}, magic_number{ 7890769 };
-	int				magic_element, loop_counter = 0;
+	const int			SIZE{ 15};
+	int					list[SIZE]{ 34,67,21,45,63,4564,2,45,12,6594, -56675, -567, 5675636, 10, 999 };
 
 	displayArray(list, SIZE);
-	sortHighToLow(list, SIZE);
+	sortArray(list, SIZE);
 	displayArray(list, SIZE);
 
-	magic_element = findElement(list, SIZE, magic_number, loop_counter);
-
-	cout << "\"Magic number\" " << magic_number << " can be found at element " << magic_element << " of the list array. " << endl;
-	cout << "This search ran the search loop " << loop_counter << " times." << endl << endl;
-
-	return 0;
 
 }
 
-void sortHighToLow(int array[], const int SIZE) {
+void displayArray(int array[], int size) {
 
-	for (int maxElement = SIZE - 1; maxElement > 0; maxElement--) {
-		for (int index = 0; index < maxElement; index++) {
-			if (array[index] > array[index + 1]) {
-				swap(array[index], array[index + 1]);
+	cout << "List of numbers: ";
+
+	for (int i = 0; i < size; i++) {
+
+		if (i != size - 1) {
+			cout << array[i] << " ";
+		}
+		else {
+			cout << array[i] << endl;
+		}
+
+	}
+
+	cout << endl;
+
+}
+
+void sortArray(int array[], int size) {
+
+	int min_index, min_value;
+
+	for (int start = 0; start < size - 1; start++) {
+
+		min_value = array[start];
+		min_index = start;
+
+		for (int index = start + 1; index < size; index++) {
+
+			if (array[index] < min_value) {
+				min_index = index;
+				min_value = array[index];
 			}
 
 		}
+
+		swap(array[min_index], array[start]);
+
+
 	}
 
 }
@@ -43,54 +65,8 @@ void sortHighToLow(int array[], const int SIZE) {
 void swap(int& a, int& b) {
 
 	int temp;
-
 	temp = a;
 	a = b;
 	b = temp;
-
-}
-
-void displayArray(int array[], const int SIZE) {
-
-	cout << "Array: ";
-
-	for (int i = 0; i < SIZE; i++) {
-		if (i == SIZE - 1) {
-			cout << array[i] << endl << endl;
-		}
-		else {
-			cout << array[i] << " ";
-
-		}
-	}
-
-}
-
-int findElement(int array[], const int SIZE, int magic_number, int& loop_counter) {
-
-	int element = -1;
-	int first = 0, last = SIZE - 1, middle;
-	bool found = false;
-
-	while (!found && first <= last) {
-
-		middle = (first + last) / 2;
-
-		if (magic_number == array[middle]) {
-			element = middle;
-			found = true;
-		}
-		else if (magic_number > array[middle]) {
-			first = middle + 1;
-		} 
-		else if (magic_number < array[middle]) {
-			last = middle + 1;
-		}
-
-		loop_counter++;
-
-	}
-
-	return element;
 
 }
