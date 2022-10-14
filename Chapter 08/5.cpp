@@ -16,12 +16,13 @@ double averageRainfall(double[]);
 string lowestRainfall(double[], string[]);
 string highestRainfall(double[], string[]);
 void rainfallReport(double, double, string, string);
-void displayReport(double[], int[], string[], int);
+void displayReport(double[], string[], int);
 void displayArray(double[], int);
 void displayArray(int[], int);
-void sortArray(double[], int[], int);
+void sortArray(double[], string[], int);
 void swap_double(double&, double&);
 void swap_int(int&, int&);
+void swap_string(string&, string&);
 
 
 int main() {
@@ -39,11 +40,11 @@ int main() {
 	string lowest_rainfall = lowestRainfall(rainfall_array, months);
 	string highest_rainfall = highestRainfall(rainfall_array, months);
 
-	sortArray(rainfall_array, month_numbers, ARRAY_LENGTH);
+	sortArray(rainfall_array, months, ARRAY_LENGTH);
 
 	cout << "ANNUAL RAINFALL REPORT(in order of highest rainfall): " << endl << endl;
 
-	displayReport(rainfall_array, month_numbers, months, ARRAY_LENGTH);
+	displayReport(rainfall_array, months, ARRAY_LENGTH);
 
 	rainfallReport(total_rainfall, average_rainfall, lowest_rainfall, highest_rainfall);
 
@@ -160,20 +161,17 @@ void rainfallReport(double total, double average, string min, string max) {
 
 }
 
-void displayReport(double rainfall[], int month_numbers[], string months[], int size) {
-
-	int num;
+void displayReport(double rainfall[], string months[], int size) {
 
 	for (int i = 0; i < size; i++) {
-		num = month_numbers[i];
-		cout << months[num] << " - " << rainfall[i] << "mm" << endl;
+		cout << months[i] << " - " << rainfall[i] << "mm" << endl;
 	}
 
 	cout << endl;
 
 }
 
-void sortArray(double rainfall[], int month[], int size) {
+void sortArray(double rainfall[], string month[], int size) {
 
 	int max_index;
 	double max_value;
@@ -187,8 +185,8 @@ void sortArray(double rainfall[], int month[], int size) {
 				max_index = index;
 			}
 		}
-		swap_double(rainfall[max_index], rainfall[start]);
-		swap_int(month[max_index], month[start]);
+		swap(rainfall[max_index], rainfall[start]);
+		swap(month[max_index], month[start]);
 	}
 
 }
@@ -246,3 +244,11 @@ void displayArray(int array[], int size) {
 
 }
 
+void swap_string(string& a, string& b) {
+
+	string temp;
+	temp = a;
+	a = b;
+	b = temp;
+
+}
