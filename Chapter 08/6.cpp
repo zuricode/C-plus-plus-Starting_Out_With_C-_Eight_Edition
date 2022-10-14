@@ -4,6 +4,7 @@
 using namespace std;
 
 void selectionSort(string[], int);
+void swap_string(string&, string&);
 void displayArray(string[], int);
 
 int main() {
