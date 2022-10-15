@@ -27,6 +27,11 @@ int main() {
 	displayArray(list_2, SIZE);
 	selectionSortArray(list_2, SIZE);
 
+
+
+
+
+
 }
 
 void displayArray(int array[], int size) {
