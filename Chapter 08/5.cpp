@@ -17,14 +17,15 @@ string lowestRainfall(double[], string[]);
 string highestRainfall(double[], string[]);
 void rainfallReport(double, double, string, string);
 void displayArray(double[], string[], int);
-void sortArray(double[], string[], int);
-//void swap_new(double&, double&);
-//void swap_new(string&, string&);
+void sortArray(double[], int[], int);
+void swap_double(double&, double&);
+void swap_int(int&, int&);
 
 
 int main() {
 
-	string months[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	int	month_numbers[ARRAY_LENGTH]{ 1,2,3,4,5,6,7,8,9,10,11,12};
+	string months[ARRAY_LENGTH] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 	double	rainfall_array[ARRAY_LENGTH];
 
@@ -70,6 +71,8 @@ void collectRainfallInfo(double list[], string months[]) {
 		list[i] = num;
 
 	}
+
+	cout << endl;
 
 }
 
@@ -178,8 +181,26 @@ void sortArray(double rainfall[], string month[], int size) {
 				min_index = index;
 			}
 		}
-		swap(rainfall[min_index], rainfall[start]);
-		swap(month[min_index], month[start]);
+		swap_double(rainfall[min_index], rainfall[start]);
+		swap_int(month[min_index], month[start]);
 	}
+
+}
+
+void swap_double(double& a, double& b) {
+
+	double temp;
+	temp = a;
+	a = b;
+	b = temp;
+
+}
+
+void swap_int(int& a, int& b) {
+
+	int temp;
+	temp = a;
+	a = b;
+	b = temp;
 
 }
