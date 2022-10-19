@@ -157,6 +157,8 @@ void outputDataToFile(vector<double> averages, vector<string> months, string fil
 
 	}
 
+	file << endl;
+
 	file.close();
 
 }
