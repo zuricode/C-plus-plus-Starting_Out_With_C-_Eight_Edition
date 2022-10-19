@@ -13,3 +13,4 @@ September: 1.14375
 October: 1.1136
 November: 1.11875
 December: 1.12925
+
