@@ -14,12 +14,15 @@ void displayVector(vector<double>, string);
 void displayVector(vector<int>, string);
 double calculateAverage(vector<double>);
 void calculations(vector<double>, vector<int>, vector<double>&);
+void selectionSortArray(vector<double>&, vector<string>&);
+void swap_double(double&, double&);
+void swap_string(string&, string&);
 void outputDataToFile(vector<double>, vector<string>, string);
 
 
 int main() {
 
-	const string	FILE{ "C:\\Users\\test\\Documents\\GitHub\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 08\\1994_Weekly_Gas_Averages.txt" };
+	const string	FILE{ "C:\\Users\\Admin\\source\\repos\\Project2\\Project2\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 08\\1994_Weekly_Gas_Averages.txt" };
 	vector<string>	months{ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 	vector<double>	prices, averages;
 	vector<int>		weeks;
@@ -28,7 +31,9 @@ int main() {
 
 	calculations(prices, weeks, averages);
 
-	outputDataToFile(averages, months, "C:\\Users\\test\\Documents\\GitHub\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 08\\Gas_Exercise_Output.txt");
+	selectionSortArray(averages, months);
+
+	outputDataToFile(averages, months, "C:\\Users\\Admin\\source\\repos\\Project2\\Project2\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 08\\Gas_Exercise_Output.txt");
 
 	cout << "Output file successfully exported." << endl << endl;
 
@@ -134,6 +139,57 @@ void calculations(vector<double> prices, vector<int> weeks, vector<double>& aver
 
 		
 	}
+
+}
+
+void selectionSortArray(vector<double>& averages, vector<string>& months) {
+
+	int min_index;
+	double min_value;
+	bool swap;
+
+	for (int start = 0; start < NUMBER_OF_MONTHS - 1; start++) {
+
+		min_value = averages[start];
+		min_index = start;
+		swap = false;
+
+		for (int index = start + 1; index < NUMBER_OF_MONTHS; index++) {
+
+			if (averages[index] < min_value) {
+				min_value = averages[index];
+				min_index = index;
+				swap = true;
+			}
+
+		}
+
+		if (swap) {
+			swap_double(averages[min_index], averages[start]);
+			swap_string(months[min_index], months[start]);
+		}
+
+	}
+
+}
+
+void swap_double(double& a, double& b) {
+
+	double temp;
+
+	temp = a;
+	a = b;
+	b = temp;
+
+}
+
+void swap_string(string& a, string& b) {
+
+	string temp;
+
+	temp = a;
+	a = b;
+	b = temp;
 
 }
 
