@@ -2,15 +2,15 @@ Average gas prices per month:
 ------------------------------
 
 January: 0.9984
-February: 1.009
 March: 1.00775
+February: 1.009
 April: 1.02725
 May: 1.0474
 June: 1.078
 July: 1.10575
-August: 1.1548
-September: 1.14375
 October: 1.1136
 November: 1.11875
 December: 1.12925
+September: 1.14375
+August: 1.1548
 
