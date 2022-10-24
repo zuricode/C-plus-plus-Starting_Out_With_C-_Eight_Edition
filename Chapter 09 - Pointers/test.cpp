@@ -18,6 +18,8 @@ int main() {
 	cout << ptr << endl;
 	cout << *ptr << endl;
 
+	ptr = nullptr;
+
 }
 
 void makeNegative(int* val) {
