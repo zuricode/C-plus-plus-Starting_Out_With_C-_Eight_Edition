@@ -29,8 +29,8 @@ int main() {
 
 	enterTestScores(names, scores, test_scores);
 	sortTestScores(names, scores, test_scores);
-	lowest_score = *(scores + (test_scores - 1));
-	lowest_name = *(names + (test_scores - 1));
+	lowest_score = *(scores + 0);
+	lowest_name = *(names + + 0);
 
 	average = getAverage(scores, test_scores, lowest_score);
 
@@ -116,25 +116,23 @@ void enterTestScores(string* names, double* scores, int size) {
 
 void sortTestScores(string* names, double* scores, int size) {
 
-	double max_value;
-	int max_index;
+	double min_value;
+	int min_index;
 
 	for (int start = 0; start < size - 1; start++) {
-		max_index = start;
-		max_value = *(scores + start);
+		min_index = start;
+		min_value = *(scores + start);
 		for (int index = start + 1; index < size; index++) {
-			if (*(scores + index) > max_value) {
-				max_value = *(scores + index);
-				max_index = index;
+			if (*(scores + index) < min_value) {
+				min_value = *(scores + index);
+				min_index = index;
 			}
 		}
 
-		swap_double(*(scores + start), *(scores + max_index));
-		swap_string(*(names + start), *(names + max_index));
-
+		swap_double(*(scores + start), *(scores + min_index));
+		swap_string(*(names + start), *(names + min_index));
 
 	}
-
 
 }
 
@@ -163,7 +161,7 @@ void showTestScores(string* names, double* scores, int size, double average, dou
 
 	for (int i = 0; i < size; i++) {
 
-		if (i == size - 1) {
+		if (i == 0) {
 			cout << "Lowest test score #" << i + 1 << " - " << *(names + i) << " : " << *(scores + i) << " DROPPED FROM AVERAGE! " << endl;
 		}
 		else {
