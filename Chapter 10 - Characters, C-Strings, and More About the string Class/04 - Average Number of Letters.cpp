@@ -31,8 +31,9 @@ int main() {
 	getline(cin, text_string);
 
 	words = wordCounter(text_string);
+	average = averageLetters(text_string);
 
-	cout << "Your string has " << words << " words." << endl;
+	cout << "Your string has " << words << " words and the average letters per word is " << average << "." << endl;
 	cout << endl << endl;
 
 }
@@ -102,7 +103,6 @@ int wordCounter(string text) {
 double averageLetters(char* ptr) {
 
 	int size = strlen(ptr), char_count = 0, total = 0;
-	bool space = false;
 	vector<int> letters;
 
 	for (int i = 0; i < size; i++) {
@@ -128,18 +128,47 @@ double averageLetters(char* ptr) {
 
 }
 
+double averageLetters(string text) {
+
+	int char_count = 0, total = 0;
+	vector<int> letters;
+
+	for (int i = 0; i < text.size(); i++) {
+
+		if (isalpha(text[i])) {
+			char_count++;
+		}
+
+		if ((!isalnum(text[i]) && char_count > 0 && text[i] != '\'') || i == text.size() - 1) {
+			letters.push_back(char_count);
+			char_count = 0;
+		}
+
+	}
+
+	displayVector(letters);
+
+	for (int i = 0; i < letters.size(); i++) {
+		total += letters[i];
+	}
+
+	return static_cast<double>(total) / letters.size();
+
+}
+
 void displayVector(vector<int> vector) {
 
 	cout << "List of words by letter count: ";
 
 	for (int i = 0; i < vector.size(); i++) {
+
 		if (i == vector.size() - 1) {
 			cout << vector[i] << ".";
 		}
 		else {
 			cout << vector[i] << ", ";
-
 		}
+
 	}
 
 	cout << endl;
