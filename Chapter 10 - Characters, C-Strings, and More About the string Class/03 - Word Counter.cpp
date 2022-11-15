@@ -1,16 +1,19 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 int wordCounter(char*);
-//int wordCounter(string);
+int wordCounter(string);
 
 int main() {
 
 	const int		SIZE = 1510;
 	int				words;
+	double			average;
 	char			text[SIZE];
+	string			text_string;
 
 	cout << "Enter a string (no more than " << SIZE << " characters): ";
 	cin.getline(text, SIZE);
@@ -18,7 +21,15 @@ int main() {
 	words = wordCounter(text);
 
 	cout << "Your string has " << words << " words." << endl;
-	cout << endl;
+	cout << endl << endl;
+
+	cout << "Enter a string (no more than " << SIZE << " characters): ";
+	getline(cin, text_string);
+
+	words = wordCounter(text_string);
+
+	cout << "Your string has " << words << " words." << endl;
+	cout << endl << endl;
 
 }
 
@@ -52,14 +63,15 @@ int wordCounter(char* ptr) {
 
 }
 
-//int wordCounter(string text) {
+int wordCounter(string text) {
 
+	int length = text.length();
 	int number_of_words = 0;
 	bool ischar = false, space = false;
 
-	for (int i = 0; i < text.length(); i++) {
+	for (int i = 0; i < length; i++) {
 
-		if (isalnum(text[i]) && i == 0) {
+		if (isalnum(text[0]) && i == 0) {
 			number_of_words++;
 		}
 
@@ -76,6 +88,7 @@ int wordCounter(char* ptr) {
 			ischar = false;
 			space = false;
 		}
+
 	}
 
 	return number_of_words;
