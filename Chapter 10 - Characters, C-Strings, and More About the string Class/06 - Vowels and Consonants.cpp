@@ -27,13 +27,19 @@ int main() {
 		switch (menu_choice) {
 
 			case 'A':
+				cout << "----------------------------------" << endl << endl;
 				cout << "There are " << vowelCount(text) << " vowels in the string." << endl << endl;
+				cout << "----------------------------------" << endl << endl;
 				break;
 			case 'B':
+				cout << "----------------------------------" << endl << endl;
 				cout << "There are " << consonantCount(text) << " consonants in the string." << endl << endl;
+				cout << "----------------------------------" << endl << endl;
 				break;
 			case 'C':
+				cout << "----------------------------------" << endl << endl;
 				cout << "There are " << vowelCount(text) + consonantCount(text) << " vowels and consontants in the string." << endl << endl;
+				cout << "----------------------------------" << endl << endl;
 				break;
 			case 'D':
 				enterAnotherString(text, SIZE);
@@ -50,8 +56,13 @@ int main() {
 
 void enterAnotherString(char* text, int SIZE) {
 
+	cin.clear();
+	cin.ignore(1200, '\n');
+
 	cout << "Enter another string (no more than " << SIZE - 1 << " characters): ";
 	cin.getline(text, SIZE);
+
+	cout << endl;
 
 }
 
@@ -83,8 +94,8 @@ int consonantCount(char* ptr) {
 
 		if (isalpha(*(ptr + length))) {
 
-			if (toupper(*(ptr + length)) != 'A' || toupper(*(ptr + length)) != 'E' ||
-				toupper(*(ptr + length)) != 'I' || toupper(*(ptr + length)) != 'O' ||
+			if (toupper(*(ptr + length)) != 'A' && toupper(*(ptr + length)) != 'E' &&
+				toupper(*(ptr + length)) != 'I' && toupper(*(ptr + length)) != 'O' &&
 				toupper(*(ptr + length)) != 'U') {
 				consonant_count++;
 			}
@@ -100,6 +111,7 @@ int consonantCount(char* ptr) {
 
 void showMenu() {
 
+	cout << "MENU:" << endl << endl;
 	cout << "A) Count the number of vowels in the string" << endl;
 	cout << "B) Count the number of consonants in the string" << endl;
 	cout << "C) Count both the number of vowels and consonants in the string" << endl;
@@ -107,7 +119,6 @@ void showMenu() {
 	cout << "E) Exit the program" << endl;
 	cout << endl;
 	cout << "Enter your choice: ";
-
 
 }
 
