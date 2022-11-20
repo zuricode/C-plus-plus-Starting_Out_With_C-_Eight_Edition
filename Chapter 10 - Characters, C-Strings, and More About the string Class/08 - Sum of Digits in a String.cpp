@@ -4,6 +4,7 @@
 using namespace std;
 
 string enterNumber();
+void checkString(string);
 void sumOfSeries(string);
 void findLowest(string);
 void findHighest(string);
@@ -13,7 +14,7 @@ int main() {
 	string series;
 
 	series = enterNumber();
-
+	checkString(series);
 	sumOfSeries(series);
 	findLowest(series);
 	findHighest(series);
@@ -28,6 +29,17 @@ string enterNumber() {
 	getline(cin, series);
 
 	return series;
+
+}
+
+void checkString(string series) {
+
+	for (int i = 0; i < series.length(); i++) {
+		if (!isdigit(series[i])) {
+			cout << "A non-digit element was found in the string. Please re-run the program, entering ONLY digits in the string." << endl;
+			exit(EXIT_FAILURE);
+		}
+	}
 
 }
 
@@ -56,11 +68,10 @@ void findLowest(string series) {
 
 	for (int i = 1; i < series.length(); i++) {
 
-		temp_string= series[i];
-		temp_int = stoi(temp_string);
+		temp_string = series[i];
 
-		if (temp_int < lowest) {
-			lowest = temp_int;
+		if (stoi(temp_string) < lowest) {
+			lowest = stoi(temp_string);
 		}
 	}
 
@@ -78,11 +89,11 @@ void findHighest(string series) {
 	for (int i = 1; i < series.length(); i++) {
 
 		temp_string = series[i];
-		temp_int = stoi(temp_string);
 
-		if (temp_int > highest) {
-			highest = temp_int;
+		if (stoi(temp_string) > highest) {
+			highest = stoi(temp_string);
 		}
+
 	}
 
 	cout << "The highest number in the series is " << highest << "." << endl;
