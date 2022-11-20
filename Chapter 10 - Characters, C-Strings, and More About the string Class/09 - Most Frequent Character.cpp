@@ -32,11 +32,11 @@ void enterText(char* text, const int SIZE) {
 
 char findMostFrequentCharacter(char* text) {
 
-	char most_common = *(text + 0);
+	char most_common = tolower(*(text + 0));
 	int count = 0, highest_count;
 
 	for (int i = 1; i < strlen(text); i++) {
-		if (*(text + i) == most_common) {
+		if (tolower(*(text + i))  == most_common) {
 			count++;
 		}
 	}
@@ -47,11 +47,11 @@ char findMostFrequentCharacter(char* text) {
 
 		count = 1;
 
-		if (!isspace(*(text + start)) && *(text + start) != most_common) {
+		if (!isspace(*(text + start)) && tolower(*(text + start)) != most_common) {
 
 			for (int index = start + 1; index < strlen(text); index++) {
 
-				if (*(text + start) == *(text + index)) {
+				if (tolower(*(text + start)) == tolower(*(text + index))) {
 
 					count++;
 
@@ -61,7 +61,7 @@ char findMostFrequentCharacter(char* text) {
 
 			if (count > highest_count) {
 				highest_count = count;
-				most_common = *(text + start);
+				most_common = tolower(*(text + start));
 			}
 
 		}		
