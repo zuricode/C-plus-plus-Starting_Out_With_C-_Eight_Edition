@@ -13,39 +13,35 @@
 //“that dog jumped over that fence.” Demonstrate the function in a complete program.
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-void replaceSubstring(char*, char*, char*);
+string replaceSubstring(string, string, string);
 
 int main() {
 
 	const int		SIZE = 101;
-	char			string1[SIZE] = "Everywhere I'll ever be.", string2[SIZE] = "I'll", string3[SIZE] = "you'll";
+	string			string1 = "Everywhere I'll ever be. I'll be there. Everywhere I'll ever be. I'll be there. Everywhere I'll ever be. I'll be there.Everywhere I'll ever be. I'll be there.", string2 = "I'll", string3 = "you'll", final_string;
 
-	replaceSubstring(string1, string2, string3);
+	final_string = replaceSubstring(string1, string2, string3);
+
+	cout << "Original string: " << string1 << endl;
+	cout << "Replacement string: " << final_string << endl;
 
 }
 
-void replaceSubstring(char* string1, char* string2, char* string3) {
+string replaceSubstring(string string1, string string2, string string3) {
 
-	char* strptr = strstr(string1, string2);
-	int i = 0;
+	int position;
 
-	while (string1 < strptr) {
+		while (string1.find(string2) != -1) {
 
-		cout << *string1;
+			position = string1.find(string2);
+			string1.replace(position, string2.size(), string3);
 
-		string1++;
+		}
 
-	};
-
-	while (*string3 != '\0') {
-
-		cout << *string3;
-
-		string3++;
-
-	}
+	return string1;
 
 }
