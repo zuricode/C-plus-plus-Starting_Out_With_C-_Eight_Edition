@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-const int	MIN_LENGTH = 6, SPACE = 51;
+const int	MIN_LENGTH = 6, SPACE = 501;
 
 using namespace std;
 
@@ -27,15 +27,12 @@ void password() {
 
 	int upper_count = 0, lower_count = 0, digit_count = 0, i = 0;
 
-	cout << "Enter a password " << MIN_LENGTH << " characters long and has at least one lowercase character, one uppercase character and one digit." << endl;
+	cout << "Enter a password " << MIN_LENGTH << " characters long and has at least one lowercase character, one uppercase character and one digit." << endl << endl;
 	cout << "Password: ";
 
 	cin.getline(input, SPACE);
 
-	if (strlen(input) < MIN_LENGTH) {
-		cout << "Password length is " << strlen(input) << " characters long. Please enter at least " << MIN_LENGTH << " long." << endl;
-		exit(EXIT_FAILURE);
-	}
+	cout << endl;
 
 	while (*(input + i) != '\0') {
 
@@ -55,13 +52,31 @@ void password() {
 
 	}
 
-	if (upper_count > 0 && lower_count > 0 && digit_count > 0) {
-		cout << "You have entered you password successfully." << endl;
+	if (upper_count > 0 && lower_count > 0 && digit_count > 0 && strlen(input) >= MIN_LENGTH) {
+		cout << "You have entered your password successfully." << endl;
 		exit(EXIT_SUCCESS);
 	}
+
 	else {
-		cout << "You have not entered your password correctly. Please re-run the program remember to include at least one lowercase character, one uppercase character and one digit." << endl;
-		exit(EXIT_FAILURE);
+
+		cout << "You have entered the password incorrectly because of the following errors: " << endl << endl;
+
+	if (strlen(input) < MIN_LENGTH) {
+		cout << "- Password must be at least " << MIN_LENGTH << " long." << endl;
 	}
+
+	if (upper_count == 0) {
+		cout << "- No uppercase character has been included." << endl;
+	}
+
+	if (lower_count == 0) {
+		cout << "- No lowercase character has been included." << endl;
+	}
+
+	if (digit_count == 0) {
+		cout << "- No digit has been included." << endl;
+	}
+
+	}	
 
 }
