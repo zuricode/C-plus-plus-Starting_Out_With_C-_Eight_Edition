@@ -22,7 +22,7 @@ string replaceSubstring(string, string, string);
 int main() {
 
 	const int		SIZE = 101;
-	string			string1 = "Everywhere I'll ever be. I'll be there. Everywhere I'll ever be. I'll be there. Everywhere I'll ever be. I'll be there.Everywhere I'll ever be. I'll be there.", string2 = "I'll", string3 = "you'll", final_string;
+	string			string1 = "Everywhere I'll ever be. I'll be there.", string2 = "I'll", string3 = "you'll", final_string;
 
 	final_string = replaceSubstring(string1, string2, string3);
 
