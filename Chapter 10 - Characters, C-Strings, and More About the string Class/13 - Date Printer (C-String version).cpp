@@ -8,14 +8,15 @@
 
 using namespace std;
 
-char* enterString(char*, const int);
+char* validateString(char*, const int);
+
 
 int main() {
 
 	const int		SIZE = 11;
 	char			date_string[SIZE];
 
-	enterString(date_string, SIZE);
+	validateString(date_string, SIZE);
 
 	cout << endl;
 
@@ -23,7 +24,7 @@ int main() {
 
 }
 
-char* enterString(char* date_string, const int SIZE) {
+char* validateString(char* date_string, const int SIZE) {
 
 	bool error = false;
 
