@@ -7,21 +7,23 @@
 
 using namespace std;
 
-void validateDate(string, const int);
-void displayDate(string, const int);
+void validateDate(string, const int, int&, int&, int&);
+void displayDate(int, int, int);
 
 int main() {
 
 	const int		SIZE = 10;
-	int				mm, dd, yyyy;
+	int				month = -1, day = -1, year = -1;
 
 	string			date;
 
-	validateDate(date, SIZE);
+	validateDate(date, SIZE, month, day, year);
+
+	displayDate(month, day, year);
 
 }
 
-void validateDate(string date, const int SIZE) {
+void validateDate(string date, const int SIZE, int& month, int& day, int& year) {
 
 	string error = "ERROR: Date must be entered in the following format (mm/dd/yyyy).";
 
@@ -30,7 +32,9 @@ void validateDate(string date, const int SIZE) {
 	do {
 
 		string mm = "", dd = "", yyyy = "";
-		int month, day, year;
+		month = -1;
+		day = -1;
+		year = -1;
 
 		invalid_date = false;
 
@@ -160,5 +164,15 @@ void validateDate(string date, const int SIZE) {
 		cout << date << " is a valid date format." << endl << endl;
 	}
 
+
+}
+
+void displayDate(int month, int day, int year) {
+
+	string		list_of_months[12]{ "January", "February", "March", "April",
+							"May", "June", "July", "August", "September",
+							"October", "November", "December"};
+
+	cout << list_of_months[month - 1] << " " << day << ", " << year << endl;
 
 }
