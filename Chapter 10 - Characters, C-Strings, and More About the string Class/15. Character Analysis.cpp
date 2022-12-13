@@ -42,6 +42,10 @@ void importDataFromFile(string& file_contents) {
 		getline(file_input, file_contents);
 		file_input.close();
 	}
+	else {
+		cout << "Invalid file or file location." << endl;
+		exit(EXIT_FAILURE);
+	}
 
 }
 
