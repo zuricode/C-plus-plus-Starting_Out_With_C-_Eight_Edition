@@ -5,18 +5,11 @@ using namespace std;
 
 int main() {
 
-	int position;
+	string first_name = "", last_name = "", test;
 
-	string string1 = "the cat sat on the cat mat";
-	string string2 = "cat";
-	string string3 = "dobvnjgfhfdhgfg";
+	first_name.insert(1,'.');
 
-	cout << "Original phrase: " << string1 << endl;
-
-	position = string1.find(string2);
-
-	string1.replace(position, string2.size(), string3);
-
-	cout << "Replacement phrase: " << string1 << endl;
+	cout << first_name << endl;
+	cout << test.capacity();
 
 }
