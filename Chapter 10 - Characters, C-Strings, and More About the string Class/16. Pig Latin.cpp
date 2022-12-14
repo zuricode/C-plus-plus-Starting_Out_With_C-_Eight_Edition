@@ -17,7 +17,6 @@ const string	PIG_AY = "AY";
 
 string inputSentence();
 string pigLatinConversion(string&);
-void stringCharSwap(char&, char&);
 
 int main() {
 
@@ -28,8 +27,6 @@ int main() {
 
 	converted = pigLatinConversion(original);
 	cout << "Pig Latin:\t" << converted << endl;
-
-	cout << endl;
 
 }
 
@@ -51,41 +48,69 @@ string inputSentence() {
 string pigLatinConversion(string& sentence) {
 
 	int char_counter = 0, i = 0;
+	bool alnum_check;
+	char first_letter;
 
 	while (sentence[i] != '\0') {
 
 		if (isalpha(sentence[i])) {
 			char_counter++;
+			alnum_check = true;
+
 		}
 
-		if (isspace(sentence[i])) {
+		if (!isalnum(sentence[i]) && char_counter > 0) {
+
+			alnum_check = false;
+
+			//Insert "AY" at the end of a word.
+			sentence.insert(i, PIG_AY);
+
+			// Word shifter (if more than 1 characters is counted)
 
 			if (char_counter > 1) {
-				stringCharSwap(sentence[i], sentence[i - char_counter]);
-				sentence.erase(i - char_counter, 1);
+				first_letter = sentence[i - char_counter];
+
+				for (int j = i - char_counter; j < i; j++) {
+					sentence[j] = sentence[j + 1];
+				}
+
+				sentence[i - 1] = first_letter;
+
 			}
 
-				char_counter = 0;
-				sentence.insert(i, PIG_AY);
-				i++;
-				i++;
-				sentence.insert(i, 1, ' ');
+			i++;
+			i++;
 
-		}	
+			//Reset of chacter counter.
+			char_counter = 0;
+
+		}
 
 		i++;
 
 	}
 
+	if (alnum_check) {
+
+		first_letter = sentence[i - char_counter];
+
+		for (int j = i - char_counter; j < i - 1; j++) {
+			sentence[j] = sentence[j + 1];
+		}
+
+		sentence[i - 1] = first_letter;
+
+		int last_character = sentence.size() - 1;
+
+		while (!isalnum(sentence[last_character])) {
+			last_character--;
+		}
+
+		sentence.insert(last_character + 1, PIG_AY);
+
+	}
+
 	return sentence;
-
-}
-
-void stringCharSwap(char& a, char& b) {
-
-	char temp;
-	temp = a;
-	a = b;
-	b = temp;
 
 }
