@@ -18,6 +18,9 @@ int main() {
 
 	string normal_text;
 	normal_text = enterString();
+
+	cout << endl;
+
 	textToMorseCode(normal_text);
 
 	cout << endl;
@@ -31,15 +34,22 @@ string enterString() {
 	cout << "Enter your text: ";
 	getline(cin, text);
 
+	for (int i = 0; i < text.size(); i++) {
+
+		text[i] = toupper(text[i]);
+
+	}
+
 	return text;
 
 }
 
 void textToMorseCode(string text) {
+
+	cout << "Original text: " << text << endl;
+	cout << "Morse code: ";
 	
 	for (int i = 0; i < text.size(); i++) {
-
-		text[i] = toupper(text[i]);
 
 		switch (text[i]) {
 			case ' ':
@@ -162,6 +172,9 @@ void textToMorseCode(string text) {
 			case 'Z':
 				cout << "--..";
 				break;
+			default:
+				break;
+
 		}
 
 		cout << " ";		
