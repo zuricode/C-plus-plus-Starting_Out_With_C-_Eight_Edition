@@ -127,7 +127,6 @@ string generateTicket(const int SIZE, const int MAX_NUM, const int MIN_NUM, cons
 	int			new_num;
 	vector<int>	numbers;
 	bool match;
-			
 	while (numbers.size() < SIZE) {
 
 		if (numbers.size() != (SIZE - 1)) {
