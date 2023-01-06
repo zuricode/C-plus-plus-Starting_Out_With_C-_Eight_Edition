@@ -26,8 +26,10 @@ using namespace std;
 struct MovieData {
 
 	string title, director;
-	int year_of_release, running_time;
-	double production_cost, first_year_revenue;
+	int year_of_release{}, running_time{};
+	double production_cost{}, first_year_revenue{};
+
+	
 
 };
 
