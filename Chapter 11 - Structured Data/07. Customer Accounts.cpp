@@ -49,7 +49,7 @@ void showCustomerData(Customer[], const int, bool);
 
 int main() {
 
-	const int		AMOUNT = 2;
+	const int		AMOUNT = 10;
 
 	Customer		list[AMOUNT];
 	int				menu_choice;
