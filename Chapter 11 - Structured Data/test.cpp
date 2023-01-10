@@ -2,25 +2,13 @@
 #include<string>
 #include<iomanip>
 
-struct TempScale {
-
-	double fahrenheit;
-	double centigrade;
-
-};
-
-struct Reading {
-
-	int windSpeed;
-	double humidity;
-	TempScale temperature;
-
-};
-
 using namespace std;
 
 int main() {
 
-	enum { DOG, CAT, BIRD, HAMSTER };
+	string text = "abcdefgh";
+	string text_2 = "xyz";
+
+	cout << text.find(text_2, 0) << endl;
 
 }
