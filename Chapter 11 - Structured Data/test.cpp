@@ -6,8 +6,8 @@ using namespace std;
 
 int main() {
 
-	string text = "abcdefgh";
-	string text_2 = "xyz";
+	string text = "abcdefghdfghjgdsertfguhjgfdsghjgfds";
+	string text_2 = "e";
 
 	cout << text.find(text_2, 0) << endl;
 
