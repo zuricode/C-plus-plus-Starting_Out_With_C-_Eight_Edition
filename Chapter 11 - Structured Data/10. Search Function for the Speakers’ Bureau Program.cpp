@@ -1,4 +1,4 @@
-//10. Search Function for the Speakers’ Bureau Program
+/10. Search Function for the Speakers’ Bureau Program
 //
 //Add a function to Programming Challenge 9 that allows the user to search for a speaker
 //on a particular topic.It should accept a key word as an argumentand then search the
