@@ -1,14 +1,21 @@
 #include<iostream>
-#include<string>
-#include<iomanip>
 
 using namespace std;
 
+struct Circle {
+
+	double radius;
+	double area;
+
+};
+
 int main() {
 
-	string text = "abcdefghdfghjgdsertfguhjgfdsghjgfds";
-	string text_2 = "e";
+	Circle* newCir = nullptr;
 
-	cout << text.find(text_2, 0) << endl;
+	newCir = new Circle[5];
+
+	newCir = nullptr;
+	delete newCir;
 
 }
