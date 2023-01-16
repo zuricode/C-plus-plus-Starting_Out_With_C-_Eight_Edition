@@ -208,8 +208,8 @@ void deletePointers(Member* students, const int no_of_students) {
 
 	}
 
-	students = nullptr;
 	delete students;
+	students = nullptr;
 
 }
 
