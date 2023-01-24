@@ -1,21 +1,27 @@
 #include<iostream>
+#include<string>
+#include<iomanip>
 
 using namespace std;
 
-struct Circle {
-
-	double radius;
-	double area;
-
+struct HourlyPaid {
+	double hours_worked;
+	double hourly_rate;
 };
+
+struct Salaried {
+	double salary;
+	double bonus;
+};
+
+union Worker {
+	HourlyPaid hp;
+	Salaried sal;
+};
+
 
 int main() {
 
-	Circle* newCir = nullptr;
-
-	newCir = new Circle[5];
-
-	newCir = nullptr;
-	delete newCir;
+	Worker s;
 
 }
