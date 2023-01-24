@@ -207,8 +207,6 @@ int chooseBinOrQuit(Part part[], const int AMOUNT) {
 
 	choice = intTwoLimits(0, AMOUNT, "Enter the number of your bin or 0 to quit the program: ");
 
-	cout << endl;
-
 	return choice;
 
 }
