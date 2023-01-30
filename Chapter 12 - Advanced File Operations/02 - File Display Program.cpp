@@ -41,9 +41,8 @@ int main() {
 
 		if (count % 24 == 0) {
 			cout << endl;
-			cout << "If you would like to print another 24 lines of text, press the ENTER key: ";
+			cout << "Press ENTER to continue..." << endl;
 			cin.get();
-			cout << endl;
 		}
 
 	}
