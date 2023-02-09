@@ -60,7 +60,7 @@ void readAndDisplayJokeFile(ifstream& file) {
 
 	string str;
 
-	cout << "Joke file: " << endl;
+	cout << "JOKE: " << endl;
 	cout << endl;
 
 	while (!file.eof()) {
@@ -73,7 +73,7 @@ void readAndDisplayJokeFile(ifstream& file) {
 void displayPunchline(ifstream& file) {
 
 	char ch;
-	long byte_pos;
+	long byte_pos = 0;
 
 	while (!file.eof()) {
 		file.get(ch);
