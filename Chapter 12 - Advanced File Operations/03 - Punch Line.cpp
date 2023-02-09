@@ -34,6 +34,7 @@ int main() {
 
 	if (!joke) {
 		cout << "Could not open the joke file. Quiting the program...";
+		cout << endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -46,6 +47,7 @@ int main() {
 
 	if (!punchline) {
 		cout << "Could not open the joke file. Quiting the program...";
+		cout << endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -56,7 +58,7 @@ int main() {
 
 }
 
-void readAndDisplayJokeFile(ifstream& file) {
+void readAndDisplayJokeFile(ifstream &file) {
 
 	string str;
 
@@ -70,7 +72,7 @@ void readAndDisplayJokeFile(ifstream& file) {
 
 }
 
-void displayPunchline(ifstream& file) {
+void displayPunchline(ifstream &file) {
 
 	char ch;
 	long byte_pos = 0;
@@ -79,7 +81,7 @@ void displayPunchline(ifstream& file) {
 		file.get(ch);
 
 		if (ch == '\n') {
-			byte_pos = file.tellg();
+			byte_pos = static_cast<long>(file.tellg());
 		}
 
 	}
