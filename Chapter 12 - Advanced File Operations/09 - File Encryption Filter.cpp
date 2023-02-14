@@ -17,15 +17,11 @@
 
 using namespace std;
 
-void inputSourceData(ifstream&, vector<string> &);
+void inputSourceText(ifstream&, vector<string> &);
 void showSourceText(vector<string>);
-void encryptText(vector<string>, vector<char> &);
-void deEncryptAndShowText(vector<char>);
-
-void showEncryptedText(vector<char>);
-
-void outputEncrpytedText(ofstream&, vector<char>);
-
+void encryptText(vector<string>, vector<string> &);
+void showEncryptedText(vector<string>);
+void outputEncrpytedText(ofstream&, vector<string>);
 
 int main() {
 
@@ -33,9 +29,9 @@ int main() {
 	ofstream coded_file;
 
 	vector<string> input_basket;
-	vector<char> coded_text;
+	vector<string> coded_text;
 
-	inputSourceData(input_file, input_basket);
+	inputSourceText(input_file, input_basket);
 
 	showSourceText(input_basket);
 
@@ -45,11 +41,9 @@ int main() {
 
 	outputEncrpytedText(coded_file, coded_text);
 
-	deEncryptAndShowText(coded_text);
-
 }
 
-void inputSourceData(ifstream &input_file, vector<string> &input_basket) {
+void inputSourceText(ifstream &input_file, vector<string> &input_basket) {
 
 	string location;
 	string str;
@@ -94,57 +88,36 @@ void showSourceText(vector<string> input_basket) {
 
 }
 
-void encryptText(vector<string> original, vector<char> &coded_text) {
-
-	char letter;
+void encryptText(vector<string> original, vector<string> &coded_text) {
 
 	for (int i = 0; i < original.size(); i++) {
 
 		for (int j = 0; j < original[i].length(); j++) {
-			letter = static_cast<char>(original[i][j] + 10);
-			coded_text.push_back(letter);
+			original[i][j] += 10;
 		}
 
+		coded_text.push_back(original[i]);
+
 	}
 
 }
 
-void deEncryptAndShowText(vector<char> coded_text) {
-
-	cout << "DE-ENCRYPTED TEXT: " << endl;
-	cout << endl;
-
-	char letter;
-
-	for (int i = 0; i < coded_text.size(); i++) {
-		letter = static_cast<char>(coded_text[i] - 10);
-		cout << letter;
-	}
-
-	cout << endl;
-
-	cout << endl;
-
-}
-
-void showEncryptedText(vector<char> coded_text) {
+void showEncryptedText(vector<string> coded_text) {
 
 	cout << "ENCRYPTED TEXT: " << endl;
 	cout << endl;
 
 	for (int i = 0; i < coded_text.size(); i++) {
 
-		cout << coded_text[i];
+		cout << coded_text[i] << endl;
 
 	}
 
 	cout << endl;
 
-	cout << endl;
-
 }
 
-void outputEncrpytedText(ofstream &output_file, vector<char> coded_text) {
+void outputEncrpytedText(ofstream &output_file, vector<string> coded_text) {
 
 	string location;
 
@@ -156,7 +129,7 @@ void outputEncrpytedText(ofstream &output_file, vector<char> coded_text) {
 	output_file.open(location, ios::out);
 
 	for (int i = 0; i < coded_text.size(); i++) {
-		output_file << coded_text[i];
+		output_file << coded_text[i] << endl;
 	}
 
 	cout << "Encrypted data was successfully exported to " << location << "." << endl;
