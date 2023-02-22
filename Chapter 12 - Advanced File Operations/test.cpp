@@ -1,47 +1,51 @@
-﻿// This program uses the write and read functions.
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
+struct XYZ {
+	char text[25];
+	int num;
+};
+
 int main() {
 
-	const int SIZE = 10;
+	string location;
 	fstream file;
-	int numbers[SIZE] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-	int new_numbers[SIZE];
+	XYZ random_out;
+	XYZ random_in;
 
-	// Display the contents of the array.
-	for (int count = 0; count < SIZE; count++)
-		cout << numbers[count] << " ";
-	cout << endl;
+	cin.get(random_out.text, 25);
+	random_out.num = 567534654;
 
-	cout << endl;
-	
-	// Open the file for output in binary mode.
-	file.open("numbers.dat", ios::out | ios::binary);
+	location = "C:\\Users\\Admin\\source\\repos\\Project2\\Project2\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 12 - Advanced File Operations\\ddfgdfgd.txt";
 
-	// Write the contents of the array to the file.
-	cout << "Writing the data to the file.\n";
-	file.write(reinterpret_cast<char*>(numbers), sizeof(numbers));
+	file.open(location, ios::out | ios::binary);
 
-	// Close the file.
+	if (!file) {
+		cout << "Error opening file." << endl;
+		exit(EXIT_FAILURE);
+	}
+	else {
+		file.write(reinterpret_cast<char*>(&random_out), sizeof(random_out));
+	}
+
 	file.close();
 
-	// Open the file for input in binary mode.
-	file.open("numbers.dat", ios::in | ios::binary);
+	file.open(location, ios::in | ios::binary);
 
-	// Read the contents of the file into the array.
-	cout << "Now reading the data back into memory.\n";
-	file.read(reinterpret_cast<char*>(new_numbers), sizeof(new_numbers));
+	if (!file) {
+		cout << "Error opening file." << endl;
+		exit(EXIT_FAILURE);
+	}
+	else {
+		file.read(reinterpret_cast<char*>(&random_in), sizeof(random_in));
+	}
 
-	// Display the contents of the array.
-	for (int count = 0; count < SIZE; count++)
-		cout << new_numbers[count] << " ";
-		 cout << endl;
+	cout << random_in.text << endl;
+	cout << random_in.num << endl;
 
-	// Close the file.
-	file.close();
-	return 0;
+	file.close();	
 
 }
