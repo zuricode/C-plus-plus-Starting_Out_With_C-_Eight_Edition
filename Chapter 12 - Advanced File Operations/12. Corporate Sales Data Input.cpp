@@ -46,14 +46,6 @@ int main() {
 
 	Company company;
 
-	/*double sales_data[QUARTERS][DIVISIONS];
-	double total_quartely_sales[QUARTERS];
-	double annual_sales_per_div[DIVISIONS];
-	double grand_total_sales;
-	double avg_quarterly_sales[DIVISIONS];
-	double highest_quarter;
-	double lowest_quarter;*/
-
 	company = importSalesData();
 
 	displayCompanyData(company, DIVISIONS);
