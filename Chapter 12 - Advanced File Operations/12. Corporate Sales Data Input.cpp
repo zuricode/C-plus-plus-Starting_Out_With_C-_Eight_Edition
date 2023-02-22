@@ -227,8 +227,8 @@ void showAverageQuarterlySalesPerDivision(Company company, const int DIVISIONS, 
 void showHighestAndLowestQuarters(Company company, const int QUARTERS, const int DIVISION) {
 
 	double total;
-	double highest_sales, lowest_sales;
-	int highest_quarter, lowest_quarter;
+	double highest_sales = 0, lowest_sales = 0;
+	int highest_quarter = 0, lowest_quarter = 0;
 
 	cout << fixed << setprecision(2);
 
