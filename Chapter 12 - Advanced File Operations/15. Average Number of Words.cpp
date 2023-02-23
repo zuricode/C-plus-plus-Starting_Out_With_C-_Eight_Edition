@@ -17,6 +17,9 @@ using namespace std;
 ifstream openFile(const string);
 vector<string> importTextToMemory(ifstream&);
 void displayVector(vector<string>);
+
+void removeDashes(vector<string>&);
+
 double calcAverageWordsPerSentence(vector<string>);
 
 int main() {
@@ -31,11 +34,13 @@ int main() {
 
 	text = importTextToMemory(file);
 
+	removeDashes(text);
+
 	displayVector(text);
 
 	average = calcAverageWordsPerSentence(text);
 
-	cout << "The average number of words per sentence is " << average << "." << endl;
+	cout << "There is an average of " << average << " words per sentence." << endl;
 	cout << endl;
 
 	cout << "Closing the file..." << endl;
@@ -102,6 +107,22 @@ void displayVector(vector<string> text) {
 
 }
 
+void removeDashes(vector<string>& text) {
+
+	for (int sentence = 0; sentence < text.size(); sentence++) {
+
+		for (int character = 0; character < text[sentence].size(); character++) {
+
+			if (text[sentence][character] == '-') {
+				text[sentence][character] = ' ';
+			}
+
+		}
+
+	}
+
+}
+
 double calcAverageWordsPerSentence(vector<string> text) {
 
 	vector<int> word_counter;
@@ -128,7 +149,7 @@ double calcAverageWordsPerSentence(vector<string> text) {
 			else if (isspace(text[sentence][character])) {
 				isWord = false;
 			}
-			else if (text[sentence][character] == '.' || text[sentence][character] == '!' || text[sentence][character] == '?') {
+			else if (character == text[sentence].size() - 1 && (text[sentence][character] == '.' || text[sentence][character] == '!' || text[sentence][character] == '?')) {
 				word_counter.push_back(count);
 			}
 
