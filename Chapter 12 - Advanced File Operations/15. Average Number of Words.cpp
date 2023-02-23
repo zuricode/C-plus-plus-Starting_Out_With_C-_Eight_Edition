@@ -111,8 +111,6 @@ double calcAverageWordsPerSentence(vector<string> text) {
 	double average;
 
 	bool isWord;
-	bool isSpace;
-	bool isPeriod;
 
 	for (int sentence = 0; sentence < text.size(); sentence++) {
 
@@ -130,7 +128,7 @@ double calcAverageWordsPerSentence(vector<string> text) {
 			else if (isspace(text[sentence][character])) {
 				isWord = false;
 			}
-			else if (text[sentence][character] == '.') {
+			else if (text[sentence][character] == '.' || text[sentence][character] == '!' || text[sentence][character] == '?') {
 				word_counter.push_back(count);
 			}
 
@@ -147,7 +145,7 @@ double calcAverageWordsPerSentence(vector<string> text) {
 	cout << "There are " << total << " words within " << text.size() << " sentences." << endl;
 	cout << endl;
 
-	average = total / text.size();
+	average = total / static_cast<double>(text.size());
 
 	return average;
 
