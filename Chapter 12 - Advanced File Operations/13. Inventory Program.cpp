@@ -50,7 +50,7 @@ double inputValidation(double, string);
 void dateInput(char *);
 bool checkDate(int, int, int, const string[]);
 
-void openFile(fstream& file, const string);
+void openFile(fstream& file, string &);
 void addRecord(fstream& file, const string);
 Item addAttributes();
 void displayRecords(fstream& file, const string);
@@ -60,28 +60,39 @@ int numOfRecords(fstream &file);
 
 int main() {
 
-	const string FILE_LOCATION = "C:\\Users\\Admin\\source\\repos\\Project2\\Project2\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 12 - Advanced File Operations\\inventory_data.txt";
-
 	fstream file;
+	string location;
 
-	openFile(file, FILE_LOCATION);
+	openFile(file, location);
 
-	Menu(file, FILE_LOCATION);
+	Menu(file, location);
 
 	file.close();
 
 }
 
-void openFile(fstream& file, const string FILE_LOCATION) {
+void openFile(fstream& file, string &location) {
 
-	file.open(FILE_LOCATION, ios::in | ios::out | ios::app | ios::binary);
+	cout << "Enter the location of your inventory file: ";
+	getline(cin, location);
 
-	if (!file) {
-		cout << "Error opening file." << endl;
+	file.open(location, ios::in | ios::out | ios::app | ios::binary);
+
+	while (file.fail()) {
+
+		cout << "Error opening " << location << endl;
+		file.clear();
+
+		cout << "Enter the location of your inventory file: ";
+		getline(cin, location);
+
+		file.open(location, ios::in | ios::out | ios::app | ios::binary);
+
 	}
-	else {
-		cout << "Inventory file was successfully opened." << endl;
-	}
+
+	cout << endl;
+
+	cout << "Inventory file was successfully opened." << endl;
 
 	cout << endl;
 
