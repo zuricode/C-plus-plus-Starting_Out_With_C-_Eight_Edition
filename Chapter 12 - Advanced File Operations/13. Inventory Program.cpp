@@ -130,7 +130,7 @@ void openFile(fstream& file, string &location) {
 
 	} while (!isInventoryFile);
 
-	cout << "Inventory file was successfully opened." << endl;
+	cout << "Inventory file was successfully initialised." << endl;
 
 	cout << endl;	
 
