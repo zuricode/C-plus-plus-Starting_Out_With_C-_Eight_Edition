@@ -73,28 +73,55 @@ int main() {
 
 void openFile(fstream& file, string &location) {
 
-	cout << "Enter the location of your inventory file: ";
-	getline(cin, location);
+	long file_size;
+	long item_size;
+	bool isInventoryFile;
 
-	file.open(location, ios::in | ios::out | ios::app | ios::binary);
-
-	while (file.fail()) {
-
-		cout << "Error opening " << location << endl;
-		file.clear();
+	do {
 
 		cout << "Enter the location of your inventory file: ";
 		getline(cin, location);
 
 		file.open(location, ios::in | ios::out | ios::app | ios::binary);
 
-	}
+		while (file.fail()) {
 
-	cout << endl;
+			cout << "Error opening your life" << endl;
+			file.clear();
+
+			cout << "Enter the location of your inventory file: ";
+			getline(cin, location);
+
+			file.open(location, ios::in | ios::out | ios::app | ios::binary);
+
+		}
+
+		cout << endl;
+
+		file_size = sizeof(file);
+		item_size = sizeof(Item);
+
+		cout << "File size is " << file_size << " bytes." << endl;
+		cout << "Struct size is " << item_size << " bytes." << endl;
+
+		if (file_size % item_size == 0) {
+			isInventoryFile = true;
+			cout << "Chosen file is an inventory file." << endl;
+		}
+		else {
+			isInventoryFile = false;
+			cout << "Chosen file is NOT an inventory file." << endl;
+			cin.clear();
+			file.close();
+		}		
+
+		cout << endl;
+
+	} while (!isInventoryFile);
 
 	cout << "Inventory file was successfully opened." << endl;
 
-	cout << endl;
+	cout << endl;	
 
 }
 
