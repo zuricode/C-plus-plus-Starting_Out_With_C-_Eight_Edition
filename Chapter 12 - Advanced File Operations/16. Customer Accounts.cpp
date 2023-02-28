@@ -22,9 +22,9 @@
 //should have a menu that lets the user perform the following operations :
 //
 //• Enter new records into the file.
-//• Search for a particular customer’s recordand display it.
-//• Search for a particular customer’s recordand delete it.
-//• Search for a particular customer’s recordand change it.
+//• Search for a particular customer’s record and display it.
+//• Search for a particular customer’s record and delete it.
+//• Search for a particular customer’s record and change it.
 //• Display the contents of the entire file.
 //
 //Input Validation : When the data for a new account is entered, be sure the user enters
@@ -61,7 +61,7 @@ struct Customer {
 	Address address;
 	char telephone[TELEPHONE_SIZE];
 	double balance {0};
-	char date_of_last_payment[DATE_SIZE];
+	char date_of_last_payment[DATE_SIZE] {NULL};
 };
 
 int menuInputValidation(int, int, string);
@@ -69,15 +69,18 @@ double balanceInputValidation(string);
 void stringInputValidation(char*, const int, string);
 bool isBlank(char*, const int);
 
-void openFile(fstream &file);
+void openFile(fstream &, string &, int &);
 bool checkFileExists(fstream&, const string);
 
 void showMenu();
 
-void addRecord(fstream &file, const string location);
+void addRecord(const string, int &);
+void displayAllRecords(const string, const int);
 
 void dateInput(char[], string);
 bool checkDate(int month, int day, int year, const string MONTHS[]);
+
+int findNumberOfRecords(fstream &file, const string);
 
 int main() {
 
@@ -85,23 +88,34 @@ int main() {
 	string file_location;
 
 	int choice;
+	bool quit_program = false;
 
-	openFile(file);
+	int number_of_records;
 
-	showMenu();
-	choice = menuInputValidation(1, 6, "Enter your selection: ");
+	openFile(file, file_location, number_of_records);
 
-	switch (choice) {
-		case 1:
-			addRecord(file, file_location);
-			break;
+	do {
 
-	}
+		showMenu();
+		choice = menuInputValidation(1, 6, "Enter your selection: ");
 
-	cout << endl;
+		switch (choice) {
+
+			case 1:
+				addRecord(file_location, number_of_records);
+				break;
+			case 5:
+				displayAllRecords(file_location, number_of_records);
+				break;
+			case 6:
+				quit_program = true;
+				break;
+
+		}
+
+	} while (!quit_program);
+
 	cout << "Quiting the program..." << endl;
-
-	file.close();
 
 }
 
@@ -120,8 +134,9 @@ int menuInputValidation(int min, int max, string request) {
 	cin.clear();
 	cin.ignore(1200, '\n');
 
-	return choice;
+	cout << endl;
 
+	return choice;
 
 }
 
@@ -150,12 +165,8 @@ void stringInputValidation(char* text, const int LIMIT, string request) {
 	while (cin.getline(text, LIMIT) && isBlank(text, LIMIT)) {
 		cout << "ERROR: String cannot be left blank." << endl;
 		cout << request;
-		cin.ignore();
 	}
-
-	cin.ignore();
 	
-	cout << endl;
 }
 
 bool isBlank(char* text, const int LIMIT) {
@@ -188,9 +199,8 @@ bool checkFileExists(fstream& file, const string LOCATION) {
 
 }
 
-void openFile(fstream &file) {
+void openFile(fstream &file, string &location, int &number_of_records) {
 
-	string location;
 	long file_size;
 	bool fileExists;
 	bool fileError;
@@ -209,6 +219,7 @@ void openFile(fstream &file) {
 		file.open(location, ios::in | ios::out | ios::binary | ios::app);
 
 		if (!fileExists) {
+			number_of_records = 0;
 			cout << "New inventory file \"" << location << "\" has been created." << endl;
 		}
 
@@ -216,6 +227,8 @@ void openFile(fstream &file) {
 
 			file.seekg(0L, ios::end);
 			file_size = file.tellg();
+
+			number_of_records = file_size / sizeof(Customer);
 
 			if (file_size % sizeof(Customer) != 0 && file_size >= sizeof(Customer)) {
 				file.close();
@@ -241,17 +254,18 @@ void showMenu() {
 	cout << endl;
 
 	cout << "1. Add a new customer account" << endl;
-	cout << "2. Display a customer record" << endl;
-	cout << "3. Delete a customer record" << endl;
-	cout << "4. Edit a customer record" << endl;
+	//cout << "2. Display customer records" << endl;
+	//cout << "3. Delete a customer record" << endl;
+	//cout << "4. Edit a customer record" << endl;
 	cout << "5. Display all customer records" << endl;
 	cout << "6. Quit the program" << endl;
 	cout << endl;
 
 }
 
-void addRecord(fstream& file, const string LOCATION) {
+void addRecord(const string LOCATION, int &number_of_records) {
 
+	fstream file;
 	Customer new_customer;
 
 	file.open(LOCATION, ios::out | ios::app | ios::binary);
@@ -281,7 +295,66 @@ void addRecord(fstream& file, const string LOCATION) {
 
 		dateInput(new_customer.date_of_last_payment, "Date of last payment: ");
 
+		file.write(reinterpret_cast<char*>(&new_customer), sizeof(Customer));
+
+		number_of_records = findNumberOfRecords(file, LOCATION);
+
+		cout << endl;
+
+		cout << "\"" << new_customer.name << "\" has been added to the accounts directory." << endl;
+
+		cout << endl;
+
+		file.close();
+
 	}
+	
+}
+
+void displayAllRecords(const string LOCATION, const int NUMBER_OF_RECORDS) {
+
+	fstream file;
+	Customer customer;
+
+	if (NUMBER_OF_RECORDS > 0) {
+
+		file.open(LOCATION, ios::in | ios::binary);
+
+		cout << fixed << setprecision(2);
+
+		cout << "CUSTOMER ACCOUNTS DATA" << endl;
+		cout << endl;
+		cout << left << setw(20) << "FULL NAME" << " | " << setw(10) << "BALANCE" << " | " << setw(10) << "DATE OF LAST PAYMENT";
+		cout << setfill('=') << setw(60) << "\n";
+		cout << setfill(' ') << "\n";
+
+		for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
+			file.read(reinterpret_cast<char*>(&customer), sizeof(customer));
+			cout << setw(20) << customer.name << " | " << "$" << setw(9) << customer.balance << " | " << setw(10) << customer.date_of_last_payment << endl;
+		}
+
+	}
+
+	else {
+		cout << "ERROR: There are no customer records to display." << endl;
+	}
+
+	cout << endl;	
+
+	file.close();
+
+}
+
+void editRecord(const string LOCATION, int &number_of_records) {
+
+	fstream file;
+
+	file.open(LOCATION, ios::in | ios::out | ios::binary);
+
+
+
+	file.close();
+
 
 }
 
@@ -397,5 +470,20 @@ bool checkDate(int month, int day, int year, const string MONTHS[]) {
 	}
 
 	return valid_date;
+
+}
+
+int findNumberOfRecords(fstream &file, const string LOCATION) {
+
+	long file_size;
+	int number_of_records;
+
+	file.seekg(0L, ios::end);
+
+	file_size = file.tellg();
+
+	number_of_records = file_size / sizeof(Customer);
+
+	return number_of_records;
 
 }
