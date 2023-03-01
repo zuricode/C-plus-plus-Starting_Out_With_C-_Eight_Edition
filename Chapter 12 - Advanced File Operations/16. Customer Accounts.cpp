@@ -75,7 +75,8 @@ bool checkFileExists(fstream&, const string);
 void showMenu();
 
 void addRecord(const string, int &);
-void displayAllRecords(const string, const int);
+void displayAllRecordsTable(const string, const int);
+void editRecord(const string, int&);
 
 void dateInput(char[], string);
 bool checkDate(int month, int day, int year, const string MONTHS[]);
@@ -104,8 +105,11 @@ int main() {
 			case 1:
 				addRecord(file_location, number_of_records);
 				break;
+			case 4:
+				editRecord(file_location, number_of_records);
+				break;
 			case 5:
-				displayAllRecords(file_location, number_of_records);
+				displayAllRecordsTable(file_location, number_of_records);
 				break;
 			case 6:
 				quit_program = true;
@@ -147,7 +151,7 @@ double balanceInputValidation(string request) {
 	cout << request;
 
 	while (!(cin >> num) || num < 0) {
-		cout << "ERROR: The starting account cannot be less than $0." << endl;
+		cout << "ERROR: Account balance cannot be less than $0." << endl;
 		cout << request;
 		cin.ignore();
 	}
@@ -256,7 +260,7 @@ void showMenu() {
 	cout << "1. Add a new customer account" << endl;
 	//cout << "2. Display customer records" << endl;
 	//cout << "3. Delete a customer record" << endl;
-	//cout << "4. Edit a customer record" << endl;
+	cout << "4. Edit a customer record" << endl;
 	cout << "5. Display all customer records" << endl;
 	cout << "6. Quit the program" << endl;
 	cout << endl;
@@ -311,7 +315,7 @@ void addRecord(const string LOCATION, int &number_of_records) {
 	
 }
 
-void displayAllRecords(const string LOCATION, const int NUMBER_OF_RECORDS) {
+void displayAllRecordsTable(const string LOCATION, const int NUMBER_OF_RECORDS) {
 
 	fstream file;
 	Customer customer;
@@ -348,13 +352,93 @@ void displayAllRecords(const string LOCATION, const int NUMBER_OF_RECORDS) {
 void editRecord(const string LOCATION, int &number_of_records) {
 
 	fstream file;
+	Customer customer;
+	int choice;
+	int start_address;
 
 	file.open(LOCATION, ios::in | ios::out | ios::binary);
 
+	cout << "CUSTOMER ACCOUNTS DATA" << endl;
+	cout << endl;
+	cout << left << setw(8) << "No." << setw(20) << "FULL NAME";
+	cout << setfill('=') << setw(25) << '\n';
+	cout << setfill(' ') << endl;
+	
+	for (int i = 0; i < number_of_records; i++) {
 
+		file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+		cout << "#" << left << setw(7) << i + 1 << setw(20) << customer.name << endl;
+
+	}
+
+	cout << endl;
+
+	choice = menuInputValidation(1, number_of_records, "Which record would you like to edit: ");
+	
+	start_address = (choice - 1) * sizeof(customer);
+
+	file.seekg(start_address, ios::beg);
+
+	file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+	cout << setw(30) << "1) Full name: " << customer.name << endl;
+	cout << setw(30) << "2) First line of address: " << customer.address.first_line << endl;
+	cout << setw(30) << "3) City: " << customer.address.city << endl;
+	cout << setw(30) << "4) State: " << customer.address.state << endl;
+	cout << setw(30) << "5) ZIP: " << customer.address.zip << endl;
+	cout << setw(30) << "6) Telephone number: " << customer.telephone << endl;
+	cout << setw(30) << "7) Account balance: " << fixed << setprecision(2) << "$" << customer.balance << endl;
+	cout << setw(30) << "8) Date of last payment: " << customer.date_of_last_payment << endl;
+	
+	cout << endl;
+	choice = menuInputValidation(1, 8, "Which attribute would you like to change: ");
+
+	switch (choice) {
+
+		case 1:
+			cout << "Current full name: " << customer.name << endl;
+			stringInputValidation(customer.name, NAME_SIZE, "New full name: ");
+			break;
+		case 2:
+			cout << "Current first line of address: " << customer.address.first_line << endl;
+			stringInputValidation(customer.address.first_line, ADDRESS_FIRST_LINE_SIZE, "New first line of address: ");
+			break;
+		case 3:
+			cout << "Current city: " << customer.address.city << endl;
+			stringInputValidation(customer.address.city, CITY_SIZE, "New city: ");
+			break;
+		case 4:
+			cout << "Current state: " << customer.address.state << endl;
+			stringInputValidation(customer.address.state, STATE_SIZE, "New state: ");
+			break;
+		case 5:
+			cout << "Current ZIP: " << customer.address.zip << endl;
+			stringInputValidation(customer.address.zip, ZIP_SIZE, "New ZIP: ");
+			break;
+		case 6:
+			cout << "Current telephone number: " << customer.telephone << endl;
+			stringInputValidation(customer.telephone, TELEPHONE_SIZE, "New telephone number: ");
+			break;
+		case 7:
+			cout << "Current account balance: $" << customer.balance << endl;
+			customer.balance = balanceInputValidation("New account balance: $");
+			break;
+		case 8:
+			cout << "Current date of last payment: " << customer.date_of_last_payment << endl;
+			stringInputValidation(customer.date_of_last_payment, DATE_SIZE, "New date of last payment: ");
+			break;
+
+	}
+
+	file.seekp(start_address, ios::beg);
+
+	file.write(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+	cout << "Record updated!" << endl;
+	cout << endl;
 
 	file.close();
-
 
 }
 
