@@ -50,6 +50,7 @@ double inputValidation(double, string);
 void dateInput(char *);
 bool checkDate(int, int, int, const string[]);
 
+void checkFileExists(fstream& file, const string location);
 void openFile(fstream& file, string &);
 void addRecord(fstream& file, const string);
 Item addAttributes();
@@ -71,30 +72,73 @@ int main() {
 
 }
 
-void openFile(fstream& file, string &location) {
+void checkFileExists(fstream& file, const string LOCATION) {
 
-	cout << "Enter the location of your inventory file: ";
-	getline(cin, location);
+	bool fileExists;
 
-	file.open(location, ios::in | ios::out | ios::app | ios::binary);
+	file.open(LOCATION, ios::in);
 
+<<<<<<< HEAD
 	while (file.fail()) {
 
 		cout << "Error opening " << location << ". A new inventory file will need to be created." << endl;
+=======
+	if (!file.fail()) {
+		fileExists = 1;
+	}
+	else {
+		fileExists = 0;
+>>>>>>> 632dba86cfe7936abd925cea3dc3a9e89213a64e
 		file.clear();
+		file.open(LOCATION, ios::out);
 
-		cout << "Enter the location of your inventory file: ";
-		getline(cin, location);
-
-		file.open(location, ios::in | ios::out | ios::app | ios::binary);
-
+		cout << endl;
+		cout << "ERROR: Inventory file does not already exist. " << LOCATION << " was created." << endl;
 	}
 
-	cout << endl;
+	file.close();
 
-	cout << "Inventory file was successfully opened." << endl;
+}
 
-	cout << endl;
+void openFile(fstream& file, string &location) {
+
+	long file_size;
+	long item_size;
+	bool isInventoryFile;
+
+	do {
+
+		cout << "Enter the location of your inventory file. (A new inventory file will be created if you do not have one)" << endl;
+		cout << "Inventory file: ";
+
+		getline(cin, location);
+
+		checkFileExists(file, location);
+
+		file.open(location, ios::in | ios::out | ios::binary);
+
+		file.seekg(0L, ios::end);
+
+		file_size = file.tellg();
+		item_size = sizeof(Item);
+
+		if (file_size % item_size == 0 && (file_size >= item_size || file_size == 0)) {
+			isInventoryFile = true;
+		} 
+		else {
+			isInventoryFile = false;
+			cout << "Chosen file is NOT an inventory file." << endl;
+			cin.clear();
+			file.close();
+		}		
+
+		cout << endl;
+
+	} while (!isInventoryFile);
+
+	cout << "Inventory file was successfully initialised." << endl;
+
+	cout << endl;	
 
 }
 
@@ -331,7 +375,12 @@ void addRecord(fstream &file, const string FILE_LOCATION) {
 
 	file.write(reinterpret_cast<char*>(&new_item), sizeof(new_item));
 
+<<<<<<< HEAD
 	cout << new_item.current_stock << "x " << new_item.description << " has been successfully added to the inventory." << endl;
+=======
+	cout << endl;
+	cout << "The new record was successfully added to the file." << endl;
+>>>>>>> 632dba86cfe7936abd925cea3dc3a9e89213a64e
 
 	cout << endl;
 
@@ -348,8 +397,6 @@ Item addAttributes() {
 	new_item.wholesale_cost = inputValidation(0, "Wholesale cost: $");
 	new_item.retail_cost = inputValidation(0, "Retail cost: $");
 	dateInput(new_item.date_added);
-
-	cout << endl;
 
 	return new_item;
 
@@ -368,20 +415,24 @@ void displayRecords(fstream &file, const string FILE_LOCATION) {
 
 	file.seekg(0L, ios::beg);
 
+<<<<<<< HEAD
 	if (file_size >= struct_size && file_size % struct_size == 0) {
+=======
+	if (file_size >= struct_size) {
+>>>>>>> 632dba86cfe7936abd925cea3dc3a9e89213a64e
 
 		number_of_records = file_size / struct_size;
 
 		cout << "INVENTORY RECORDS" << endl;
 		cout << endl;
-		cout << "No." << left << setw(3) << " " << setw(50) << "ITEM DESCRIPTION" << setw(9) << "STOCK" << setw(17) << "WHOLESALE COST" << setw(16) << "RETAIL COST" << setw(10) << "DATE ADDED" << endl;
-		cout << "===========================================================================================================" << endl;
+		cout << "No." << left << setw(4) << " " << setw(50) << "ITEM DESCRIPTION" << setw(9) << "STOCK" << setw(17) << "WHOLESALE COST" << setw(16) << "RETAIL COST" << setw(10) << "DATE ADDED" << endl;
+		cout << "=============================================================================================================" << endl;
 
 		for (int i = 0; i < number_of_records; i++) {
 
 			file.read(reinterpret_cast<char*>(&new_item), sizeof(new_item));
 
-			cout << i + 1 << setw(5) << "#" << setw(50) << new_item.description
+			cout << "#" << setw(6) << i + 1 << setw(50) << new_item.description
 				<< setw(8) << new_item.current_stock << " $" << fixed << setprecision(2)
 				<< setw(15) << new_item.wholesale_cost << " $" 
 				<< setw(15) << new_item.retail_cost 
@@ -389,6 +440,12 @@ void displayRecords(fstream &file, const string FILE_LOCATION) {
 
 		}
 
+		cout << "=============================================================================================================" << endl;
+
+	}
+
+	else {
+		cout << "ERROR: There are no records to display." << endl;
 	}
 	else {
 		cout << "ERROR: There are no records to display." << endl;
@@ -400,10 +457,10 @@ void displayRecords(fstream &file, const string FILE_LOCATION) {
 
 void changeRecord(fstream &file, const string FILE_LOCATION) {
 
+	Item item;
 	int choice;
 	int number_of_records;
 	long start;
-	Item item;
 
 	number_of_records = numOfRecords(file);
 
@@ -452,9 +509,19 @@ void changeRecord(fstream &file, const string FILE_LOCATION) {
 			break;	
 	}
 
+<<<<<<< HEAD
+	file.seekp(start, ios::beg);
+=======
+	cout << endl;
+>>>>>>> 632dba86cfe7936abd925cea3dc3a9e89213a64e
+
 	file.seekp(start, ios::beg);
 
-	file.write(reinterpret_cast<char*>(&item), sizeof(item));
+	file.write(reinterpret_cast<char*>(&item), sizeof(Item));
+
+	cout << "Inventory update was successful!" << endl;
+
+	cout << endl;
 
 	cout << endl;
 
