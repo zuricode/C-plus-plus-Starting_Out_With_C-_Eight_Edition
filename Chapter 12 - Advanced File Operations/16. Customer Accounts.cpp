@@ -74,14 +74,19 @@ bool checkFileExists(fstream&, const string);
 
 void showMenu();
 
-void addRecord(const string, int &);
-void displayAllRecordsTable(const string, const int);
-void editRecord(const string, int&);
+void addRecord(fstream&, const string, int &);
+void findParticularCustomerDisplay(fstream&, const string, const int);
+void displayAllRecordsTable(fstream&, const string, const int);
+void editRecord(fstream&, const string, int&);
 
 void dateInput(char[], string);
 bool checkDate(int month, int day, int year, const string MONTHS[]);
 
 int findNumberOfRecords(fstream &file, const string);
+
+void searchForName(fstream&, const int);
+void convertToLowercase(char[], char[]);
+
 
 int main() {
 
@@ -103,13 +108,16 @@ int main() {
 		switch (choice) {
 
 			case 1:
-				addRecord(file_location, number_of_records);
+				addRecord(file, file_location, number_of_records);
+				break;
+			case 2:
+				findParticularCustomerDisplay(file, file_location, number_of_records);
 				break;
 			case 4:
-				editRecord(file_location, number_of_records);
+				editRecord(file, file_location, number_of_records);
 				break;
 			case 5:
-				displayAllRecordsTable(file_location, number_of_records);
+				displayAllRecordsTable(file, file_location, number_of_records);
 				break;
 			case 6:
 				quit_program = true;
@@ -257,19 +265,18 @@ void showMenu() {
 	cout << "========================" << endl;
 	cout << endl;
 
-	cout << "1. Add a new customer account" << endl;
-	//cout << "2. Display customer records" << endl;
+	cout << "1) Add a new customer account" << endl;
+	cout << "2) Search for a particular customer's record and display it." << endl;
 	//cout << "3. Delete a customer record" << endl;
-	cout << "4. Edit a customer record" << endl;
-	cout << "5. Display all customer records" << endl;
-	cout << "6. Quit the program" << endl;
+	cout << "4) Edit a customer record" << endl;
+	cout << "5) Display all customer records" << endl;
+	cout << "6) Quit the program" << endl;
 	cout << endl;
 
 }
 
-void addRecord(const string LOCATION, int &number_of_records) {
+void addRecord(fstream &file, const string LOCATION, int &number_of_records) {
 
-	fstream file;
 	Customer new_customer;
 
 	file.open(LOCATION, ios::out | ios::app | ios::binary);
@@ -315,9 +322,8 @@ void addRecord(const string LOCATION, int &number_of_records) {
 	
 }
 
-void displayAllRecordsTable(const string LOCATION, const int NUMBER_OF_RECORDS) {
+void displayAllRecordsTable(fstream &file, const string LOCATION, const int NUMBER_OF_RECORDS) {
 
-	fstream file;
 	Customer customer;
 
 	if (NUMBER_OF_RECORDS > 0) {
@@ -349,9 +355,8 @@ void displayAllRecordsTable(const string LOCATION, const int NUMBER_OF_RECORDS) 
 
 }
 
-void editRecord(const string LOCATION, int &number_of_records) {
+void editRecord(fstream &file, const string LOCATION, int &number_of_records) {
 
-	fstream file;
 	Customer customer;
 	int choice;
 	int start_address;
@@ -569,5 +574,83 @@ int findNumberOfRecords(fstream &file, const string LOCATION) {
 	number_of_records = file_size / sizeof(Customer);
 
 	return number_of_records;
+
+}
+
+void findParticularCustomerDisplay(fstream &file, const string LOCATION, const int NUMBER_OF_RECORDS) {
+
+	file.open(LOCATION, ios::in | ios::binary);
+
+	searchForName(file, NUMBER_OF_RECORDS);
+
+	file.close();
+
+}
+
+void searchForName(fstream &file, const int NUMBER_OF_RECORDS) {
+
+	Customer customer;
+	char customer_search[NAME_SIZE]{ NULL };
+	char lowercase_search[NAME_SIZE] {NULL};
+	char lowercase_name[NAME_SIZE] {NULL};
+	int matches{ 0 };
+	char* position = nullptr;
+
+	cout << "SEARCH QUERY FUNCTION" << endl;
+	cout << "=========================" << endl;
+	cout << endl;
+
+	stringInputValidation(customer_search, NAME_SIZE, "Enter the name of the customer you wish to find: ");
+
+	convertToLowercase(customer_search, lowercase_search);
+ 
+	cout << "Matches for \"" << customer_search << "\": " << endl;
+	cout << endl;
+
+	for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
+
+		char lowercase_name[NAME_SIZE]{ NULL };
+
+		file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+		convertToLowercase(customer.name, lowercase_name);
+
+		position = strstr(lowercase_name, lowercase_search);
+
+		if (position) {
+			matches++;
+			cout << matches << ") " << customer.name << endl;
+		}
+
+	}
+
+	cout << endl;
+
+	if (matches == 0) {
+		cout << "There are were matches found for \"" << customer_search << "\" in the accounts directory." << endl;
+	}
+	else if (matches == 1) {
+		cout << matches << " match(es) found for \"" << customer_search << "\" in the accounts directory." << endl;
+	}
+	else {
+		cout << matches << " match(es) found for \"" << customer_search << "\" in the accounts directory." << endl;
+	}
+
+	position = nullptr;
+	delete position;
+
+	cout << endl;
+
+}
+
+void convertToLowercase(char original[], char converted[]) {
+
+	int size;
+
+	size = strlen(original);
+
+	for (int i = 0; i < size; i++) {
+		converted[i] = tolower(original[i]);
+	}
 
 }
