@@ -80,7 +80,7 @@ void openFile(fstream& file, string &location) {
 
 	while (file.fail()) {
 
-		cout << "Error opening " << location << endl;
+		cout << "Error opening " << location << ". A new inventory file will need to be created." << endl;
 		file.clear();
 
 		cout << "Enter the location of your inventory file: ";
@@ -331,10 +331,7 @@ void addRecord(fstream &file, const string FILE_LOCATION) {
 
 	file.write(reinterpret_cast<char*>(&new_item), sizeof(new_item));
 
-	cout << endl;
-	cout << "The new record was successfully added to the file." << endl;
-
-	file.close();
+	cout << new_item.current_stock << "x " << new_item.description << " has been successfully added to the inventory." << endl;
 
 	cout << endl;
 
@@ -371,7 +368,7 @@ void displayRecords(fstream &file, const string FILE_LOCATION) {
 
 	file.seekg(0L, ios::beg);
 
-	if (file_size % struct_size == 0) {
+	if (file_size >= struct_size && file_size % struct_size == 0) {
 
 		number_of_records = file_size / struct_size;
 
@@ -392,6 +389,9 @@ void displayRecords(fstream &file, const string FILE_LOCATION) {
 
 		}
 
+	}
+	else {
+		cout << "ERROR: There are no records to display." << endl;
 	}
 
 	cout << endl;
@@ -452,9 +452,15 @@ void changeRecord(fstream &file, const string FILE_LOCATION) {
 			break;	
 	}
 
-	file.seekg(start, ios::beg);
+	file.seekp(start, ios::beg);
 
 	file.write(reinterpret_cast<char*>(&item), sizeof(item));
+
+	cout << endl;
+
+	cout << "Change was completed successfully." << endl;
+
+	cout << endl;
 
 }
 
