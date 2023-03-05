@@ -76,17 +76,20 @@ void showMenu();
 
 void addRecord(fstream&, const string, int &);
 void findParticularCustomerDisplay(fstream&, const string, const int);
+void deleteParticularRecord(fstream&, const string, int&);
 void displayAllRecordsTable(fstream&, const string, const int);
-void editRecord(fstream&, const string, int&);
+void displayIndividualRecord(Customer);
+void editRecord(fstream&, const string, const int);
 
 void dateInput(char[], string);
 bool checkDate(int month, int day, int year, const string MONTHS[]);
 
 int findNumberOfRecords(fstream &file, const string);
 
-void searchForName(fstream&, const int);
+vector<int> searchForName(fstream&, const int);
 void convertToLowercase(char[], char[]);
 
+vector<Customer> dumpDataToVector(fstream&, const int);
 
 int main() {
 
@@ -113,6 +116,9 @@ int main() {
 			case 2:
 				findParticularCustomerDisplay(file, file_location, number_of_records);
 				break;
+			case 3:
+				deleteParticularRecord(file, file_location, number_of_records);
+				break;
 			case 4:
 				editRecord(file, file_location, number_of_records);
 				break;
@@ -138,13 +144,51 @@ int menuInputValidation(int min, int max, string request) {
 	cout << request;
 
 	while (!(cin >> choice) || choice < min || choice > max) {
-		cout << "ERROR: Selection must be between " << min << " and " << " max. " << request;
+		cout << "ERROR: Selection must be between " << min << " and " << max << ". " << request;
 		cin.clear();
-		cin.ignore(1200, 'n');
+		cin.ignore(1200, '\n');
 	}
 
 	cin.clear();
 	cin.ignore(1200, '\n');
+
+	cout << endl;
+
+	return choice;
+
+}
+
+int menuInputValidationVector(vector<int> list, string request) {
+
+	int choice;
+	bool onList = false;
+
+
+	do {
+
+		cout << request;
+
+		cin >> choice;
+
+		for (int i = 0; i < list.size(); i++) {
+
+			if (choice == list[i]) {
+				onList = true;
+				cin.clear();
+				cin.ignore(1200, '\n');
+			}
+
+		}
+
+		if (!onList) {
+			cout << "ERROR: " << choice << " is not one of the matching search indexes. Try again." << endl;
+			cout << endl;
+			cin.clear();
+			cin.ignore(1200, '\n');
+		}
+
+
+	} while (!onList);
 
 	cout << endl;
 
@@ -261,15 +305,15 @@ void openFile(fstream &file, string &location, int &number_of_records) {
 
 void showMenu() {
 
-	cout << "CUSTOMER ACCOUNTS" << endl;
+	cout << "MAIN MENU" << endl;
 	cout << "========================" << endl;
 	cout << endl;
 
-	cout << "1) Add a new customer account" << endl;
+	cout << "1) Enter a new record into the file" << endl;
 	cout << "2) Search for a particular customer's record and display it." << endl;
-	//cout << "3. Delete a customer record" << endl;
-	cout << "4) Edit a customer record" << endl;
-	cout << "5) Display all customer records" << endl;
+	cout << "3) Search for a particular customer's record and delete it." << endl;
+	cout << "4) Search for a particular customer's record and change it." << endl;
+	cout << "5) Display the contents of the entire file." << endl;
 	cout << "6) Quit the program" << endl;
 	cout << endl;
 
@@ -355,51 +399,68 @@ void displayAllRecordsTable(fstream &file, const string LOCATION, const int NUMB
 
 }
 
-void editRecord(fstream &file, const string LOCATION, int &number_of_records) {
+void displayIndividualRecord(Customer customer) {
+
+	cout << "FULL NAME: " << customer.name << endl;
+	cout << "FIRST LINE OF ADDRESS: " << customer.address.first_line << endl;
+	cout << "CITY: " << customer.address.city << endl;
+	cout << "STATE: " << customer.address.state << endl;
+	cout << "ZIP: " << customer.address.zip << endl;
+	cout << "TELEPHONE NUMBER:" << customer.telephone << endl;
+	cout << "ACCOUNT BALANCE: $" << fixed << setprecision(2) << customer.balance << endl;
+	cout << "DATE OF LAST PAYMENT: " << customer.date_of_last_payment << endl;
+
+	cout << endl;
+
+}
+
+void editRecord(fstream &file, const string LOCATION, const int NUMBER_OF_RECORDS) {
 
 	Customer customer;
 	int choice;
 	int start_address;
 
-	file.open(LOCATION, ios::in | ios::out | ios::binary);
+	if (NUMBER_OF_RECORDS > 0) {
 
-	cout << "CUSTOMER ACCOUNTS DATA" << endl;
-	cout << endl;
-	cout << left << setw(8) << "No." << setw(20) << "FULL NAME";
-	cout << setfill('=') << setw(25) << '\n';
-	cout << setfill(' ') << endl;
-	
-	for (int i = 0; i < number_of_records; i++) {
+		file.open(LOCATION, ios::in | ios::out | ios::binary);
+
+		cout << "CUSTOMER ACCOUNTS DATA" << endl;
+		cout << endl;
+		cout << left << setw(8) << "No." << setw(20) << "FULL NAME";
+		cout << setfill('=') << setw(25) << '\n';
+		cout << setfill(' ') << endl;
+
+		for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
+
+			file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+			cout << "#" << left << setw(7) << i + 1 << setw(20) << customer.name << endl;
+
+		}
+
+		cout << endl;
+
+		choice = menuInputValidation(1, NUMBER_OF_RECORDS, "Which record would you like to edit: ");
+
+		start_address = (choice - 1) * sizeof(customer);
+
+		file.seekg(start_address, ios::beg);
 
 		file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
 
-		cout << "#" << left << setw(7) << i + 1 << setw(20) << customer.name << endl;
+		cout << setw(30) << "1) Full name: " << customer.name << endl;
+		cout << setw(30) << "2) First line of address: " << customer.address.first_line << endl;
+		cout << setw(30) << "3) City: " << customer.address.city << endl;
+		cout << setw(30) << "4) State: " << customer.address.state << endl;
+		cout << setw(30) << "5) ZIP: " << customer.address.zip << endl;
+		cout << setw(30) << "6) Telephone number: " << customer.telephone << endl;
+		cout << setw(30) << "7) Account balance: " << fixed << setprecision(2) << "$" << customer.balance << endl;
+		cout << setw(30) << "8) Date of last payment: " << customer.date_of_last_payment << endl;
 
-	}
+		cout << endl;
+		choice = menuInputValidation(1, 8, "Which attribute would you like to change: ");
 
-	cout << endl;
-
-	choice = menuInputValidation(1, number_of_records, "Which record would you like to edit: ");
-	
-	start_address = (choice - 1) * sizeof(customer);
-
-	file.seekg(start_address, ios::beg);
-
-	file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
-
-	cout << setw(30) << "1) Full name: " << customer.name << endl;
-	cout << setw(30) << "2) First line of address: " << customer.address.first_line << endl;
-	cout << setw(30) << "3) City: " << customer.address.city << endl;
-	cout << setw(30) << "4) State: " << customer.address.state << endl;
-	cout << setw(30) << "5) ZIP: " << customer.address.zip << endl;
-	cout << setw(30) << "6) Telephone number: " << customer.telephone << endl;
-	cout << setw(30) << "7) Account balance: " << fixed << setprecision(2) << "$" << customer.balance << endl;
-	cout << setw(30) << "8) Date of last payment: " << customer.date_of_last_payment << endl;
-	
-	cout << endl;
-	choice = menuInputValidation(1, 8, "Which attribute would you like to change: ");
-
-	switch (choice) {
+		switch (choice) {
 
 		case 1:
 			cout << "Current full name: " << customer.name << endl;
@@ -434,16 +495,25 @@ void editRecord(fstream &file, const string LOCATION, int &number_of_records) {
 			stringInputValidation(customer.date_of_last_payment, DATE_SIZE, "New date of last payment: ");
 			break;
 
+		}
+
+		file.seekp(start_address, ios::beg);
+
+		file.write(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+		cout << "Record updated!" << endl;
+		cout << endl;
+
+		file.close();
+
+	}
+	else {
+
+		cout << "ERROR: There are no customer recrods to edit." << endl;
+
 	}
 
-	file.seekp(start_address, ios::beg);
-
-	file.write(reinterpret_cast<char*>(&customer), sizeof(Customer));
-
-	cout << "Record updated!" << endl;
 	cout << endl;
-
-	file.close();
 
 }
 
@@ -562,7 +632,7 @@ bool checkDate(int month, int day, int year, const string MONTHS[]) {
 
 }
 
-int findNumberOfRecords(fstream &file, const string LOCATION) {
+int findNumberOfRecords(fstream& file, const string LOCATION) {
 
 	long file_size;
 	int number_of_records;
@@ -577,23 +647,196 @@ int findNumberOfRecords(fstream &file, const string LOCATION) {
 
 }
 
-void findParticularCustomerDisplay(fstream &file, const string LOCATION, const int NUMBER_OF_RECORDS) {
+void findParticularCustomerDisplay(fstream& file, const string LOCATION, const int NUMBER_OF_RECORDS) {
 
-	file.open(LOCATION, ios::in | ios::binary);
+	Customer customer;
+	long position;
+	int choice_index;
 
-	searchForName(file, NUMBER_OF_RECORDS);
+	vector<int> match_indexes;
 
-	file.close();
+	if (NUMBER_OF_RECORDS > 0) {
+
+		file.open(LOCATION, ios::in | ios::binary);
+
+		match_indexes = searchForName(file, NUMBER_OF_RECORDS);
+
+		file.seekg(0L, ios::beg);
+
+		if (match_indexes.size() != 0) {
+
+			if (match_indexes.size() == 1) {
+
+				cout << match_indexes.size() << " match in the accounts directory." << endl;
+
+				cout << endl;
+
+				position = match_indexes[0] * sizeof(Customer);
+
+				file.seekg(position, ios::beg);
+
+				file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+				cout << "MATCHING RECORDS: " << endl;
+				cout << "----------------------" << endl;
+				displayIndividualRecord(customer);
+
+			}
+
+			else {
+
+				cout << match_indexes.size() << " matches were found in the accounts directory." << endl;
+
+				cout << endl;
+
+				cout << "Which customer record would you like to display: " << endl;
+				cout << endl;
+
+				for (int i = 0; i < match_indexes.size(); i++) {
+
+					position = match_indexes[i] * sizeof(Customer);
+
+					file.seekg(position, ios::beg);
+
+					file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+					cout << match_indexes[i] << ") " << customer.name << endl;
+
+				}
+
+				cout << endl;
+
+				choice_index = menuInputValidationVector(match_indexes, "Enter an index to display a record: ");
+
+				position = choice_index * sizeof(Customer);
+
+				file.seekg(position, ios::beg);
+
+				file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+				displayIndividualRecord(customer);
+
+			}
+
+		}
+
+		else {
+			cout << "There were no matches in the accounts directory." << endl;
+		}
+
+		file.close();
+
+	}
+	else {
+
+		cout << "ERROR: There are no customer records to display" << endl;
+
+	}
+	
+	cout << endl;
 
 }
 
-void searchForName(fstream &file, const int NUMBER_OF_RECORDS) {
+void deleteParticularRecord(fstream& file, const string LOCATION, int& number_of_records) {
+
+	Customer customer;
+	long position;
+	int choice_index;
+
+	vector<int> match_indexes;
+	vector<Customer> all_customer_data;
+
+	if (number_of_records > 0) {
+
+		file.open(LOCATION, ios::in | ios::binary);
+
+		match_indexes = searchForName(file, number_of_records);
+
+		all_customer_data = dumpDataToVector(file, number_of_records);
+
+		file.close();
+
+		if (match_indexes.size() != 0) {
+
+			file.open(LOCATION, ios::out | ios::binary);
+
+			if (match_indexes.size() == 1) {
+
+				cout << "1 match in the accounts directory." << endl;
+
+				choice_index = match_indexes[0];
+
+				cout << endl;
+
+			}
+
+			else {
+
+				cout << match_indexes.size() << " matches were found in the accounts directory." << endl;
+
+				cout << endl;
+
+				cout << "Which customer record would you like to delete: " << endl;
+				cout << endl;
+
+				for (int i = 0; i < all_customer_data.size(); i++) {
+
+					if (i == match_indexes[i]) {
+						cout << match_indexes[i] << ") " << all_customer_data[i].name << endl;
+					}
+
+				}
+
+				cout << endl;
+
+				choice_index = menuInputValidationVector(match_indexes, "Enter an account index to delete: ");
+
+			}
+
+			for (int i = 0; i < number_of_records; i++) {
+
+				if (i == choice_index) {
+					continue;
+				}
+				else {
+					file.write(reinterpret_cast<char*>(&all_customer_data[i]), sizeof(Customer));
+				}
+
+			}
+
+			number_of_records--;
+
+			cout << "Customer record was deleted." << endl;
+
+		}
+
+		else {
+
+			cout << "There were no matches in the accounts directory." << endl;
+
+		}
+
+		file.close();
+
+	}
+	else {
+
+		cout << "ERROR: There are no customer records to delete." << endl;
+
+	}
+
+	cout << endl;
+
+}
+
+vector<int> searchForName(fstream &file, const int NUMBER_OF_RECORDS) {
 
 	Customer customer;
 	char customer_search[NAME_SIZE]{ NULL };
 	char lowercase_search[NAME_SIZE] {NULL};
 	char lowercase_name[NAME_SIZE] {NULL};
-	int matches{ 0 };
+	vector<int> match_indexes;
+	int match_counter = 0;
 	char* position = nullptr;
 
 	cout << "SEARCH QUERY FUNCTION" << endl;
@@ -601,6 +844,7 @@ void searchForName(fstream &file, const int NUMBER_OF_RECORDS) {
 	cout << endl;
 
 	stringInputValidation(customer_search, NAME_SIZE, "Enter the name of the customer you wish to find: ");
+	cout << endl;
 
 	convertToLowercase(customer_search, lowercase_search);
  
@@ -618,28 +862,19 @@ void searchForName(fstream &file, const int NUMBER_OF_RECORDS) {
 		position = strstr(lowercase_name, lowercase_search);
 
 		if (position) {
-			matches++;
-			cout << matches << ") " << customer.name << endl;
+			match_indexes.push_back(i);
+			match_counter++;
+			cout << match_counter << ") " << customer.name << endl;
 		}
 
-	}
-
-	cout << endl;
-
-	if (matches == 0) {
-		cout << "There are were matches found for \"" << customer_search << "\" in the accounts directory." << endl;
-	}
-	else if (matches == 1) {
-		cout << matches << " match(es) found for \"" << customer_search << "\" in the accounts directory." << endl;
-	}
-	else {
-		cout << matches << " match(es) found for \"" << customer_search << "\" in the accounts directory." << endl;
 	}
 
 	position = nullptr;
 	delete position;
 
 	cout << endl;
+
+	return match_indexes;
 
 }
 
@@ -654,3 +889,23 @@ void convertToLowercase(char original[], char converted[]) {
 	}
 
 }
+
+vector<Customer> dumpDataToVector(fstream& file, const int NUMBER_OF_RECORDS) {
+
+	Customer customer;
+	vector<Customer> dump;
+
+	file.seekg(0L, ios::beg);
+
+	for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
+
+		file.read(reinterpret_cast<char*>(&customer), sizeof(Customer));
+
+		dump.push_back(customer);
+
+	}
+
+	return dump;
+
+}
+
