@@ -1,37 +1,52 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
-const int DATE_SIZE{ 10 };
-
-class Date {
+class Yard {
 
 private:
-	string full_date;
+	int length, width;
+
 public:
-	void setDate(string);
-	string getDate();
+	Yard()
+	{
+		length = 0; width = 0;
+	}
+	void setLength(int len)
+	{
+		length = len;
+	}
+	void setWidth(int w)
+	{
+		width = w;
+	}
+
 };
-
-void Date::setDate(string date) {
-	full_date = date;
-}
-
-string Date::getDate() {
-	return full_date;
-}
 
 int main() {
 
-	Date special_day;
-	string custom_date;
+	int length;
+	int width;
 
-	cout << "Enter a date: ";
-	getline(cin, custom_date);
+	const int YARD_SIZE = 3;
 
-	special_day.setDate(custom_date);
-	
-	cout << "Your chosen date is " << special_day.getDate() << endl;
-	
+	Yard allotments[YARD_SIZE];
+
+	for (int i = 0; i < YARD_SIZE; i++) {
+
+		cout << "What is the length of yard #" << i + 1 << ": ";
+		cin >> length;
+
+		allotments[i].setLength(length);
+
+		cout << "What is the width of yard #" << i + 1 << ": ";
+		cin >> width;
+
+		allotments[i].setWidth(width);
+
+		cout << endl;
+
+	}
+
+
 }
