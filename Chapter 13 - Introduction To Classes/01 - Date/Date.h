@@ -15,7 +15,8 @@ public:
 	Date(int, int, int);
 	void setDate();
 	void getDate();
-
+	int dayValidation(string);
+	int monthValidation(string);
 };
 
 #endif
