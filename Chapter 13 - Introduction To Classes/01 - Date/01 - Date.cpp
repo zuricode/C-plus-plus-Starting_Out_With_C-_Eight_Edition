@@ -5,7 +5,9 @@ using namespace std;
 
 int main() {
 
-	Date special_day(03,11,2012);
+	Date special_day;
+
+	special_day.setDate();
 
 	special_day.getDate();
 
