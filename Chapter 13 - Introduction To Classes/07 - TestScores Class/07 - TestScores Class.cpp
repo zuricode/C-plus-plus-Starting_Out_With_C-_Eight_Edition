@@ -20,7 +20,7 @@ void setAllScores(TestScores &);
 
 int main() {
 
-	cout << "13-07 - TEST SCORE PROGRAM" << '\n';
+	cout << "13-v07 - TEST SCORE PROGRAM" << '\n';
 	cout << "=====================" << '\n';
 	cout << '\n';
 
