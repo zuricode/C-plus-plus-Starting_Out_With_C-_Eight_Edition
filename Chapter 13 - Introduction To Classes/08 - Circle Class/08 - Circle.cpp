@@ -9,7 +9,7 @@ double setRadius();
 int main() {
 
 	cout << "13-08 - CIRCLE PROGRAM" << endl;
-	cout << "=====================" << endl;
+	cout << "========================" << endl;
 	cout << endl;
 
 	double radius;
@@ -19,8 +19,6 @@ int main() {
 	Circle circle;
 
 	circle.setRadius(radius);
-
-
 
 	cout << left << fixed << setprecision(2);
 
