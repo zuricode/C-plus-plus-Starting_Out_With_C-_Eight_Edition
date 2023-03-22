@@ -4,19 +4,48 @@
 
 using namespace std;
 
+void setNumbers(Number &, const int);
+void numbersReport(const Number &, const int);
+
 int main() {
 
 	const int SIZE = 3;
 
 	Number list(SIZE);
 
-	list.setNumber(0, 5647547);
-	list.setNumber(1, 46342);
-	list.setNumber(2, 4543);
+	setNumbers(list, SIZE);
 
-	cout << "The first number is " << list.getNumber(0) << endl;
-	cout << "The second number is " << list.getNumber(1) << endl;
-	cout << "The third number is " << list.getNumber(2) << endl;
+	numbersReport(list, SIZE);
+
+}
+
+void setNumbers(Number &list, const int SIZE) {
+
+	cout << "NUMBER ENTRY" << endl;
+	cout << "===============" << endl;
+	cout << endl;
+
+	for (int i = 0; i < SIZE; i++) {
+		list.setNumber(i);
+	}
+
+	cout << endl;
+
+}
+
+void numbersReport(const Number &LIST, const int SIZE) {
+
+	cout << "NUMBER REPORT" << endl;
+	cout << "===============" << endl;
+	cout << endl;
+
+	for (int i = 0; i < SIZE; i++) {
+		cout << "Number #" << i + 1 << ": " << LIST.getNumber(i) << endl;
+	}
+
+	cout << "Highest number: " << LIST.getHighest(SIZE) << endl;
+	cout << "Lowest number: " << LIST.getLowest(SIZE) << endl;
+	cout << "Average of array: " << LIST.getAverage(SIZE) << endl;
 
 	cout << endl;
 
