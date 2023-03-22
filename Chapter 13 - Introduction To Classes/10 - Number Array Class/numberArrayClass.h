@@ -7,11 +7,14 @@ private:
 	float *num = nullptr;
 
 public:
-	Number(int);
+	Number(const int);
 	~Number();
 
-	void setNumber(int, float);
+	void setNumber(int);
 	float getNumber(int) const;
+	float getHighest(const int) const;
+	float getLowest(const int) const;
+	float getAverage(const int) const;
 
 };
 
