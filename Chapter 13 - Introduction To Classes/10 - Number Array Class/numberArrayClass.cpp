@@ -13,6 +13,7 @@ Number::Number(const int size) {
 Number::~Number() {
 
 	delete[] num;
+	num = nullptr;
 	cout << "Number instances have been destructed...." << endl;
 }
 
