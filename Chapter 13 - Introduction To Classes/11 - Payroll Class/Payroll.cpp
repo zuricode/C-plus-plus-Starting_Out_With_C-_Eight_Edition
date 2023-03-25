@@ -5,17 +5,18 @@ using namespace std;
 
 PayRoll::PayRoll() {
 	name = "";
-	hourly_pay_rate = 0;
+	hourly_pay_rate = 25.00;
 	hours_worked = 0;
 	gross_pay = 0;
 }
 
 void PayRoll::setName() {
 
-	cout << "Name of employee: ";
+	cout << "Name: ";
 	getline(cin, name);
 
 }
+
 
 void PayRoll::setHourlyRate() {
 
@@ -44,4 +45,3 @@ void PayRoll::setHoursWorked() {
 	cin.ignore();
 
 }
-
