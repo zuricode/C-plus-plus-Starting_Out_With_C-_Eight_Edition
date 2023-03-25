@@ -13,8 +13,8 @@ private:
 	float gross_pay;
 
 public:
-
 	PayRoll();
+	
 	void setName();
 	void setHourlyRate();
 	void setHoursWorked();
