@@ -82,6 +82,7 @@ int main() {
 			cout << endl;
 
 			cin.get();
+			cin.ignore();
 
 			counter++;
 
