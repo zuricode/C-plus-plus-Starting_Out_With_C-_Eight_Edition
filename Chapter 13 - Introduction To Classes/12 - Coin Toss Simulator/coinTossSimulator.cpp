@@ -1,6 +1,4 @@
-#include "coinTossSimulator.h"
-
-using namespace std;
+#include "coin.h"
 
 void Coin::toss() {
 
