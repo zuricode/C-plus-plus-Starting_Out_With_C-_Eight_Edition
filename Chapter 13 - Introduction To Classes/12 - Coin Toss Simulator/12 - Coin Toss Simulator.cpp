@@ -21,7 +21,7 @@
 //up.The program should keep count of the number of times heads is facing upand the
 //number of times tails is facing up, and display those values after the loop finishes.
 
-#include "coinTossSimulator.h"
+#include "coin.h"
 #include <iostream>
 
 using namespace std;
