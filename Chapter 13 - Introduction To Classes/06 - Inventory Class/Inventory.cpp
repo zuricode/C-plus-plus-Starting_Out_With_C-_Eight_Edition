@@ -1,9 +1,10 @@
 #include "Inventory.h"
 #include <iostream>
+#include <string>
 
 using std::cout;
 using std::cin;
-
+using std::string;
 
 Inventory::Inventory() {
 
@@ -14,18 +15,27 @@ Inventory::Inventory() {
 
 }
 
-Inventory::Inventory(int i, double c, int q) {
+Inventory::Inventory(string n, int i, double c, int q) {
 
+	n = stringValidation();
 	i = numValidation(i);
 	c = numValidation(c);
 	q = numValidation(q);
 
+	name = n;
 	itemNumber = i;
 	cost = c;
 	quantity = q;
 
-	setTotalCost();
+}
 
+Inventory::~Inventory() {
+
+
+}
+
+void Inventory::setName(string n) {
+	name = n;
 }
 
 void Inventory::setItemNumber(int i) {
@@ -86,5 +96,21 @@ double Inventory::numValidation(double num) {
 	}
 
 	return num;
+
+}
+
+string Inventory::stringValidation() {
+
+	string input;
+
+	cout << "Item Name: ";
+
+	while (!(getline(cin, input) || input == "")) {
+		cout << "ERROR: An empty string cannot be entered.\n";
+		cout << '\n';
+		cout << "Item Name: ";
+	}
+
+	return input;
 
 }
