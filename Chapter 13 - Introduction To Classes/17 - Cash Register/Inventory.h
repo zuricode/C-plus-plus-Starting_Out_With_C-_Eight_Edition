@@ -17,7 +17,7 @@ private:
 public:
 
 	Inventory();
-	Inventory(int, double, int);
+	Inventory(string, int, double, int);
 
 	void setName(string n);
 	void setItemNumber(int);
