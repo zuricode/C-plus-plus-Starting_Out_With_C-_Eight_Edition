@@ -1,9 +1,10 @@
 #include "Inventory.h"
 #include <iostream>
+#include <string>
 
 using std::cout;
 using std::cin;
-
+using std::string;
 
 Inventory::Inventory() {
 
@@ -15,12 +16,18 @@ Inventory::Inventory() {
 
 }
 
-Inventory::Inventory(int i, double c, int q) {
+Inventory::~Inventory() {
+
+
+}
+
+Inventory::Inventory(string n, int i, double c, int q) {
 
 	i = numValidation(i);
 	c = numValidation(c);
 	q = numValidation(q);
 
+	name = n;
 	itemNumber = i;
 	cost = c;
 	quantity = q;
