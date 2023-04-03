@@ -26,33 +26,76 @@
 
 using namespace std;
 
+int userRollDie(Die*, const int);
+int comRollDie(Die*, const int);
 bool rollAgain();
 
 int main() {
 
+	unsigned int SEED = time(NULL);
+	srand(SEED);
+
 	const int LIMIT = 21;
 	const int AMOUNT_OF_DIE = 2;
 
+	int user_total_score = 0;
+	int user_round_score;
+	int com_total_score = 0;
+	int com_round_score;
 	bool new_roll = false;
+	bool isLoss = false;
+	bool isWin = false;
 
-	*DiePtr = nullptr;
-	DiePtr = new Die[AMOUNT_OF_DIE];
+	Die *user_die = nullptr;
+	Die *com_die = nullptr;
 
 	cout << "13-18 - A GAME OF 21 PROGRAM\n";
 	cout << "===================================\n";
 	cout << "\n";
 
+	com_die = new Die[AMOUNT_OF_DIE];
+	user_die = new Die[AMOUNT_OF_DIE];
+
 	do {
 
-		new_roll = rollAgain();
+		com_round_score = comRollDie(com_die, AMOUNT_OF_DIE);
+		com_total_score += com_round_score;
+
+		user_round_score = userRollDie(user_die, AMOUNT_OF_DIE);
+		user_total_score += user_round_score;
+
+		cout << "You currently have " << user_total_score << ".\n";
+		cout << "\n";
+
+		if (user_total_score < LIMIT) {
+			new_roll = rollAgain();
+		} 
+		else {
+			new_roll = false;
+		}
 
 	} while (new_roll);
 
+		cout << "The computer has scored " << com_total_score << ".\n";
+		cout << "You have scored " << user_total_score << ".\n";
+		cout << "\n";
 
+		if (user_total_score > LIMIT || (user_total_score < com_total_score && com_total_score <= LIMIT))
+		{
+			cout << "You have LOST! Better luck next time...\n";
+		}
+		else if ((user_total_score > com_total_score && user_total_score <= LIMIT) || 
+			(com_total_score > LIMIT && user_total_score <= LIMIT)) {
+			cout << "You have WON! Congratulations!\n";
+		}
+		else {
+			cout << "DRAW!\n";
+		}
 
-
-	delete DiePtr[];
-	DiePtr = nullptr;
+	delete[] com_die;
+	delete[] user_die;
+	com_die = nullptr;
+	user_die = nullptr;
 
 }
 
@@ -67,7 +110,7 @@ bool rollAgain() {
 	cout << "\n";
 	cout << "Enter your selection: ";
 
-	while (!(cin >> num) || (toupper(input) != 'Y' || toupper(input) != 'N')) {
+	while (!(cin >> input) || (toupper(input) != 'Y' && toupper(input) != 'N')) {
 		cout << "ERROR: You enter either Y/y or N/n.\n";
 		cout << "\n";
 		cin.ignore();
@@ -78,6 +121,10 @@ bool rollAgain() {
 
 	cin.ignore();
 
+	cout << "\n";
+	cout << "-------------------------------------------------------------\n";
+	cout << "\n";
+
 	if (input == 'Y') {
 		return true;
 	}
@@ -87,4 +134,32 @@ bool rollAgain() {
 
 }
 
+int userRollDie(Die* d, const int SIZE) {
 
+	int total = 0;
+
+		for (int i = 0; i < SIZE; i++) {
+			d[i].roll();
+			cout << "Rolling Dice #" << i + 1 << " ........ " << d[i].showRoll();
+			total += d[i].showRoll();
+			cout << "\n";
+		}
+
+	cout << "\n";
+
+	return total;
+
+}
+
+int comRollDie(Die* d, const int SIZE) {
+
+	int total = 0;
+
+	for (int i = 0; i < SIZE; i++) {
+		d[i].roll();
+		total += d[i].showRoll();
+	}
+
+	return total;
+
+}
