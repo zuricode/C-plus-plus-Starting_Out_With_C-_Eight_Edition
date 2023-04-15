@@ -2,6 +2,8 @@
 #define PATIENT_H
 #include <string>
 
+using std::string;
+
 class Patient {
 
 private:
