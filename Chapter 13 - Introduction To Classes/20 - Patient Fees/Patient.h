@@ -11,7 +11,6 @@ private:
 	double total_charges;
 	int total_operations;
 	int days_in_hospital;
-	const double DAILY_RATE = 150.00;
 
 public:
 	Patient() { full_name = ""; total_operations = 0; total_charges = 0; days_in_hospital = 0; }
