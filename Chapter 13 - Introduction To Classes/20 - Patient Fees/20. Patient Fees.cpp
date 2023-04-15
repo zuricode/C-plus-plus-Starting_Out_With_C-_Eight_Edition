@@ -35,30 +35,145 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
-void showMenu();
+string stringValidation(const string);
+
+void init(fstream &);
+
+int showMenu();
+int menuChoice(const string, const int, const int);
+
+void addPatient();
+void admitPatient();
+void createInvoice();
+
+//######################################################################
 
 int main() {
+
+	fstream data;
+
+	init(data);
+
+	int menu_choice;
 
 	cout << "13-20 PATIENT DATABASE PROGRAM\n";
 	cout << "===================================\n";
 	cout << "\n";
 
-
-
+	menu_choice = showMenu();
 
 }
 
-void showMenu() {
+//######################################################################
 
-	cout << "Menu\n";
-	cout << "---------\n";
+string stringValidation(const string REQUEST) {
+
+	string text;
+
+	cout << REQUEST;
+
+	while (!(getline(cin, text)) || text == "") {
+
+		cout << "ERROR: String entry cannot be blank.\n";
+		cout << "\n";
+		cout << REQUEST;
+	}
+
+	cout << "\n";
+
+	return text;
+
+}
+
+void init(fstream &data) {
+
+	string file_location;
+
+	file_location = stringValidation("Enter the file location for the patient data: ");
+
+	data.open(file_location, ios::out);
+
+	if (!data.fail()) {
+		cout << file_location << " does not exist.\n";
+		cout << "Creating a new directory...\n";
+		cout << "\n";
+	}
+	else {
+		cout << "An existing directory was found.\n";
+		cout << "Opening the directory...\n";
+	}
+
+	data << "dfgfdgsdgdf\n";
+
+	data.close();
+
+}
+
+int showMenu() {
+
+	int menu_choice;
+
+	cout << "Menu: \n";
+	cout << "-------\n";
 	cout << "\n";
 
 	cout << "\t[1] - ADD NEW PATIENT\n";
-	cout << ""
+	cout << "\t[2] - ADMIT PATIENT INTO HOSPITAL\n";
+	cout << "\t[3] - CREATE INVOICE FOR PATIENT ADMISSION\n";
+	cout << "\n";
+	cout << "\n";
 
+	menu_choice = menuChoice("Enter your selection: ", 1, 3);
+
+	return menu_choice;
+
+	switch (menu_choice) {
+		case 1:
+			addPatient();
+			break;
+		case 2:
+			admitPatient();
+			break;
+		case 3:
+			createInvoice();
+			break;
+
+	}
+
+}
+
+int menuChoice(const string REQUEST, const int MIN, const int MAX) {
+
+	int num;
+
+	cout << REQUEST;
+
+	while (!(cin >> num) || (num < MIN || num > MAX)) {
+
+		cout << "ERROR: Your selection must be between " << MIN << " and " << MAX << "\n";
+		cin.ignore();
+		cout << "\n";
+		cout << REQUEST;
+	}
+
+	cin.ignore();
+
+	return num;
+
+}
+
+void addPatient() {
+
+}
+
+void admitPatient() {
+
+}
+
+void createInvoice() {
 
 }
