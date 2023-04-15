@@ -50,6 +50,10 @@ void addPatient();
 void admitPatient();
 void createInvoice();
 
+const double DAILY_RATE = 150.00;
+const int TYPES_OF_SURGERY = 5;
+
+
 //######################################################################
 
 int main() {
@@ -65,6 +69,8 @@ int main() {
 	cout << "\n";
 
 	menu_choice = showMenu();
+
+	data.close();
 
 }
 
@@ -95,9 +101,9 @@ void init(fstream &data) {
 
 	file_location = stringValidation("Enter the file location for the patient data: ");
 
-	data.open(file_location, ios::out);
+	data.open(file_location, ios::in | ios::out | ios::binary);
 
-	if (!data.fail()) {
+	if (data.fail()) {
 		cout << file_location << " does not exist.\n";
 		cout << "Creating a new directory...\n";
 		cout << "\n";
@@ -106,10 +112,6 @@ void init(fstream &data) {
 		cout << "An existing directory was found.\n";
 		cout << "Opening the directory...\n";
 	}
-
-	data << "dfgfdgsdgdf\n";
-
-	data.close();
 
 }
 
@@ -167,6 +169,35 @@ int menuChoice(const string REQUEST, const int MIN, const int MAX) {
 }
 
 void addPatient() {
+
+	Patient new_patient;
+	Surgery surgery;
+	string temp;
+	int choice;
+
+	cout << "PATIENT LIBRARY\n";
+	cout << "----------------\n";
+	cout << "\n";
+
+	cout << "There are " << "______" << " patients currently in the database.\n";
+
+	cout << "Full name: ";
+	getline(cin, temp);
+	new_patient.setName(temp);
+
+	cout << "What form of surgery did " << new_patient.getName() << " undergo?\n";
+	cout << "\n";
+	
+	for (int i = 0; i < TYPES_OF_SURGERY; i++) {
+		cout << "[" << i + 1 << "] - " << surgery[i].getType() << "\n";
+	}
+	
+	cout << "\n";
+	choice = menuChoice("Enter your selection: ", 1, TYPES_OF_SURGERY);
+
+
+
+
 
 }
 
