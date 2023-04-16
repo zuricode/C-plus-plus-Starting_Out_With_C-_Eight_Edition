@@ -47,7 +47,7 @@ int menuChoice(const string, const int, const int);
 
 void addPatient(vector<Patient> &);
 void admitPatient(vector<Patient> &);
-void createInvoice();
+void createInvoice(vector<Patient>);
 
 const double DAILY_RATE = 150.00;
 
@@ -75,8 +75,12 @@ int main() {
 			admitPatient(database);
 			break;
 		case 3:
-			createInvoice();
+			createInvoice(database);
 			break;
+		case 4:
+			cout << "Thank you for using the hospital database. Have a great day!" << "\n";
+			exit(EXIT_SUCCESS);
+
 		}
 
 		go_back = boolValidation("Would you like to use another service from the menu: ");
@@ -147,10 +151,10 @@ int showMenu() {
 	cout << "\t[1] - ADD NEW PATIENT\n";
 	cout << "\t[2] - ADMIT PATIENT INTO HOSPITAL\n";
 	cout << "\t[3] - CREATE INVOICE FOR PATIENT ADMISSION\n";
-	cout << "\n";
+	cout << "\t[4] - QUIT PROGRAM\n";
 	cout << "\n";
 
-	menu_choice = menuChoice("Enter your selection: ", 1, 3);
+	menu_choice = menuChoice("Enter your selection: ", 1, 4);
 	menu_choice++;
 
 	cout << "\n";
@@ -174,6 +178,8 @@ int menuChoice(const string REQUEST, const int MIN, const int MAX) {
 	}
 
 	cin.ignore();
+
+	cout << "\n";
 
 	num--;
 
@@ -250,7 +256,7 @@ void admitPatient(vector<Patient> &database) {
 		cout << "Total number of days in hospital: " << database[patient_choice].getDaysInHospital() << "\n";
 		cout << "Total number of operations: " << database[patient_choice].getTotalOperations() << " - List of operation(s): ";
 		database[patient_choice].getAllOperations();
-		cout << "\n";
+
 		cout << "\n";
 
 	}
@@ -263,6 +269,48 @@ void admitPatient(vector<Patient> &database) {
 	
 }
 
-void createInvoice() {
+void createInvoice(vector<Patient> patient) {
+
+	int choice;
+	
+	if (patient.size() > 0 ) {
+	
+		cout << "PATIENT INVOICE MENU\n";
+		cout << "==================\n";
+		cout << "\n";
+
+		cout << "Which patient would you like to produce an invoice for: \n";
+		cout << "\n";
+
+		for (int i = 0; i < patient.size(); i++) {
+			cout << "\t[" << i + 1 << "] - " << patient[i].getName() << "\n";
+		}
+
+		cout << "\n";
+
+		choice = menuChoice("Enter your chosen patient: ", 1, patient.size());
+
+		if (patient[choice].getTotalOperations() != 0) {
+
+			cout << "INVOICE\n";
+			cout << "--------\n";
+			cout << "\n";
+
+			cout << "Patient Name: " << patient[choice].getName() << "\n";
+			cout << "Service(s): "; patient[choice].getAllOperations(); cout << "\n";
+			cout << "Treamment Total: $" << fixed << setprecision(2) << patient[choice].getTotalCharges() << "\n";
+
+		}
+		else {
+			cout << "ERROR: \"" << patient[choice].getName() << " has not used any service/treatment, therefore they do not needed to be charged.\n";
+		}
+		
+	}
+	else {
+		cout << "ERROR: There are no patients in the database to admit! Add a patient from the menu first.\n";
+	}
+
+		cout << "\n";
+
 
 }
