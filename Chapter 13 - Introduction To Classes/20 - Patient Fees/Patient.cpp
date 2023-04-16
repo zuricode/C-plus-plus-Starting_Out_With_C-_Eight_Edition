@@ -1,8 +1,20 @@
 #include "Patient.h"
+#include <iostream>
+#include <string>
+#include <vector>
 
-void Patient::addCharge(double charge) {
+using namespace std;
 
-	total_charges += charge;
+void Patient::getAllOperations() {
+
+	for (int i = 0; i < list_of_operations.size(); i++) {
+
+		if (i != 0) {
+			cout << ", ";
+		}
+		
+		cout << list_of_operations[i];
+
+	}
 
 }
-
