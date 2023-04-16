@@ -3,12 +3,13 @@
 #include <string>
 #include "Patient.h"
 
+using std::string;
+
 const int TYPES_OF_SURGERY = 5;
 
 class Surgery {
 
 private:
-
 
 	const string type[TYPES_OF_SURGERY]{ "Appendectomy", "Colostomy", "MRI Scan", "X-Ray", "Hip Replacement" };
 	const double charge[TYPES_OF_SURGERY]{ 1500.00, 4000.00, 750.00, 1000.00, 9425.00 };
