@@ -3,6 +3,8 @@
 #include <string>
 #include "Patient.h"
 
+const int TYPES_OF_SURGERY = 5;
+
 class Surgery {
 
 private:
@@ -18,9 +20,9 @@ public:
 
 	void addCharge(Patient&, double);
 
-	string getType() { return type; } 
-	double getCharge() { return charge; } 
-	int getTimeframeDays() { return timeframe_days; }
+	string getType(const int I) { return type[I]; }
+	const double getCharge(const int I) { return charge[I]; }
+	const int getTimeframeDays(const int I) { return timeframe_days[I]; }
 
 };
 
