@@ -35,43 +35,56 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <fstream>
+#include <vector>
 
 using namespace std;
 
 string stringValidation(const string);
-
-void init(fstream &);
+bool boolValidation(const string);
 
 int showMenu();
 int menuChoice(const string, const int, const int);
 
-void addPatient();
-void admitPatient();
+void addPatient(vector<Patient> &);
+void admitPatient(vector<Patient> &);
 void createInvoice();
 
 const double DAILY_RATE = 150.00;
-const int TYPES_OF_SURGERY = 5;
-
 
 //######################################################################
 
 int main() {
 
-	fstream data;
-
-	init(data);
-
 	int menu_choice;
+	vector<Patient> database;
+	bool go_back = false;
 
 	cout << "13-20 PATIENT DATABASE PROGRAM\n";
 	cout << "===================================\n";
 	cout << "\n";
 
-	menu_choice = showMenu();
+	do {
 
-	data.close();
+		menu_choice = showMenu();
 
+		switch (menu_choice) {
+		case 1:
+			addPatient(database);
+			break;
+		case 2:
+			admitPatient(database);
+			break;
+		case 3:
+			createInvoice();
+			break;
+		}
+
+		go_back = boolValidation("Would you like to use another service from the menu: ");
+
+	} while (go_back);
+
+	cout << "Thank you for using the hospital database. Have a great day!" << "\n";
+	
 }
 
 //######################################################################
@@ -95,22 +108,30 @@ string stringValidation(const string REQUEST) {
 
 }
 
-void init(fstream &data) {
+bool boolValidation(const string REQUEST) {
 
-	string file_location;
+	char letter;
 
-	file_location = stringValidation("Enter the file location for the patient data: ");
+	cout << REQUEST;
 
-	data.open(file_location, ios::in | ios::out | ios::binary);
-
-	if (data.fail()) {
-		cout << file_location << " does not exist.\n";
-		cout << "Creating a new directory...\n";
+	while (!(cin >> letter) || (toupper(letter) != 'Y' && toupper(letter) != 'N')) {
+		cout << "ERROR: Enter either Y\\y or N\\n.\n";
 		cout << "\n";
+		cin.ignore();
+		cout << REQUEST;
+	}
+
+	cin.ignore();
+
+	letter = toupper(letter);
+
+	cout << "\n";
+
+	if (letter == 'Y') {
+		return true;
 	}
 	else {
-		cout << "An existing directory was found.\n";
-		cout << "Opening the directory...\n";
+		return false;
 	}
 
 }
@@ -119,7 +140,7 @@ int showMenu() {
 
 	int menu_choice;
 
-	cout << "Menu: \n";
+	cout << "MENU: \n";
 	cout << "-------\n";
 	cout << "\n";
 
@@ -130,21 +151,11 @@ int showMenu() {
 	cout << "\n";
 
 	menu_choice = menuChoice("Enter your selection: ", 1, 3);
+	menu_choice++;
+
+	cout << "\n";
 
 	return menu_choice;
-
-	switch (menu_choice) {
-		case 1:
-			addPatient();
-			break;
-		case 2:
-			admitPatient();
-			break;
-		case 3:
-			createInvoice();
-			break;
-
-	}
 
 }
 
@@ -164,45 +175,92 @@ int menuChoice(const string REQUEST, const int MIN, const int MAX) {
 
 	cin.ignore();
 
+	num--;
+
 	return num;
 
 }
 
-void addPatient() {
+void addPatient(vector<Patient> &database) {
 
 	Patient new_patient;
 	Surgery surgery;
 	string temp;
-	int choice;
 
-	cout << "PATIENT LIBRARY\n";
+	cout << "ENTER NEW PATIENT DATA\n";
 	cout << "----------------\n";
 	cout << "\n";
 
-	cout << "There are " << "______" << " patients currently in the database.\n";
+	cout << "There are " << database.size() << " patients currently in the database.\n";
+	cout << "\n";
 
 	cout << "Full name: ";
 	getline(cin, temp);
 	new_patient.setName(temp);
-
-	cout << "What form of surgery did " << new_patient.getName() << " undergo?\n";
 	cout << "\n";
-	
-	for (int i = 0; i < TYPES_OF_SURGERY; i++) {
-		cout << "[" << i + 1 << "] - " << surgery[i].getType() << "\n";
-	}
-	
+
+	cout << "Adding patient to the database..." << "\n";
+	database.push_back(new_patient);
+	cout << "Patient \"" << new_patient.getName() << " was added to the database.\n";
+
 	cout << "\n";
-	choice = menuChoice("Enter your selection: ", 1, TYPES_OF_SURGERY);
-
-
-
-
 
 }
 
-void admitPatient() {
+void admitPatient(vector<Patient> &database) {	
 
+	Surgery surgery;
+	int patient_choice;
+	int second_choice;
+
+	if (database.size() > 0) {
+
+		cout << "PATIENT ADMISSION: " << "\n";
+		cout << "-------------------" << "\n";
+		cout << "\n";
+
+		cout << "Patient in the database: " << "\n";
+		cout << "\n";
+
+		for (int i = 0; i < database.size(); i++) {
+			cout << "\t[" << i + 1 << "]" << " - " << database[i].getName() << "\n";
+		}
+
+		cout << "\n";
+
+		patient_choice = menuChoice("Select your chosen patient: ", 1, database.size());
+
+		cout << "What form of surgery did " << database[patient_choice].getName() << " undergo?\n";
+		cout << "\n";
+
+		for (int i = 0; i < TYPES_OF_SURGERY; i++) {
+			cout << "[" << i + 1 << "] - " << surgery.getType(i) << "\n";
+		}
+
+		cout << "\n";
+		second_choice = menuChoice("Enter your selection: ", 1, TYPES_OF_SURGERY);
+
+		database[patient_choice].addOperationAmount();
+		database[patient_choice].addOperationTitle(surgery.getType(second_choice));
+		database[patient_choice].addDaysInHospital(surgery.getTimeframeDays(second_choice));
+		database[patient_choice].addCharge(surgery.getCharge(second_choice));
+
+		cout << "Full Name: " << database[patient_choice].getName() << "\n";
+		cout << "Total charges: $" << fixed << setprecision(2) << database[patient_choice].getTotalCharges() << "\n";
+		cout << "Total number of days in hospital: " << database[patient_choice].getDaysInHospital() << "\n";
+		cout << "Total number of operations: " << database[patient_choice].getTotalOperations() << " - List of operation(s): ";
+		database[patient_choice].getAllOperations();
+		cout << "\n";
+		cout << "\n";
+
+	}
+
+	else {
+		cout << "ERROR: There are no patients in the database to admit! Add a patient from the menu first.\n";
+	}
+
+	cout << "\n";
+	
 }
 
 void createInvoice() {
