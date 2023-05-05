@@ -22,7 +22,7 @@ public:
 
 	TimeOff();
 	TimeOff(string, int, int, int, int, int, int, int);
-
+ 
 	void setName(string);
 	void setIdNumber(int);
 	void setMaxSickDays(int hours) { maxSickDays.setHours(hours); }
@@ -32,12 +32,19 @@ public:
 	void setMaxUnpaid(int hours) { maxUnpaid.setHours(hours); }
 	void setUnpaidTaken(int hours) { unpaidTaken.setHours(hours); }
 
+	void maxVacationValidation();
+
+	string getName() { return name; }
+	int getIdNumber() { return id_number; }
 	double getMaxSickDays() { return maxSickDays.getDays(); }
 	double getSickTaken() { return sickTaken.getDays(); }
 	double getMaxVacation() { return maxVacation.getDays(); }
 	double getVacTaken() { return vacTaken.getDays(); }
 	double getMaxUnpaid() { return maxUnpaid.getDays(); }
 	double getUnpaidTaken() { return unpaidTaken.getDays(); }
+
+	double getVacDays();
+	double getSickDays();
 
 };
 
