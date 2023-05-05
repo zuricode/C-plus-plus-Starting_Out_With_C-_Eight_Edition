@@ -1,4 +1,5 @@
 #include "TimeOff.h"
+#include "NumDays.h"
 #include <iostream>
 
 using std::cin;
@@ -7,16 +8,11 @@ using std::strlen;
 
 const int MAX_VACATION_HOURS = 240;
 
-int maxVacationValidation(int num) {
+void TimeOff::maxVacationValidation() {
 
-	while (num < 0 || num > MAX_VACATION_HOURS) {
-		cout << "ERROR: An employee can not accumulate more than " << MAX_VACATION_HOURS << " hours.\n";
-		cout << "Enter the amount of vacation hours available: ";
-		cin >> num;
-		cout << "\n";
+	if (maxVacation.getHours() > MAX_VACATION_HOURS) {
+		maxVacation = MAX_VACATION_HOURS;
 	}
-
-	return num;
 
 }
 
@@ -57,6 +53,7 @@ TimeOff::TimeOff(string n, int id, int max_sick, int sick_taken, int max_vac,
 	maxSickDays.setHours(max_sick);
 	sickTaken.setHours(sick_taken);
 	maxVacation.setHours(max_vac);
+	maxVacationValidation();
 	vacTaken.setHours(vac_taken);
 	maxUnpaid.setHours(max_unpaid);
 	unpaidTaken.setHours(unpaid_taken);
@@ -70,3 +67,23 @@ TimeOff::TimeOff() {
 
 }
 
+double TimeOff::getVacDays() {
+
+	double days;
+
+	days = maxVacation.getHours() / static_cast<double>(8);
+
+	return days;
+
+}
+
+double TimeOff::getSickDays() {
+
+	double days;
+
+	days = maxSickDays.getHours() / static_cast<double>(8);
+
+	return days;
+		
+
+}
