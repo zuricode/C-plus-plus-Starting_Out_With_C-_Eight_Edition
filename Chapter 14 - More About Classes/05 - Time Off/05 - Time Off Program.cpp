@@ -34,9 +34,56 @@
 #include<iostream>
 
 using std::cout;
+using std::cin;
+
+void displayEmployeeInfo(TimeOff);
+void calculateLeaveAndVacation(TimeOff &, const int);
 
 int main() {
 
-	TimeOff employee("First Last", 5, 5, 5, 5, 5, 5, 5);
+	TimeOff employee_1("Samora Addo", 5321, 5, 5, 5, 5, 5, 5);
+	int months_worked;
+
+	displayEmployeeInfo(employee_1);
+
+	cout << "Enter the number of months that " << employee_1.getName() << " has worked: ";
+
+	while (!(cin >> months_worked) || months_worked <= 0) {
+		cout << "ERROR: Months worked must be an interger greater than 0\n";
+		cout << "\n";
+		cout << "Enter the number of months that " << employee_1.getName() << " has worked: ";
+	}
+
+	cout << "\n";
+
+	calculateLeaveAndVacation(employee_1, months_worked);
+
+}
+
+void displayEmployeeInfo(TimeOff a) {
+
+	cout << "--------------\n";
+	cout << "EMPLOYEE INFO: \n";
+	cout << "--------------\n";
+	cout << "\n";
+	cout << "Name: " << a.getName() << "\n";
+	cout << "ID Number: " << a.getIdNumber() << "\n";
+	cout << "\n";
+
+}
+
+void calculateLeaveAndVacation(TimeOff &a, const int MONTHS) {
+
+	int total_vacation;
+	int total_sick_leave;
+
+	total_vacation = 12 * MONTHS;
+	total_sick_leave = 8 * MONTHS;
+
+	a.setMaxVacation(total_vacation);
+	a.setMaxSickDays(total_sick_leave);
+
+	cout << "Days of vacation leave available for " << a.getName() << ": " << a.getVacDays() << "\n";
+	cout << "Days of sick leave available for " << a.getName() << ": " << a.getSickDays() << "\n";
 
 }
