@@ -75,3 +75,93 @@ Month::Month(int i) {
 	setMonthNumber(i);
 
 }
+
+Month Month::operator ++() {
+
+	if (monthNumber == 12) {
+		monthNumber = 1;
+	}
+	else {
+		++monthNumber;
+	}
+
+	name = MONTHS_WORDS[monthNumber - 1];
+
+	return *this;
+
+
+}
+
+Month Month::operator --() {
+
+	if (monthNumber == 1) {
+		monthNumber = 12;
+	}
+	else {
+		--monthNumber;
+	}
+
+	name = MONTHS_WORDS[monthNumber - 1];
+
+	return *this;
+
+
+}
+
+Month Month::operator ++(int) {
+
+	Month temp = *this;
+
+	if (monthNumber == 12) {
+		monthNumber = 1;
+	}
+	else {
+		++monthNumber;
+	}
+
+	name = MONTHS_WORDS[monthNumber - 1];
+
+	return temp;
+
+
+}
+
+Month Month::operator --(int) {
+
+	Month temp = *this;
+
+	if (monthNumber == 1) {
+		monthNumber = 12;
+	}
+	else {
+		--monthNumber;
+	}
+
+	name = MONTHS_WORDS[monthNumber - 1];
+
+	return temp;
+
+}
+
+ostream& operator << (ostream &strm, const Month &obj) {
+
+	strm << "Month name: " << obj.name << "\n";
+	strm << "Month number: " << obj.monthNumber << "\n";
+	strm << "\n";
+
+	return strm;
+
+}
+
+istream& operator >> (istream& strm, Month& obj) {
+
+	int num;
+
+	cout << "Enter the number of your chosen month: ";
+	strm >> num;
+
+	obj.setMonthNumber(num);
+
+	return strm;
+
+}
