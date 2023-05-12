@@ -2,6 +2,7 @@
 #include <iostream>
 
 using std::cout;
+using std::cin;
 
 void displayMonthInfo(Month);
 
@@ -11,29 +12,36 @@ int main() {
 	Month month_2(5);
 	Month month_3;
 
-	cout << "Month 1" << "\n";
-	cout << "-------" << "\n";
-	displayMonthInfo(month_1);
-
-	cout << "Month 2" << "\n";
-	cout << "-------" << "\n";
-	displayMonthInfo(month_2);
-
-	month_3.setName("april");
-	cout << "Month 3" << "\n";
-	cout << "-------" << "\n";
-	displayMonthInfo(month_3);
-
 	month_3.setName("august");
-	cout << "Month 3" << "\n";
-	cout << "-------" << "\n";
-	displayMonthInfo(month_3);
+	cout << month_3;
 
-	month_3.setMonthNumber(11);
-	cout << "Month 3" << "\n";
-	cout << "-------" << "\n";
-	displayMonthInfo(month_3);
-	
+	++month_3;
+	cout << month_3;
+
+	++month_3;
+	cout << month_3;
+
+	--month_3;
+	cout << month_3;
+
+	--month_3;
+	cout << month_3;
+
+	month_3++;
+	cout << month_3;
+
+	month_3++;
+	cout << month_3;
+
+	cout << month_2;
+
+	cout << month_1;
+
+	cin >> month_1;
+
+	cout << ++month_1;
+
+
 
 }
 
