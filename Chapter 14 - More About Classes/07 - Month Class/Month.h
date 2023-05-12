@@ -1,8 +1,11 @@
 #ifndef MONTH_H
 #define MONTH_H
 #include <string>
+#include <iostream>
 
 using std::string;
+using std::ostream;
+using std::istream;
 
 class Month {
 
@@ -20,6 +23,15 @@ public:
 
 	string getName() { return name; }
 	int getMonthNumber() { return monthNumber; }
+
+	Month operator ++();
+	Month operator --();
+
+	Month operator ++(int);
+	Month operator --(int);
+
+	friend ostream& operator << (ostream&, const Month &);
+	friend istream& operator >> (istream&, Month&);
 
 };
 
