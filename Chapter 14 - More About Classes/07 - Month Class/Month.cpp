@@ -23,15 +23,16 @@ string convertToUppercase(string s) {
 void Month::setName(string s) {
 
 	bool isMatched = false;
-	string temp_month_array;
+	string temp_upper_month_array;
+	string temp_upper_user_month;
 
-	s = convertToUppercase(s);
+	temp_upper_user_month = convertToUppercase(s);
 
 	for (int i = 0; i < AMOUNT_OF_MONTHS; i++) {
 
-		temp_month_array = convertToUppercase(MONTHS_WORDS[i]);
+		temp_upper_month_array = convertToUppercase(MONTHS_WORDS[i]);
 
-		if (s == temp_month_array) {
+		if (temp_upper_user_month == temp_upper_month_array) {
 			name = MONTHS_WORDS[i];
 			monthNumber = i + 1;
 			isMatched = true;
@@ -41,10 +42,11 @@ void Month::setName(string s) {
 	}
 
 	if (!isMatched) {
-		cout << "ERROR: You have not entered a valid month.\n";
-		cout << "The month will be initialised to \"JANUARY\".\n";
-		name = "January";
+		cout << "ERROR: " << "\"" << s << "\" is not a valid month.\n";
 		monthNumber = 1;
+		name = "January";
+		MONTHS_WORDS[monthNumber - 1];
+		cout << "The month object has been initialised to \"" << MONTHS_WORDS[monthNumber - 1] << "\".\n";
 		cout << "\n";
 	}
 
