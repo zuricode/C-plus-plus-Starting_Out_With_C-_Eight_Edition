@@ -41,7 +41,11 @@ int main() {
 
 	cout << ++month_1;
 
+	Month month_4("Mars");
 
+	cin >> month_4;
+
+	cout << month_4;
 
 }
 
