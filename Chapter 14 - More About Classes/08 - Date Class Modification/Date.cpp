@@ -7,9 +7,10 @@ using std::endl;
 
 const int MIN_YEAR = 1950;
 const int MAX_YEAR = 2100;
+const int AMOUNT_OF_MONTHS = 13;
 
- const int Date::DAYS_PER_MONTH[13]{ 0,31,28,31,30,31,30,31,31,30,31,30,31 };
- const string Date::MONTHS_NAMES[13]{ "","Janaury", "February", "March", "April", "May", "June", "July",
+const int Date::DAYS_PER_MONTH[AMOUNT_OF_MONTHS]{ 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+ const string Date::MONTHS_NAMES[AMOUNT_OF_MONTHS]{ "","Janaury", "February", "March", "April", "May", "June", "July",
 												"August", "September", "October", "November", "December" };
 
 enum Months {JANUARY = 1, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY,
@@ -95,7 +96,7 @@ int Date::monthValidation(string request) {
 	cout << request;
 
 	while (!(cin >> month) || month < 1 || month > 12) {
-		cout << "ERROR: Day cannot be lesser than 1 or greater than 31." << endl;
+		cout << "ERROR: Month cannot be lesser than 1 or greater than 12." << endl;
 		cout << endl;
 		cin.ignore();
 		cout << request;
@@ -247,5 +248,49 @@ Date Date::operator -- (int) {
 	--*this;
 
 	return original;
+
+}
+
+int Date::operator - (const Date obj) {
+
+	int date_1 = 0;
+	int date_2 = 0;
+
+	for (int i = MIN_YEAR; i < year; i++) {
+		if (i % 4 == 0) {
+			date_1 += 366;
+		}
+		else {
+			date_1 += 365;
+		}
+	}
+
+	for (int i = MIN_YEAR; i < obj.year; i++) {
+		if (i % 4 == 0) {
+			date_2 += 366;
+		}
+		else {
+			date_2 += 365;
+		}
+	}
+
+	for (int i = 0; i <= month; i++) {
+		date_1 += DAYS_PER_MONTH[i];
+	}
+
+	for (int i = 0; i <= obj.month; i++) {
+		date_2 += DAYS_PER_MONTH[i];
+	}
+
+	date_1 += day;
+
+	date_2 += obj.day;
+
+	if (date_2 > date_1) {
+		cout << "WARNING: Date #2 > Date #1. Result will be a negative number.\n";
+		cout << "\n";
+	}
+
+	return date_1 - date_2;
 
 }
