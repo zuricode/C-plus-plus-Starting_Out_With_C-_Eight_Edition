@@ -35,6 +35,8 @@ public:
 	Date operator --();
 	Date operator --(int);
 
+	int operator - (const Date);
+
 	friend ostream& operator << (ostream&, const Date&);
 	friend istream& operator >> (istream&, Date&);
 
