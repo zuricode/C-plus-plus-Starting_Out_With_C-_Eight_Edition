@@ -52,6 +52,8 @@ public:
 	bool operator == (const FeetInches &);		// Overloaded ==
 
 	bool operator <= (const FeetInches &);
+	bool operator >= (const FeetInches &);
+	bool operator != (const FeetInches&);
 
    // Conversion functions
 	operator double();
