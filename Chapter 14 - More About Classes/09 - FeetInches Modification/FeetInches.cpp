@@ -217,3 +217,55 @@ bool FeetInches::operator <= (const FeetInches& obj) {
 	}
 
 }
+
+bool FeetInches::operator >= (const FeetInches& obj) {
+
+	int operand_1 = 0;
+	int operand_2 = 0;
+
+	for (int i = 0; i < feet; i++) {
+		operand_1 += 12;
+	}
+
+	operand_1 += inches;
+
+	for (int i = 0; i < obj.feet; i++) {
+		operand_2 += 12;
+	}
+
+	operand_2 += obj.inches;
+
+	if (operand_1 >= operand_2) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+bool FeetInches::operator != (const FeetInches& obj) {
+
+	int operand_1 = 0;
+	int operand_2 = 0;
+
+	for (int i = 0; i < feet; i++) {
+		operand_1 += 12;
+	}
+
+	operand_1 += inches;
+
+	for (int i = 0; i < obj.feet; i++) {
+		operand_2 += 12;
+	}
+
+	operand_2 += obj.inches;
+
+	if (operand_1 != operand_2) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
