@@ -4,6 +4,7 @@
 class DivSales {
 
 private:
+
 	double sales_data[4];
 	static double total_annual_corp_sales;
 
