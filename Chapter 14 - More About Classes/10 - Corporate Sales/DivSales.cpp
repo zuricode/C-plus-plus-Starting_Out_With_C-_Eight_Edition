@@ -46,6 +46,5 @@ double DivSales::getTotalAnnualCorpSales() const {
 
 }
 
-
-double DivSales::total_annual_corp_sales = 0;
+double DivSales::total_annual_corp_sales;
 
