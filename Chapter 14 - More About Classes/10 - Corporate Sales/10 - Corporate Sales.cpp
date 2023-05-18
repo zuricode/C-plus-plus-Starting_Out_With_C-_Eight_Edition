@@ -6,9 +6,13 @@ using namespace std;
 
 void displayAllQuarterlyEarnings(DivSales [], const int, const int);
 void enterData(DivSales [], const int);
-void displayCompanyEarningsTable(const DivSales, const int);
+void displayCompanyEarningsTable(DivSales [], const int);
 
 int main() {
+
+	cout << "10 - CORPORATE SALES PROGRAM\n";
+	cout << "============================\n";
+	cout << "\n";
 
 	const int NUMBER_OF_DIVISIONS = 6;
 
@@ -16,22 +20,16 @@ int main() {
 
 	enterData(company, NUMBER_OF_DIVISIONS);
 
-	displayAllQuarterlyEarnings(company, NUMBER_OF_DIVISIONS, 0);
-
-	cout << "Total annual sales for all divisions: $" << fixed << setprecision(2) << company[0].getTotalAnnualCorpSales() << "\n";
-	cout << "\n";
+	displayCompanyEarningsTable(company, NUMBER_OF_DIVISIONS);
 
 }
 
 void enterData(DivSales d[], const int NUMBER_OF_DIVISIONS) {
 
-	cout << "DATA ENTRY FOR COMPANY\n";
-	cout << "======================\n";
-	cout << "\n";
-
 	for (int i = 0; i < NUMBER_OF_DIVISIONS; i++) {
 
 		cout << "Division #" << i + 1 << "\n";
+		cout << "------------------------------\n";
 
 		if (i != 2 && i != 5) {
 			d[i].enterSalesData();
@@ -58,7 +56,7 @@ void displayAllQuarterlyEarnings(DivSales d[], const int NUMBER_OF_DIVISIONS, co
 		cout << "====================\n";
 		cout << "\n";
 
-		for (int j = 0; j < 4; j++) {
+		for (int j = 0; j < NUMBER_OF_QUARTERS; j++) {
 
 			cout << "$" << d[i].getSalesFromQuarter(j) << " was earned in Q" << j + 1 << "\n";
 
@@ -70,9 +68,35 @@ void displayAllQuarterlyEarnings(DivSales d[], const int NUMBER_OF_DIVISIONS, co
 
 }
 
-void displayCompanyEarningsTable(const DivSales D, const int NUMBER_OF_DIVISIONS) {
+void displayCompanyEarningsTable(DivSales d[], const int NUMBER_OF_DIVISIONS) {
 
 	cout << "COMPANY EARNINGS REPORT\n";
-	cout << left << setfill('=') << setw(70) <<
+	cout << setfill('-') << setw(110) << "\n";
+	cout << setfill(' ');
+
+	cout << left << setw(20) << "DIV #" << setw(15) << "Q1" << setw(15) << "Q2" << setw(15) << "Q3" << setw(15) << "Q4" << setw(15) << "ANNUAL DIVISION TOTAL\n";
+	cout << right << setfill('-') << setw(110) << "\n";
+	cout << setfill(' ');
+
+	for (int i = 0; i < NUMBER_OF_DIVISIONS; i++) {
+
+		cout << left << "Division #" << setw(10) << i + 1;
+
+		for (int j = 0; j < NUMBER_OF_QUARTERS; j++) {
+
+			cout << "$" << fixed << setprecision(2) << setw(14) << d[i].getSalesFromQuarter(j);
+
+		}
+
+		cout << "$" << d[i].getTotalDivSales() << "\n";
+
+	}
+
+	cout << right << setfill('-') << setw(110) << "\n";
+	cout << setfill(' ');
+	cout << "\n";
+
+	cout << setw(50) << "" << setw(31) << "GRAND COMPANY ANNUAL TOTAL: $" << d[0].getTotalAnnualCorpSales() << "\n";
+
 
 }
