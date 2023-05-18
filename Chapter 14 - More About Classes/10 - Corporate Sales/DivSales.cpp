@@ -4,9 +4,6 @@
 using std::cout;
 using std::cin;
 
-const int NUMBER_OF_QUARTERS = 4;
-
-
 DivSales::DivSales() {
 
 	for (int i = 0; i < NUMBER_OF_QUARTERS; i++) {
@@ -27,10 +24,12 @@ void DivSales::enterSalesData() {
 		while (!(cin >> num) || num < 0) {
 			cout << "ERROR: Earnings cannot be a negative number.\n";
 			cout << "\n";
+			cin.clear();
 			cin.ignore();
 			cout << "Re-enter your value: $";
 		}
 
+		cin.clear();
 		cin.ignore();
 
 		sales_data[i] = num;
@@ -69,6 +68,18 @@ double DivSales::getSalesFromQuarter(int num) const {
 double DivSales::getTotalAnnualCorpSales() const {
 
 	return total_annual_corp_sales;
+
+}
+
+double DivSales::getTotalDivSales() const {
+
+	double total = 0;
+
+	for (int i = 0; i < NUMBER_OF_QUARTERS; i++) {
+		total += sales_data[i];
+	}
+
+	return total;
 
 }
 
