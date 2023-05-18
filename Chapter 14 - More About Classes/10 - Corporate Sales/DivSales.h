@@ -11,8 +11,10 @@ private:
 public:
 
 	DivSales();
+	DivSales(const double, const double, const double, const double);
 
 	void addSalesData(const double, const double, const double, const double);
+	void enterSalesData();
 	double getSalesFromQuarter(int) const;
 
 	double getTotalAnnualCorpSales() const;
