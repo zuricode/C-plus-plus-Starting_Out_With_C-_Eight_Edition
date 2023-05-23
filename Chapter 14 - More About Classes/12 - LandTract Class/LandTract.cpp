@@ -13,8 +13,6 @@ double LandTract::getArea() {
 	area += result.getFeet();
 	area += static_cast<double>(result.getInches()) / 12;
 
-	area /= 12;
-
 	return area;
 
 }
