@@ -1,7 +1,7 @@
 #ifndef ROOMDIMENSION_H
 #define ROOMDIMENSION_H
 
-#include
+#include "FeetInches.h"
 
 class RoomDimension {
 
@@ -11,6 +11,9 @@ private:
 
 public:
 
-	double getArea() const;
+	FeetInches getArea() const;
+	double getAreaSqFt() const;
 
 };
+
+#endif
