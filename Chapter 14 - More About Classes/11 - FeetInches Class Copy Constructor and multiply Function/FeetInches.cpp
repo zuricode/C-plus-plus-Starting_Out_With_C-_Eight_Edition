@@ -64,7 +64,8 @@ FeetInches FeetInches::multiply (const FeetInches& right) {
 	FeetInches result;
 
 	result.inches = (feet * 12 + inches) * (right.feet * 12 + right.inches);
-	result.inches /= 12;
+	result.feet = result.inches / 12;
+	result.inches %= 12;
 	result.simplify();
 
 	return result;
