@@ -3,12 +3,19 @@
 
 using std::cin;
 
-FeetInches LandTract::getArea() {
+double LandTract::getArea() {
 
+	double area = 0;
 	FeetInches result;
+	
 	result = length.multiply(width);
 
-	return result;
+	area += result.getFeet();
+	area += static_cast<double>(result.getInches()) / 12;
+
+	area /= 12;
+
+	return area;
 
 }
 
