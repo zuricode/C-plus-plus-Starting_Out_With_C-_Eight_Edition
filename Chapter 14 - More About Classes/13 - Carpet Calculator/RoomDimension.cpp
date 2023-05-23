@@ -1,8 +1,26 @@
 #include "RoomDimension.h"
-#include "FeetInches.h"
 
-double RoomDimension::getArea() const {
+FeetInches RoomDimension::getArea() const {
 
-	return 
+	FeetInches result;
+
+	result = length.multiply(width);
+
+	return result;
+
+}
+
+double RoomDimension::getAreaSqFt() const {
+
+	double area = 0;
+
+	FeetInches result;
+
+	result = length.multiply(width);
+
+	area += result.getFeet();
+	area += static_cast<double>(result.getInches()) / 12;
+
+	result area;
 
 }
