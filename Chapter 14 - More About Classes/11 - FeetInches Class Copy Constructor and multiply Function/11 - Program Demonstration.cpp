@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 
-	FeetInches person_height(15, 4);
+	FeetInches person_height(5, 4);
 	FeetInches person_clone(person_height);
 	FeetInches new_person;
 
