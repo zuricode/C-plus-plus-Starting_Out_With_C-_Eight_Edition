@@ -1,4 +1,5 @@
 #include "LandTract.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -25,8 +26,10 @@ int main() {
 
 	enterLandData(land_2);
 
-	cout << "Land #1 Area: " << land_1.getArea() << "\n";
-	cout << "Land #2 Area: " << land_2.getArea() << "\n";
+	cout << fixed << setprecision(2);
+
+	cout << "Land #1 Area: " << land_1.getArea() << " sq ft.\n";
+	cout << "Land #2 Area: " << land_2.getArea() << " sq ft.\n";
 
 	if (land_1.getArea() == land_2.getArea()) {
 		cout << "Both plots of land are the same size.\n";
