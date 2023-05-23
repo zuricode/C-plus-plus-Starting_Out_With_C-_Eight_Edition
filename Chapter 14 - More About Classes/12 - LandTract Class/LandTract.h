@@ -17,7 +17,7 @@ public:
 	FeetInches getLength() const { return length; }
 	FeetInches getWidth() const { return width;  }
 
-	FeetInches getArea();
+	double getArea();
 
 
 };
