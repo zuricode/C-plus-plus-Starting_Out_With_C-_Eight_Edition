@@ -11,8 +11,10 @@ private:
 
 public:
 
-	FeetInches getArea() const;
-	double getAreaSqFt() const;
+	FeetInches getArea();
+	double getAreaSqFt();
+
+	void setLengthAndWidth();
 
 };
 
