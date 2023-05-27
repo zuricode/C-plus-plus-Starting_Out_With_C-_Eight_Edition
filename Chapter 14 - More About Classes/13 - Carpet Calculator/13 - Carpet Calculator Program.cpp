@@ -23,12 +23,31 @@
 //enter the dimensions of a room and the price per square foot of the desired carpeting.
 //The application should display the total cost of the carpet.
 
+#include "RoomDimension.h"
 #include "RoomCarpet.h"
+#include <iomanip>
 
 using namespace std;
 
 int main() {
 
+	RoomCarpet customer_1;
 
+	cout << "=================================\n";
+	cout << "13 - CARPET CALCULATOR PROGRAM\n";
+	cout << "=================================\n";
+
+	cout << "\n";
+
+	customer_1.setRoomArea();
+
+	cout << fixed << setprecision(2);
+	cout << "Total area of carpet: " << customer_1.getRoomArea() << " sq ft.\n";
+	cout << "\n";
+
+	customer_1.setCost();	
+
+	cout << "The cost of the carpet will be $" << customer_1.calculateCost() << "\n";
+	cout << "\n";
 
 }
