@@ -1,5 +1,6 @@
 #ifndef ROOMCARPET_H
 #define ROOMCARPET_H
+#include "RoomDimension.h"
 
 class RoomCarpet {
 
@@ -11,7 +12,12 @@ public:
 	RoomCarpet() { cost_per_sq_ft = 0; }
 	RoomCarpet(const double num) { cost_per_sq_ft = num; }
 
-	double calculateCost() const;
+	double calculateCost();
+
+	double getRoomArea();
+	void setRoomArea();
+
+	void setCost();
 
 };
 
