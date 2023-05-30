@@ -1,0 +1,7 @@
+Account report: 
+--------------------
+Balance: $10000.2
+No.of deposits : 2
+No. of withdrawals: 2
+Total interest earned: $62.5015
+
