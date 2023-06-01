@@ -24,8 +24,8 @@ public:
 
 	double getFuel() const;			// Get fuel in gallons, argument
 
-	void operator ++();				// Add 1 gallon of fuel in the tank
-	void operator --();				// Use 1 gallon of fuel in the tank
+	void operator ++(int);				// Add 1 gallon of fuel in the tank
+	void operator --(int);				// Use 1 gallon of fuel in the tank
 
 	friend ostream& operator << (ostream&, const FuelGauge&);
 	friend istream& operator >> (istream&, FuelGauge&);

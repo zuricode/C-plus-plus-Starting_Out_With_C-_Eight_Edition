@@ -67,13 +67,13 @@ double FuelGauge::getFuel() const {
 
 }
 
-void FuelGauge::operator ++() {
+void FuelGauge::operator ++(int) {
 
 	addFuel(1);
 
 }
 
-void FuelGauge::operator --() {
+void FuelGauge::operator --(int) {
 
 	useFuel(1);
 

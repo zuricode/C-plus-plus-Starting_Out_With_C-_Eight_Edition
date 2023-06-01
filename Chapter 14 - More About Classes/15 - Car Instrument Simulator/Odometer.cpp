@@ -75,7 +75,7 @@ bool Odometer::checkFuelForMileage(const double MILES, FuelGauge& f) {
 
 }
 
-void Odometer::operator ++() {
+void Odometer::operator ++(int) {
 
 	if (checkMileage(1)) {
 		mileage++;
@@ -97,7 +97,7 @@ void Odometer::updateFuelGauge(const double MILES, FuelGauge& f) {
 	double fuel_burnt_gallons;
 
 	if (miles > MILES_PER_GALLON) {
-		--f;
+		f--;
 		miles -= MILES_PER_GALLON;
 	}
 

@@ -29,7 +29,7 @@ public:
 
 	void updateFuelGauge(const double, FuelGauge&);			// Decrease the fule gauge accordingly in relation to the mileage travelled
 
-	void operator ++();										// Increment the mileage by 1 mile
+	void operator ++(int);										// Increment the mileage by 1 mile
 
 	friend ostream& operator << (ostream&, const Odometer&);
 
