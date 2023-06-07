@@ -21,6 +21,7 @@ public:
 
 	double getSalary() const { return salary; }
 	double getAnnualBonus() const { return annual_bonus; }
+	double getTotalSalary() const { return salary + annual_bonus; }
 
 	friend ostream& operator << (ostream&, const ShiftSupervisor&);
 

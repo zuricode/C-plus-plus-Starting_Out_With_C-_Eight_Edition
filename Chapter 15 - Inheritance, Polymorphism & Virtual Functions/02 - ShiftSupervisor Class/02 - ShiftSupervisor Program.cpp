@@ -19,12 +19,12 @@ int main() {
 	ProductionWorker worker_2(1, 14.50, "Zaire Sarr", 56332, "06/08/2019");
 	cout << worker_1 << worker_2;
 
-	cout << "Example of ShiftSupervisor objects...\n";
-	cout << "\n";
-
 	ShiftSupervisor supervisor_1;
 	enterSupervisorData(supervisor_1);
 	ShiftSupervisor supervisor_2(34999.00, 4590, "Dele Adesanya", 94323, "11/05/2022");
+
+	cout << "Example of ShiftSupervisor objects...\n";
+	cout << "\n";
 
 	cout << supervisor_1 << supervisor_2;
 

@@ -50,6 +50,7 @@ ostream& operator << (ostream& strm, const ShiftSupervisor& S) {
 	strm << setw(30) << "Date hired: " << S.getHireDate() << "\n";
 	strm << setw(30) << "Salary: $" << S.salary << "\n";
 	strm << setw(30) << "Annual production bonus: $" << S.annual_bonus << "\n";
+	strm << setw(30) << "TOTAL SALARY: $" << S.getTotalSalary() << "\n";
 	strm << "\n";
 
 	return strm;
