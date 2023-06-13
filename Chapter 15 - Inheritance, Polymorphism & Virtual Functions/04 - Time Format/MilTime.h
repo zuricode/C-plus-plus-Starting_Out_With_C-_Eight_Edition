@@ -21,12 +21,12 @@ private:
 
 public:
 	MilTime() : Time() { milHours = "0000"; milSeconds = "00"; }
-	MilTime(int, int);
+	MilTime(const string, const string);
 
 	string convertHoursToMilHours(int);
 
-	void milHoursValidation(int&);
-	void milSecondsValidation(int);
+	void milHoursValidation(const string);
+	void milSecondsValidation(const string);
 
 	void setTime(int, int);
 

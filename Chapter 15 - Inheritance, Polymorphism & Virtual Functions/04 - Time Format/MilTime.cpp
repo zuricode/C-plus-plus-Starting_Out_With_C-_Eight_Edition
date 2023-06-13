@@ -5,53 +5,66 @@ using std::cout;
 using std::cin;
 using std::stoi;
 
-MilTime::MilTime(int mH, int mS)  {
+MilTime::MilTime(const string mH, const string mS)  {
+
+	milHours = mH;
+	milSeconds = mS;
 
 	milHoursValidation(mH);
 	milSecondsValidation(mS);
 
-	hour = mH / 100;
-	min = mH % 100;
-	sec = mS;
+	hour = stoi(milHours) / 100;
+	min = stoi(milHours) % 100;
+	sec = stoi(milSeconds);
 
 }
 
-void MilTime::milHoursValidation(int& mH) {
+void MilTime::milHoursValidation(const string mH) {
 
-		while (mH % 100 > 59) {
+	int mH_int = stoi(mH);
+
+		while (mH_int % 100 > 59) {
+			milHours = to_string(mH_int);
+			cout << *this << "\n";
 			cout << "ERROR: The last two digits of time represent minutes.\n";
 			cout << "You cannot not have more than 59 minutes within an hour.\n";
 			cout << "\n";
 			cout << "Military hours: ";
-			cin >> mH;
+			cin >> mH_int;
 			cout << "\n";
 		}
 
-		while (mH < MIN_MIL_HOURS || mH > MAX_MIL_HOURS) {
+		while (mH_int < MIN_MIL_HOURS || mH_int > MAX_MIL_HOURS) {
+			milHours = to_string(mH_int);
+			cout << *this << "\n";
 			cout << "ERROR: Hours value must be between " << MIN_MIL_HOURS << " and "
 				<< MAX_MIL_HOURS << ".\n";
 			cout << "\n";
 			cout << "Military hours: ";
-			cin >> mH;
+			cin >> mH_int;
 			cout << "\n";
 		}
 
-		milHours = convertHoursToMilHours(mH);
+		milHours = convertHoursToMilHours(mH_int);
 
 }
 
-void MilTime::milSecondsValidation(int mS) {
+void MilTime::milSecondsValidation(const string mS) {
 
-	if (mS < MIN_SECONDS || mS > MAX_SECONDS) {
+	int mS_int = stoi(mS);
+
+	if (mS_int < MIN_SECONDS || mS_int > MAX_SECONDS) {
+		milSeconds = to_string(mS_int);
+		cout << *this << "\n";
 		cout << "ERROR: Seconds value must be between " << MIN_SECONDS << " and "
 			<< MAX_SECONDS << ".\n";
 		cout << "\n";
 		cout << "Seconds: ";
-		cin >> mS;
+		cin >> mS_int;
 		cout << "\n";
 	}
 
-	milSeconds = to_string(mS);
+	milSeconds = to_string(mS_int);
 
 }
 

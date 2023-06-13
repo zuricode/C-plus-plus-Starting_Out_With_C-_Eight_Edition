@@ -41,10 +41,10 @@ int main() {
 	cout << "=========================\n";
 	cout << "\n";
 
-	MilTime military_watch(1001,49);
-	Time clock(23,41,19);
-
-	cout << clock << "\n";
+	MilTime military_watch("5110","49");
+	Time clock(23,59,39);
+	
 	cout << military_watch << "\n";
+	cout << clock << "\n";
 
 }
