@@ -1,0 +1,52 @@
+ENCRYPTED TEXT (Key = 53)
+-------------------------
+Åû£öUfoUv
+Åû£öUgoUw
+Åû£öUhoUx
+Åû£öUioUy
+Åû£öUjoUz
+Åû£öUkoU{
+Åû£öUloU|
+Åû£öUmoU}
+Åû£öUnoU~
+
+UPPERCASE FILTER
+----------------
+LINE 1: A
+LINE 2: B
+LINE 3: C
+LINE 4: D
+LINE 5: E
+LINE 6: F
+LINE 7: G
+LINE 8: H
+LINE 9: I
+
+UNCHANGED DATA 
+--------------
+Line 1: A
+Line 2: B
+Line 3: C
+Line 4: D
+Line 5: E
+Line 6: F
+Line 7: G
+Line 8: H
+Line 9: I
+
+DOUBLE SPACE FILTER 
+--------------------
+Line 1: A
+Line 2: B
+
+Line 3: C
+Line 4: D
+
+Line 5: E
+Line 6: F
+
+Line 7: G
+Line 8: H
+
+Line 9: I
+
