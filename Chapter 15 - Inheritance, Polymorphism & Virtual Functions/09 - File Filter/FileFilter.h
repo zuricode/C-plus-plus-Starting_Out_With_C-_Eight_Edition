@@ -27,10 +27,12 @@ public:
 
 	virtual char transform(char) = 0;
 
-	void doFilter(ifstream& in, ofstream& out);
+	virtual void doFilter(ifstream& in, ofstream& out);
 
 	string getOriginalData() const { return original_data; }
 	string getFilteredData() const { return filtered_data; }
+
+	void setFilteredData(const char C) { filtered_data += C; }
 
 	virtual void print(ostream&) const = 0;
 

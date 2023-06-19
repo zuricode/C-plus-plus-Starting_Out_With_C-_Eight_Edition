@@ -12,7 +12,7 @@ void FileFilter::importData(ifstream& in) {
 	}
 
 		while (getline(in, s)) {
-			original_data += s;
+			original_data += s += '\n';
 		}
 
 }
@@ -46,8 +46,8 @@ void FileFilter::doFilter(ifstream& in, ofstream& out) {
 		filtered_data += transform(original_data[i]);
 	}
 
-	cout << *this << "\n";
-	out << *this << "\n";
+	cout << *this;
+	out << *this;
 
 }
 

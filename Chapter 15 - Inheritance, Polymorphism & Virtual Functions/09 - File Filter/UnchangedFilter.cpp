@@ -2,7 +2,9 @@
 
 void UnchangedFilter::print(ostream& strm) const {
 
-	strm << "UNCHANGED DATA: " << getFilteredData();
+	strm << "UNCHANGED DATA " << "\n";
+	strm << "--------------" << "\n";
+	strm << getFilteredData() << "\n";
 
 }
 

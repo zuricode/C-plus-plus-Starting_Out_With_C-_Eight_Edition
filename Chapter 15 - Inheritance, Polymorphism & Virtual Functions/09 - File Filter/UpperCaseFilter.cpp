@@ -2,7 +2,9 @@
 
 void UpperCaseFilter::print(ostream& strm) const {
 
-	strm << "UPPERCASE FILTER: " << getFilteredData();
+	strm << "UPPERCASE FILTER" << "\n";
+	strm << "----------------" << "\n";
+	strm << getFilteredData() << "\n";
 
 }
 
