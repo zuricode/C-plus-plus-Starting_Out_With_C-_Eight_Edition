@@ -1,14 +1,11 @@
 #ifndef ESSAY_H
 #define ESSAY_H
 
-#include "C:\\Users\\Admin\\source\\repos\\Project2\\Project2\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\SourceCode\\chapter 15\\GradedActivity Version 3\\GradedActivity.h"
-#include <iostream>
+#include "C:\\Users\\Admin\\source\\repos\\Project2\\Project2\\C-plus-plus-Starting_Out_With_C-_Eight_Edition\\Chapter 15 - Inheritance, Polymorphism & Virtual Functions\\11 - Course Grades\\Amended Files\\GradedActivity.h"
 #include <iomanip>
 
 using std::cout;
 using std::cin;
-using std::ostream;
-using std::istream;
 using std::setw;
 using std::left;
 
@@ -40,7 +37,7 @@ public:
 	int getCorrectLengthPoints() const { return correct_length; }
 	int getContentPoints() const { return content; }
 
-	friend ostream& operator << (ostream&, const Essay&);
+	virtual void print(ostream&) const;
 
 };
 
