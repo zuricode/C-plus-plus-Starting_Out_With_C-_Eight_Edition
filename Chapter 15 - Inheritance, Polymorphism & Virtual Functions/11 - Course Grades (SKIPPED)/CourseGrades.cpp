@@ -1,6 +1,6 @@
 #include "CourseGrades.h"
 
-void CourseGrades::setLab(GradedAcitivty* g) {
+void CourseGrades::setLab(GradedActivity* g) {
 	grades[0] = g;
 }
 
