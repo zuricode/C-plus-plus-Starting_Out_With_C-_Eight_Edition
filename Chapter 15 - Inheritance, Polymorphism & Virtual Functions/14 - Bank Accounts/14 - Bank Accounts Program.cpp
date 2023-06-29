@@ -96,9 +96,210 @@
 #include "Savings.h"
 #include "Checking.h"
 
+#include <iomanip>
+#include <string>
+
+using std::left;
+using std::setw;
+using std::setfill;
+using std::string;
+using std::setprecision;
+using std::fixed;
+
+void showMainMenu(Savings&, Checking&);
+void enterMenuSelection(string, int, int, int&);
+
+void savingsMenu(Savings&);
+void checkingMenu(Checking&);
+
 int main() {
+
+	cout << fixed << setprecision(2);
 
 	Savings savings(154.67, 3.5);
 	Checking checking(1540, 2.4);
+
+	cout << "===========================\n";
+	cout << "15-14 BANK ACCOUNTS PROGRAM\n";
+	cout << "===========================\n";
+	cout << "\n";
+
+	showMainMenu(savings, checking);
+
+}
+
+void showMainMenu(Savings& s, Checking& c) {
+
+	int menu_selection = 0;
+
+	cout << "-------------------------------\n";
+	cout << "   CONTINENTAL BANK OF AFRICA  \n";
+	cout << "-------------------------------\n";
+	cout << "\n";	
+
+	while (menu_selection != 3) {
+
+		cout << "MAIN MENU\n";
+		cout << "---------\n";
+		cout << "\n";
+		cout << "1. Access Savings Account\n";
+		cout << "2. Access Checking Account\n";
+		cout << "3. Quit program\n";
+		cout << "\n";
+
+		enterMenuSelection("Enter your selection: ", 1, 3, menu_selection);
+
+		if (menu_selection == 1) {
+			savingsMenu(s);
+		}
+		else if (menu_selection == 2) {
+			checkingMenu(c);
+		}
+
+	}
+
+	cout << "Quitting the program...\n";
+	exit(EXIT_SUCCESS);
+
+}
+
+void enterMenuSelection(string request, int lower_limit, int upper_limit, int& menu_selection) {
+
+	cout << request;
+
+	while (!(cin >> menu_selection) || menu_selection < lower_limit || menu_selection > upper_limit) {
+		cout << "Error: Selection must be a value between " << lower_limit << " - " << upper_limit << ". Re-enter your value.\n";
+		cout << "\n";
+		cout << request;
+	}	
+
+	cin.ignore();
+	cout << "\n";
+
+	cout << "--------------------------------------------------------------------------------------------------------\n";
+	cout << "\n";
+
+}
+
+void savingsMenu(Savings& s) {
+
+	int menu_selection = 0;
+	double amount;
+	
+	while (menu_selection != 5) {
+
+		cout << "SAVINGS ACCOUNT\n";
+		cout << "---------------\n";
+		cout << "\n";
+		cout << "1. Make a deposit\n";
+		cout << "2. Make a withdrawal\n";
+		cout << "3. Conduct monthly review\n";
+		cout << "4. Show savings account statement\n";
+		cout << "5. Return to main menu\n";
+		cout << "\n";
+
+		enterMenuSelection("Enter your selection: ", 1, 5, menu_selection);
+
+		if (menu_selection == 1) {
+
+			cout << "How much would you like to deposit: $";
+
+			while (!(cin >> amount) || amount <= 0) {
+				cout << "Error: Deposits must be a positive value greater than 0.\n";
+				cout << "\n";
+				cout << "How much would you like to deposit: $";
+			}
+
+			cin.ignore();
+			cout << "\n";
+
+			s.deposit(amount);
+
+		}
+
+		else if (menu_selection == 2) {
+
+			cout << "How much would you like to withdraw: $";
+
+			while (!(cin >> amount) || amount <= 0) {
+				cout << "Error: Withdrawals must be a positive value greater than 0.\n";
+				cout << "\n";
+				cout << "How much would you like to withdraw: $";
+			}
+
+			cin.clear();
+			cin.ignore();
+			cout << "\n";
+
+			s.withdraw(amount);
+
+		}
+
+		else if (menu_selection == 3) {
+
+			s.monthlyProc();
+
+		}
+
+		else if (menu_selection == 4) {
+
+			cout << s;
+
+		}
+
+	}	
+
+}
+
+void checkingMenu(Checking& c) {
+
+	int menu_selection = 0;
+	double amount;
+
+	while (menu_selection != 4) {
+
+		cout << "CHECKING ACCOUNT\n";
+		cout << "----------------\n";
+		cout << "\n";
+		cout << "1. Make a withdrawal\n";
+		cout << "2. Conduct monthly review\n";
+		cout << "3. Show checking account statement\n";
+		cout << "4. Return to main menu\n";
+		cout << "\n";
+
+		enterMenuSelection("Enter your selection: ", 1, 4, menu_selection);
+
+		if (menu_selection == 1) {
+
+			cout << "How much would you like to withdraw: $";
+
+			while (!(cin >> amount) || amount <= 0) {
+				cout << "Error: Withdrawals must be a positive value greater than 0.\n";
+				cout << "\n";
+				cout << "How much would you like to withdraw: $";
+			}
+
+			cin.clear();
+			cin.ignore();
+			cout << "\n";
+
+			c.withdraw(amount);
+
+		}
+
+		else if (menu_selection == 2) {
+
+			c.monthlyProc();
+
+		}
+
+		else if (menu_selection == 3) {
+
+			cout << c << "\n";
+
+		}
+
+	}	
+
 
 }

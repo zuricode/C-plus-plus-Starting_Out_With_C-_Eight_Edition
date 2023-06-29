@@ -20,6 +20,8 @@ public:
 
 	virtual void monthlyProc();
 
+	virtual void print(ostream&) const;
+
 
 };
 

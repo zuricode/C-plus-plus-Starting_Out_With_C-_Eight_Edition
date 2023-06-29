@@ -3,7 +3,7 @@
 
 #include "Account.h"
 
-const double UNARRANGED_OVERDRAFT = 15.00;
+const double WITHDRAWAL_FINE = 15.00;
 const double WITHDRAWAL_CHARGE = 0.10;
 
 class Checking : public Account {
@@ -14,6 +14,8 @@ public:
 	virtual void withdraw(double);
 
 	virtual void monthlyProc();
+
+	virtual void print(ostream&) const;
 
 };
 
