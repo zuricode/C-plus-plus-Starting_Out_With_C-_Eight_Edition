@@ -31,7 +31,7 @@ public:
 
 	virtual void monthlyProc();
 
-	virtual void print(ostream&) const;
+	virtual void print(ostream&) const = 0;
 
 	friend ostream& operator << (ostream&, const Account&);
 

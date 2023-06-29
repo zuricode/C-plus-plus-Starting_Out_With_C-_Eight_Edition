@@ -96,19 +96,6 @@ void Account::monthlyProc() {
 
 }
 
-void Account::print(ostream& strm) const {
-
-	strm << left;
-	strm << "ACCOUNT STATEMENT\n";
-	strm << "---------------------------------------\n";
-	strm << setw(30) << "BALANCE: " << "$" << balance << "\n";
-	strm << setw(30) << "Annual interest rate: " << annual_interest_rate << "%\n";
-	strm << setw(30) << "Deposits this month: " << deposits << "\n";
-	strm << setw(30) << "Withdrawals this month: " << withdrawals << "\n";
-	strm << setw(30) << "Monthly service charges: " << "$" << monthly_service_charges << "\n";
-
-}
-
 ostream& operator << (ostream& strm, const Account& A) {
 
 	A.print(strm);

@@ -53,16 +53,12 @@ void Savings::deposit(double amount) {
 void Savings::monthlyProc() {
 
 	if (withdrawals > 4) {
-
-		while (withdrawals > 4) {
-			withdrawals -= 4;
-			monthly_service_charges += 1.00;
-		}
-
-		cout << "A charge of $" << withdrawals / 4 << " was added for " << withdrawals << "withdrawals ($1 for every 4 withdrawals).\n";
-
+		monthly_service_charges += (withdrawals - 4) * 1.00;		
 	}
 
+	cout << "A charge of $" << (withdrawals - 4) * 1.00 << " was added for " << withdrawals << " withdrawals (first four withdrawals are free).\n";
+	cout << "\n";
+	
 	Account::monthlyProc();
 
 	checkStatus();
