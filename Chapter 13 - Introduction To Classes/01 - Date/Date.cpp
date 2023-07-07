@@ -68,7 +68,7 @@ int Date::monthValidation(string request) {
 	cout << request;
 
 	while (!(cin >> month) || month < 1 || month > 12) {
-		cout << "ERROR: Day cannot be lesser than 1 or greater than 31." << endl;
+		cout << "ERROR: Day cannot be lesser than 1 or greater than 12." << endl;
 		cout << endl;
 		cin.ignore();
 		cout << request;
