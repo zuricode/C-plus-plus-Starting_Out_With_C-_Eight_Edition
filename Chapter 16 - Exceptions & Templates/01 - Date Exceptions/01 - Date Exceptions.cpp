@@ -22,12 +22,12 @@ int main() {
 	try {
 		date.setDate();
 	}
-	catch (Date::InvalidDay) {
-		cout << "ERROR: Day cannot be lesser than 1 or greater than 31." << "\n";
+	catch (Date::InvalidDay dayVal) {
+		cout << "ERROR: " << dayVal.getInvalidDay() << " is an invalid day.\n";
 		cout << "\n";
 	}
-	catch (Date::InvalidMonth) {
-		cout << "ERROR: Day cannot be lesser than 1 or greater than 12." << "\n";
+	catch (Date::InvalidMonth monthVal) {
+		cout << "ERROR: " << monthVal.getInvalidMonth() << " is invalid month.\n";
 		cout << "\n";
 	}
 

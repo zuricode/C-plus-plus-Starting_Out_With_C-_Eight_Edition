@@ -44,7 +44,7 @@ int Date::dayValidation(string request) {
 	cout << request;
 
 	while (!(cin >> day) || day < 1 || day > 31) {
-		throw InvalidDay();
+		throw InvalidDay(day);
 	}
 
 	cin.ignore();
@@ -60,7 +60,7 @@ int Date::monthValidation(string request) {
 	cout << request;
 
 	while (!(cin >> month) || month < 1 || month > 12) {
-		throw InvalidMonth();
+		throw InvalidMonth(month);
 	}
 
 	cin.ignore();

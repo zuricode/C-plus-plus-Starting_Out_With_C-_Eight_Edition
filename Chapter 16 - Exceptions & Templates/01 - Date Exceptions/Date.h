@@ -23,8 +23,37 @@ public:
 	int dayValidation(string);
 	int monthValidation(string);
 
-	class InvalidDay {};
-	class InvalidMonth {};
+	class InvalidDay {
+
+	private:
+		int invalid_day;
+
+	public:
+		InvalidDay(int inv_day) {
+			invalid_day = inv_day;
+		}
+
+		int getInvalidDay() const {
+			return invalid_day;
+		}	
+	
+	};
+
+	class InvalidMonth {
+	
+	private:
+		int invalid_month;
+
+	public:
+		InvalidMonth(int inv_mon) {
+			invalid_month = inv_mon;
+		}
+
+		int getInvalidMonth() const {
+			return invalid_month;
+		}
+
+	};
 
 };
 
