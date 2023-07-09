@@ -7,16 +7,14 @@
 //demonstrates the templates with various data types.
 
 #include <iostream>
-#include <string>
 
-using std::string;
+using std::cin;
 using std::cout;
-using std::to_string;
 
-class equalNumber {};
+class Equal {};
 
 template <class T>
-T maximum(const T A, const T B) {
+T greater(const T A, const T B) {
 
 	if (A > B) {
 		return A;
@@ -25,13 +23,13 @@ T maximum(const T A, const T B) {
 		return B;
 	}
 	else {
-		throw equalNumber();
+		throw Equal();
 	}
 
 }
 
 template <class T>
-T minimum(const T A, const T B) {
+T smaller(const T A, const T B) {
 
 	if (A < B) {
 		return A;
@@ -40,56 +38,112 @@ T minimum(const T A, const T B) {
 		return B;
 	}
 	else {
-		throw equalNumber();
+		throw Equal();
 	}
 
 }
 
+void getMaxValue();
+void getMinValue();
 
 int main() {
 
-	int a = 5;
-	int b = 435;
-
-	double c = 9;
-	double d = 9;
+	char tryAgain;
+	
 
 	cout << "=========================================\n";
 	cout << "16-03 - MINIMUM_MAXIMUM TEMPLATES PROGRAM\n";
 	cout << "=========================================\n";
 	cout << "\n";
 
-	try {
-		cout << maximum(a, b) << " is the highest number.\n";
-	}
-	catch (equalNumber) {
-		cout << to_string(a) + " and " + to_string(b) + " are equal.\n";
-	}
+	do {
 
-	try {
-		cout << minimum(a, b) << " is the lowest number.\n";
-	}
-	catch (equalNumber) {
-		cout << to_string(a) + " and " + to_string(b) + " are equal.\n";
-	}
+		try {
+			getMaxValue();
+			getMinValue();
+			//cout << greater(a, b) << " is the highest number.\n";
+		}
+		catch (Equal) {
+			cout << "Both values are equal.\n";
+		}
 
-	cout << "\n";
+		cout << "Would you like to run the program again?\n";
+		cout << "Enter Y/N: ";
 
-	try {
-		cout << maximum(c, d) << " is the highest number.\n";
-	}
-	catch (equalNumber) {
-		cout << to_string(c) + " and " + to_string(d) + " are equal.\n";
-	}
+		while (!(cin >> tryAgain) || (toupper(tryAgain) != 'Y' && toupper(tryAgain) != 'N')) {
+			cout << "ERROR: Incorrect value. Enter either Y or N.\n";
+			cout << "\n";
+			cout << "Enter Y/N: ";
+		};
 
-	try {
-		cout << minimum(c, d) << " is the lowest number.\n";
-	}
-	catch (equalNumber) {
-		cout << to_string(c) + " and " + to_string(d) + " are equal.\n";
-	}
+		tryAgain = toupper(tryAgain);
 
-	cout << "\n";
+		cout << "\n";
+
+	} while (tryAgain == 'Y');
+
 	cout << "Ending the program...\n";
+
+}
+
+void getMaxValue() {
+
+	cout << "getMaxValue func - Find the greatest value\n";
+	cout << "------------------------------------------\n";
+	cout << "\n";
+
+	double double_a = 0.0;
+	double double_b = 0.0;
+	char char_a = ' ';
+	char char_b = ' ';
+
+	cout << "Enter Double #1: ";
+	cin >> double_a;
+
+	cout << "Enter Double #2: ";
+	cin >> double_b;
+	cout << "\n";
+
+	cout << "Enter Char #1: ";
+	cin >> char_a;
+
+	cout << "Enter Char #2: ";
+	cin >> char_b;
+	cout << "\n";
+
+	cout << "The greater double is " << greater(double_a, double_b) << ".\n";
+	cout << "The greater char is " << greater(char_a, char_b) << ".\n";
+	cout << "\n";
+
+}
+
+void getMinValue() {
+
+	double double_a = 0.0;
+	double double_b = 0.0;
+	char char_a = ' ';
+	char char_b = ' ';
+
+	cout << "getMinValue func - Find the smallest value\n";
+	cout << "------------------------------------------\n";
+	cout << "\n";
+
+	cout << "Enter Double #1: ";
+	cin >> double_a;
+
+	cout << "Enter Double #2: ";
+	cin >> double_b;
+	cout << "\n";
+
+	cout << "Enter Char #1: ";
+	cin >> char_a;
+
+	cout << "Enter Char #2: ";
+	cin >> char_b;
+	cout << "\n";
+
+	cout << "The smaller double is " << smaller(double_a, double_b) << ".\n";
+	cout << "The smaller char is " << smaller(char_a, char_b) << ".\n";
+	cout << "\n";
 
 }
