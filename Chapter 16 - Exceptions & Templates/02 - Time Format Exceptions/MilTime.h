@@ -40,8 +40,27 @@ public:
 	virtual void print(ostream&) const;
 	virtual void enterData(istream&);
 
-	class BadHour {};
-	class BadSeconds {};
+	class BadHour {
+	
+	private:
+		int bad_hour;
+
+	public:
+		BadHour(int bH) { bad_hour = bH; }
+		int getBadHour() const { return bad_hour; }
+
+	};
+
+	class BadSeconds {
+	
+	private:
+		int bad_seconds;
+
+	public:
+		BadSeconds(int bS) { bad_seconds = bS; }
+		int getBadSeconds() const { return bad_seconds; }
+	
+	};
 
 };
 

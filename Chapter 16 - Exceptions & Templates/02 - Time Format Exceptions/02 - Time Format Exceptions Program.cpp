@@ -28,12 +28,14 @@ int main() {
 			try_again = false;
 			cout << "\n";
 		}
-		catch (MilTime::BadHour) {
-			cout << "ERROR: Hours value must be between " << MIN_MIL_HOURS << " and " << MAX_MIL_HOURS << ".\n";
+		catch (MilTime::BadHour bH) {
+			cout << "ERROR: " << bH.getBadHour() << " is an invalid value.\n";
+			cout << "Hours value must be between " << MIN_MIL_HOURS << " and " << MAX_MIL_HOURS << ".\n";
 			cout << "\n";
 		}
-		catch (MilTime::BadSeconds) {
-			cout << "ERROR: Seconds value must be between " << MIN_SECONDS << " and " << MAX_SECONDS << ".\n";
+		catch (MilTime::BadSeconds bS) {
+			cout << "ERROR: " << bS.getBadSeconds() << " is an invalid value.\n";
+			cout << "Seconds value must be between " << MIN_SECONDS << " and " << MAX_SECONDS << ".\n";
 			cout << "\n";
 		}
 

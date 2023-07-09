@@ -20,7 +20,7 @@ void MilTime::milHoursValidation(const string mH) {
 
 		while (mH_int % 100 > 59) {
 		
-			throw BadHour();
+			throw BadHour(mH_int);
 			
 			/*	milHours = to_string(mH_int);
 			cout << *this << "\n";
@@ -35,7 +35,7 @@ void MilTime::milHoursValidation(const string mH) {
 
 		while (mH_int < MIN_MIL_HOURS || mH_int > MAX_MIL_HOURS) {
 			
-			throw BadHour();
+			throw BadHour(mH_int);
 			
 			/*cout << "ERROR: Hours value must be between " << MIN_MIL_HOURS << " and "
 				<< MAX_MIL_HOURS << ".\n";
@@ -56,7 +56,7 @@ void MilTime::milSecondsValidation(const string mS) {
 
 	if (mS_int < MIN_SECONDS || mS_int > MAX_SECONDS) {
 
-		throw BadSeconds();
+		throw BadSeconds(mS_int);
 
 		/*cout << "ERROR: Seconds value must be between " << MIN_SECONDS << " and "
 			<< MAX_SECONDS << ".\n";
