@@ -27,7 +27,7 @@ public:
        T absentValue;
 
    public:
-       AbsentValue(const T aV) { absentValue = aV; }
+       AbsentValue(T aV) { absentValue = aV; }
        T getAbsentValue() { return absentValue; }
 
    };
@@ -59,7 +59,7 @@ int SearchableVector<T>::findItem(const T item)
     int end = this->size();
     int beginning = 0;
     int range;
-    int count;
+    int count = -1;
     T currentValue;
 
     while (!itemFound) {
@@ -70,18 +70,17 @@ int SearchableVector<T>::findItem(const T item)
 
         currentValue = this->getElementAt(count);
 
-        if (item > currentValue) {
+        if (item == currentValue) {
+            itemFound = true;
+        }
+        else if (count == this->size() - 1 || count == 0) {
+            throw AbsentValue<T>(item);
+        }
+        else if (item > currentValue) {
             beginning = (range / 2) + beginning;
         }
         else if (item < currentValue) {
             end = (range / 2) +  beginning;
-        }
-        else if (item == currentValue) {
-            itemFound = true;
-        }
-        else {
-            cout << "Value does not exist within this vector.\n";
-            throw AbsentValue<T>(item);
         }
 
     }
