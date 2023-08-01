@@ -150,7 +150,7 @@ T &SimpleVector<T>::operator[](const int &sub)
 template<>
 class SimpleVector<char*> {
 
-private:
+protected:
     char* aptr;
     int arraySize;
     void memError();
