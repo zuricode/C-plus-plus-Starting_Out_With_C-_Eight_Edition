@@ -46,11 +46,14 @@ int main() {
 
 	importDataFromFile(imported_data);
 
-	showData(imported_data);
+	//showData(imported_data);
 
 	createWordIndexMap(imported_data, index_map);
 
 	showWordIndexMap(index_map);
+
+	cout << "Ending the program...\n";
+	cout << "\n";
 
 }
 
@@ -192,5 +195,10 @@ void showWordIndexMap(const map<string, set<int>>& MAP) {
 		cout  << "\n";
 
 	}
+
+	cout << "\n";
+	cout << setfill('-') << setw(40) << "";
+	cout << "\n" << setfill(' ');
+	cout << "\n";
 
 }
