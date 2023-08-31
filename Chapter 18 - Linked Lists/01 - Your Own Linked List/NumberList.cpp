@@ -72,14 +72,40 @@ void NumberList::appendNode(const int NUM) {
 	cout << "\n";
 }
 
-void insertNode(const int NUM) {
+void NumberList::insertNode(const int NUM) {
 
 	ListNode* nodePtr;
 	ListNode* previousNode;
+	ListNode* newNode;
 
-	ListNode* newNode = new ListNode;
+	newNode = new ListNode;
 	newNode->value = NUM;
 	newNode->next = nullptr;
+
+	if (!head) {
+		head = newNode;
+	}
+
+	else {
+
+		nodePtr = head;
+		previousNode = nullptr;
+
+		while (nodePtr && nodePtr->value < NUM) {
+			previousNode = nodePtr;
+			nodePtr = nodePtr->next;
+		}
+
+		if (!previousNode) {
+			head = newNode;
+			newNode->next = nodePtr;
+		}
+		else {
+			previousNode->next = newNode;
+			newNode->next = nodePtr;
+		}
+
+	}
 
 }
 

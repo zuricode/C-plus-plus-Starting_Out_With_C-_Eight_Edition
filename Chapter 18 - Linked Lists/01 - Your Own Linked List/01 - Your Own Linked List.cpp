@@ -27,4 +27,11 @@ int main() {
 
 	list.displayList();
 
+	list.insertNode(15);
+	list.insertNode(10);
+	list.insertNode(5);
+
+	list.displayList();
+
+
 }
