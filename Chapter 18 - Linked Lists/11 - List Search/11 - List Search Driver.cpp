@@ -6,6 +6,9 @@
 //function should return 0. Demonstrate the function in a driver program.
 
 #include "LinkedList.h"
+#include <string>
+
+using std::string;
 
 template <class T> void searchValuePosition(const LinkedList<T>&);
 
@@ -16,18 +19,18 @@ int main() {
 	cout << "=================\n";
 	cout << "\n";
 
-	LinkedList<int> list_int;
+	LinkedList<string> list;
 
-	list_int.insertNode(4);
-	list_int.insertNode(2);
-	list_int.insertNode(5);
-	list_int.insertNode(3);
-	list_int.insertNode(1);
-	list_int.insertNode(6);
-	list_int.insertNode(0);
+	list.insertNode("kojo");
+	list.insertNode("nana");
+	list.insertNode("diop");
+	list.insertNode("shona");
+	list.insertNode("shango");
+	list.insertNode("dele");
+	list.insertNode("wolof");
 
-	searchValuePosition(list_int);
-	searchValuePosition(list_int);
+	searchValuePosition(list);
+	searchValuePosition(list);
 
 
 	cout << "Ending the program...\n";
@@ -38,7 +41,7 @@ template <class T>
 void searchValuePosition(const LinkedList<T>& LIST) {
 
 	T value;
-	T position;
+	int position;
 
 	cout << "Enter a value to search for: ";
 	cin >> value;
