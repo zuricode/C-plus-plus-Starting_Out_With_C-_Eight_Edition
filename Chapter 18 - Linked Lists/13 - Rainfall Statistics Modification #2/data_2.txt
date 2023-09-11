@@ -1,0 +1,10 @@
+Rainfall Statistics Export (mm)
+--------------------------
+Month #1: 564.76
+Month #2: 234.655
+Month #3: 324635
+Month #4: 123.34
+Month #5: 56434.4
+Month #6: 5673.23
+Month #7: 345567
+Month #8: 34.23

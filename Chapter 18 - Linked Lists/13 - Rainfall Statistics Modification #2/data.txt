@@ -1,0 +1,8 @@
+Rainfall Statistics Export
+--------------------------
+Month #1: 15.87
+Month #2: 12.54
+Month #3: 22.46
+Month #4: 19.76
+Month #5: 11.54
+Month #6: 9.65
