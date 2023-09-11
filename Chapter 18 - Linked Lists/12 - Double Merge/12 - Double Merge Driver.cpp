@@ -36,6 +36,8 @@ int main() {
 		cout << "Double value #" << i + 1 << ": " << doubles[i] << "\n";
 	}
 
+	cout << "\n";
+
 	list.insertNode(300.543);
 	list.insertNode(1003.35343);
 	list.insertNode(63.543904933);
@@ -45,7 +47,7 @@ int main() {
 	cout << "-------------\n";
 	list.displayList();
 
-	list.mergeArray(doubles, size);
+	list.mergeArray(doubles, 5);
 
 	cout << "UPDATED LIST\n";
 	cout << "----------- \n";
