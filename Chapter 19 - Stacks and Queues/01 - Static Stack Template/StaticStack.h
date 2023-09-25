@@ -1,12 +1,12 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef STATICSTACK_H
+#define STATICSTACK_H
 
 #include <iostream>
 
 using std::cout;
 
 template<class T>
-class Stack {
+class StaticStack {
 
 private:
 	T* staticArray;
@@ -14,9 +14,9 @@ private:
 	int top;
 
 public:
-	Stack(const int SIZE);
-	Stack(const Stack&);
-	~Stack();
+	StaticStack(const int SIZE);
+	StaticStack(const StaticStack&);
+	~StaticStack();
 
 	void push(const T);
 	void pop(T&);
@@ -27,21 +27,21 @@ public:
 };
 
 template<class T>
-Stack<T>::Stack(const int SIZE) {
+StaticStack<T>::StaticStack(const int SIZE) {
 	arraySize = SIZE;
 	staticArray = new T[arraySize];
 	top = -1;
 }
 
 template<class T>
-Stack<T>::Stack(const Stack& SOURCE) {
+StaticStack<T>::StaticStack(const StaticStack& SOURCE) {
 
 	arraySize = SOURCE.arraySize;
 
 	staticArray = new T[arraySize];
 
 	for (int i = 0; i < arraySize; i++) {
-		arraySize[i] = SOURCE.arraySize[i];
+		staticArray[i] = SOURCE.staticArray[i];
 	}
 	
 	top = SOURCE.top;
@@ -49,7 +49,7 @@ Stack<T>::Stack(const Stack& SOURCE) {
 }
 
 template<class T>
-Stack<T>::~Stack() {
+StaticStack<T>::~StaticStack() {
 
 	if (arraySize > 0) {
 		delete[] staticArray;
@@ -60,7 +60,7 @@ Stack<T>::~Stack() {
 }
 
 template<class T>
-void Stack<T>::push(const T VALUE) {
+void StaticStack<T>::push(const T VALUE) {
 
 	if (isFull()) {
 		cout << "ERROR: " << VALUE << " could not be pushed becuase the array is full.\n";
@@ -74,7 +74,7 @@ void Stack<T>::push(const T VALUE) {
 }
 
 template<class T>
-void Stack<T>::pop(T& value) {
+void StaticStack<T>::pop(T& value) {
 
 	if (isEmpty()) {
 		cout << "ERROR: No value could be popped because the array is empty.\n";
@@ -89,7 +89,7 @@ void Stack<T>::pop(T& value) {
 }
 
 template<class T>
-bool Stack<T>::isFull() const {
+bool StaticStack<T>::isFull() const {
 
 	if (top == arraySize - 1) {
 		return true;
@@ -101,7 +101,7 @@ bool Stack<T>::isFull() const {
 }
 
 template<class T>
-bool Stack<T>::isEmpty() const {
+bool StaticStack<T>::isEmpty() const {
 
 	if (top == -1) {
 		return true;
