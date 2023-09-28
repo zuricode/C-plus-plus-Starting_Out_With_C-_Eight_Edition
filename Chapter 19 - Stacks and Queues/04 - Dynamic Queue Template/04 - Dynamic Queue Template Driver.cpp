@@ -13,5 +13,31 @@ int main() {
 	cout << "\n";
 
 	DynamicQueue<int> dq1;
+	int value;
+
+	dq1.enqueue(4);
+	dq1.enqueue(2);
+	dq1.enqueue(6);
+	dq1.enqueue(34563);
+	dq1.enqueue(29);
+	dq1.enqueue(-6);
+	dq1.enqueue(763);
+	dq1.enqueue(-234452);
+
+	DynamicQueue<int> dq2(dq1);
+
+	dq1.dequeue(value);
+	cout << value << " was dequeued.\n";
+
+	dq1.dequeue(value);
+	cout << value << " was dequeued.\n";
+
+	dq1.dequeue(value);
+	cout << value << " was dequeued.\n";
+
+	dq1.dequeue(value);
+	cout << value << " was dequeued.\n";
+
+	dq1.dequeue(value);
 
 }
