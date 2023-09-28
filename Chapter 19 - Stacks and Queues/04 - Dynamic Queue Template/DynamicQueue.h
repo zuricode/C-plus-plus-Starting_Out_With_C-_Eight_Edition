@@ -4,6 +4,7 @@
 #include <iostream>
 
 using std::cout;
+using std::cin;
 
 template<class T>
 class DynamicQueue {
@@ -28,6 +29,8 @@ public:
 	void enqueue(const T);
 	void dequeue(T&);
 	bool isEmpty() const;
+
+	void displayQueue();
 
 };
 
@@ -136,6 +139,8 @@ void DynamicQueue<T>::dequeue(T& value) {
 		front = front->next;
 		delete temp;
 
+		cout << value << " was dequeued from the queue.\n";
+
 		number_of_nodes--;
 
 	}
@@ -152,6 +157,39 @@ bool DynamicQueue<T>::isEmpty() const {
 	}
 	else {
 		return false;
+	}
+
+}
+
+template<class T>
+void DynamicQueue<T>::displayQueue() {
+
+	if (isEmpty()) {
+		cout << "ERROR: Queue is empty. There is nothing to display.\n";
+		cout << "\n";
+	}
+	else {
+
+		stackNode* currentNode = front;
+
+		cout << "-------------\n";
+		cout << "QUEUE DISPLAY:\t";
+
+		for (int i = 0; i < number_of_nodes; i++) {
+
+			if (i != (number_of_nodes - 1)) {
+				cout << currentNode->value << " >>> ";
+			}
+			else {
+				cout << currentNode->value << "\n";
+			}
+
+			currentNode = currentNode->next;
+		}
+
+		cout << "-------------\n";
+		cout << "\n";
+
 	}
 
 }

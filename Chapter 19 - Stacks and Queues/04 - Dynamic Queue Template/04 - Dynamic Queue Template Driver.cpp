@@ -4,6 +4,9 @@
 //Demonstrate the class with a driver program.
 
 #include "DynamicQueue.h"
+#include<string>
+
+using std::string;
 
 int main() {
 
@@ -12,32 +15,37 @@ int main() {
 	cout << "===================================\n";
 	cout << "\n";
 
-	DynamicQueue<int> dq1;
-	int value;
+	int nodes;
+	DynamicQueue<string> dq1;
+	string value;
 
-	dq1.enqueue(4);
-	dq1.enqueue(2);
-	dq1.enqueue(6);
-	dq1.enqueue(34563);
-	dq1.enqueue(29);
-	dq1.enqueue(-6);
-	dq1.enqueue(763);
-	dq1.enqueue(-234452);
+	cout << "How many nodes would you like in your dynamic queue? ";
+	cin >> nodes;
+	cin.ignore(1200, '\n');
 
-	DynamicQueue<int> dq2(dq1);
+	cout << "\n";
 
-	dq1.dequeue(value);
-	cout << value << " was dequeued.\n";
+	for (int i = 0; i < nodes; i++) {
 
-	dq1.dequeue(value);
-	cout << value << " was dequeued.\n";
+		cout << "Enqueue value #" << i + 1 << ": ";
+		getline(cin, value);
+		dq1.enqueue(value);
 
-	dq1.dequeue(value);
-	cout << value << " was dequeued.\n";
+	}
 
-	dq1.dequeue(value);
-	cout << value << " was dequeued.\n";
+	cout << "\n";
+
+	dq1.displayQueue();
 
 	dq1.dequeue(value);
+	dq1.dequeue(value);
+	dq1.dequeue(value);
+	dq1.dequeue(value);
+
+	cout << "\n";
+
+	dq1.displayQueue();
+
+	cout << "Ending the program...\n";
 
 }
