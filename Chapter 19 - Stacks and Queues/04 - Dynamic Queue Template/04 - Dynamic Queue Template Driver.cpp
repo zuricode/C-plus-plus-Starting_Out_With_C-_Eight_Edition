@@ -12,6 +12,6 @@ int main() {
 	cout << "===================================\n";
 	cout << "\n";
 
-	DynamicQueue dq1;
+	DynamicQueue<int> dq1;
 
 }

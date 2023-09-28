@@ -43,9 +43,9 @@ DynamicQueue<T>::DynamicQueue() {
 template<class T>
 DynamicQueue<T>::DynamicQueue(const DynamicQueue& SOURCE) {
 
-	*stackNode sourceNode = SOURCE.front;
+	stackNode* sourceNode = SOURCE.front;
 
-	if (sourceNode.front == nullptr) {
+	if (sourceNode == nullptr) {
 		cout << "Copy constructor failed. Source queue is empty.\n";
 		cout << "\n";
 	}
@@ -79,6 +79,66 @@ DynamicQueue<T>::DynamicQueue(const DynamicQueue& SOURCE) {
 }
 
 template<class T>
+DynamicQueue<T>::~DynamicQueue() {
+
+	stackNode* tempNode = nullptr;
+
+	while (front != nullptr) {
+		tempNode = front;
+		front = front->next;
+		delete tempNode;
+	}
+
+	rear = nullptr;
+
+	cout << "DynamicQueue destructor activated.\n";
+	cout << "\n";
+
+}
+
+template<class T>
+void DynamicQueue<T>::enqueue(const T VALUE) {
+
+	stackNode* newNode = new StackNode;
+	newNode->value = VALUE;
+	newNode->next = nullptr;
+
+	if (isEmpty()) {
+		front = newNode;
+		rear = newNode
+	}
+	else {
+		rear->next = newNode;
+		rear = newNode;
+	}
+
+	number_of_nodes++;
+
+}
+
+template<class T>
+void DynamicQueue<T>::dequeue(T& value) {
+
+	stackNode* currentNode = nullptr;
+
+	if (isEmpty()) {
+		cout << "ERROR: Dequeing failed. Queue is already empty.\n";
+		cout << "\n";
+	}
+	else {
+
+		value = front->value;
+
+		number_of_elements--;
+
+	}
+
+
+}
+
+
+
+template<class T>
 bool DynamicQueue<T>::isEmpty() const {
 
 	if (front == nullptr || rear == nullptr) {
@@ -89,3 +149,5 @@ bool DynamicQueue<T>::isEmpty() const {
 	}
 
 }
+
+#endif
