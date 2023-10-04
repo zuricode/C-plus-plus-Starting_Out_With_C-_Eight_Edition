@@ -10,9 +10,6 @@ TextStack::~TextStack() {
 		top = temp;
 	}
 
-	cout << "TextStack destructor was activated.\n";
-	cout << "\n";
-
 }
 
 bool TextStack::isEmpty() const {
@@ -37,7 +34,7 @@ void TextStack::push(const char LETTER) {
 	}
 	else {
 
-		top->next = newNode;
+		newNode->next = top;
 		top = newNode;
 
 	}
