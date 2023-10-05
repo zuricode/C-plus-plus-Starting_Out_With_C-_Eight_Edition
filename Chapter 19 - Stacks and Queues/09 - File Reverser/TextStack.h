@@ -8,7 +8,7 @@ using std::cout;
 class TextStack {
 
 	struct stackNode {
-		char letter {};
+		char letter {;
 		stackNode* next = nullptr;
 	};
 

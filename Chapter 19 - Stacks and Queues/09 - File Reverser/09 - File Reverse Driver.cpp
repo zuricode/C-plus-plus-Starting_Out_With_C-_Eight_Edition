@@ -1,4 +1,4 @@
-//9. File Reverser//
+//9. File Reverser
 //Write a program that opens a text file and reads its contents into a stack of characters.
 //The program should then pop the characters from the stack and save them in a second text file.
 //The order of the chracters saved in the second file should be the reverse of their order in the
@@ -60,6 +60,8 @@ void importTextFromFile(TextStack& stack) {
 	cout << "File was successfully opened.\n";
 
 	while (getline(file, str)) {
+
+		str += '\n';
 
 		for (int i = 0; i < str.length(); i++) {
 			stack.push(str[i]);
