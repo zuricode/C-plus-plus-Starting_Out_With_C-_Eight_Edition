@@ -30,8 +30,7 @@ void Date::setDate() {
 
 	} while (!checkDate());
 
-	cout << "A manufacture date of " << getDate() << " has been set successfully.\n";
-	cout << "\n";
+	cout << "NOTE: A manufacture date of " << getDate() << " has been set successfully.\n";
 
 }
 

@@ -43,13 +43,17 @@ int main() {
 
 	showMenu(stock);
 
-	cout << "Ending the program...\n";
+	cout << "Quitting the program...\n";
+	cout << "Removing any items in the inventory...\n";
+	cout << "\n";
+
 
 }
 
 void showMenu(Inventory& inventory) {
 
 	int choice;
+	int counter = 0;
 
 	do {
 
@@ -65,16 +69,16 @@ void showMenu(Inventory& inventory) {
 
 		cout << "Enter your selection: ";
 
-		while (cin >> choice && (choice < 1 || choice > 3)) {
+		while (!(cin >> choice) || (choice < 1 || choice > 3)) {
 			cout << "ERROR: Selection must be between 1 - 3.\n";
 			cout << "\n";
-			cin.ignore(1200, '\n');
 			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Enter your selection: ";
 		}
 
-		cin.ignore(1200, '\n');
 		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		cout << "\n";
 

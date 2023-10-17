@@ -3,7 +3,14 @@
 
 #include "Date.h"
 #include <iostream>
+#include <limits>
+#include <iomanip>
 
+using std::setw; 
+using std::left;
+using std::right;
+using std::numeric_limits;
+using std::streamsize;
 using std::cout;
 using std::cin;
 

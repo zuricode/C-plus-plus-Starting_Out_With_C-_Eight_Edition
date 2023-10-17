@@ -1,18 +1,16 @@
 #include "Inventory.h"
-#include <limits>
-
-using std::numeric_limits;
-using std::streamsize;
 
 Inventory::~Inventory() {
 
 	inventoryNode* temp = nullptr;
 
 	while (top != nullptr) {
-		temp = top->next;
-		delete top;
-		top = temp;
+
+		pop();
+
 	}
+
+	cout << "Inventory destructor was successful. Stack was emptied.\n";
 
 }
 
@@ -27,16 +25,16 @@ void Inventory::push() {
 
 	cout << "Serial Number: ";
 
-	while (cin >> value && value <= 0) {
+	while (!(cin >> value) && value <= 0) {
 		cout << "ERROR: Serial number must be a positive integer.\n";
 		cout << "\n";
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Serial Number: ";
 	}
 
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	newNode->serialNum = value;
 	newNode->manufactDate.setDate();
 
@@ -45,13 +43,14 @@ void Inventory::push() {
 	while (!(cin >> value) || value <= 0) {
 		cout << "ERROR: Lot number must be a positive integer.\n";
 		cout << "\n";
+		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Lot Number: ";
 	}
 
 	cout << "\n";
-	cin.ignore(1200, '\n');
 	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	newNode->lotNum = value;
 	newNode->next = nullptr;
@@ -62,12 +61,14 @@ void Inventory::push() {
 
 	else {
 
-		top->next = newNode;
+		newNode->next = top;
 		top = newNode;
 
 	}
 
-	cout << "Item \"" << newNode->serialNum << "\" was successfully added to the inventory.\n";
+	cout << "ITEM ADDED: Serial Number: " << newNode->serialNum << "\n";
+	cout << right << setw(12) << "" << "Manufacturer Date : " << newNode->manufactDate.getDate() << "\n";
+	cout << setw(12) << "" << "Lot Number : " << newNode->lotNum << "\n";
 	cout << "\n";
 
 }
@@ -94,7 +95,9 @@ void Inventory::pop() {
 		delete top;
 		top = temp;
 
-		cout << "ITEM REMOVED: Serial Number: " << serialNum << " >>> Manufacturer Date: " << manufactDate << " >>> Lot Number: " << lotNum << "\n";
+		cout << "ITEM REMOVED: Serial Number: " << serialNum << "\n";
+		cout << right << setw(14) << "" << "Manufacturer Date : " << manufactDate << "\n";
+		cout << setw(14) << "" << "Lot Number : " << lotNum << "\n";
 		cout << "\n";
 
 	}
