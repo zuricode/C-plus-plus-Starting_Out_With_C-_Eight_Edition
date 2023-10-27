@@ -4,12 +4,22 @@
 //Demonstrate the template with a driver function.
 
 #include <iostream>
+#include <string>
 
 using std::cout;
+using std::string;
 
-void quickSort(int[], int, int);
-int partition(int[], int, int);
-void swap(int&, int&);
+template<class T>
+void quickSort(T[], int, int);
+
+template<class T>
+int partition(T[], int, int);
+
+template<class T>
+void swap(T&, T&);
+
+template<class T>
+void showList(T[], const int, const string);
 
 int main() {
 
@@ -21,32 +31,27 @@ int main() {
 	const int SIZE = 10;
 
 	int numbers[SIZE]{ 2,8,5,1,4,6,7,0,9,3 };
+	char characters[SIZE]{ 'n', 's', 'e', 'y', 'a', 'b', 'n', 'e', 'l', 'z' };
 
-	cout << "List of numbers: ";
+	showList(numbers, SIZE, "Original list of numbers");
+	showList(characters, SIZE, "Original list of characters");
 
-	for (int i = 0; i < SIZE; i++) {
-		cout << numbers[i] << " ";
-	}
-
-	cout << "\n";
 	cout << "\n";
 
 	quickSort(numbers, 0, SIZE - 1);
+	quickSort(characters, 0, SIZE - 1);
 
-	cout << "List of numbers: ";
-
-	for (int i = 0; i < SIZE; i++) {
-		cout << numbers[i] << " ";
-	}
+	showList(numbers, SIZE, "Sorted list of numbers");
+	showList(characters, SIZE, "Sorted list of characters");
 
 	cout << "\n";
-	cout << "\n";	
 
 	cout << "Ending the program...\n";
 
 }
 
-void quickSort(int set[], int start, int end) {
+template <class T>
+void quickSort(T set[], int start, int end) {
 
 	int pivotPoint;
 
@@ -60,7 +65,8 @@ void quickSort(int set[], int start, int end) {
 
 }
 
-int partition(int set[], int start, int end) {
+template <class T>
+int partition(T set[], int start, int end) {
 
 	int pivotValue, pivotIndex, mid;
 
@@ -86,10 +92,24 @@ int partition(int set[], int start, int end) {
 
 }
 
-void swap(int& value1, int& value2) {
+template <class T>
+void swap(T& value1, T& value2) {
 
-	int temp = value1;
+	T temp = value1;
 	value1 = value2;
 	value2 = temp;
+
+}
+
+template <class T>
+void showList(T set[], const int SIZE, const string DESCRIPTOR) {
+
+	cout << DESCRIPTOR << ": ";
+
+	for (int i = 0; i < SIZE; i++) {
+		cout << set[i] << " ";
+	}
+
+	cout << "\n";
 
 }
