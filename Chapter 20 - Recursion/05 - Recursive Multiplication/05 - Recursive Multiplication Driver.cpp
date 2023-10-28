@@ -47,11 +47,17 @@ int main() {
 
 int recursiveMultiplication(int x, int y) {
 
-	if (x == 0) {
-		return 0;
+	if (x < 0) {
+		x *= -1;
+		y *= -1;
 	}
-	else {
+	
+	if (x > 0) {
 		return y + recursiveMultiplication(x - 1, y);
+	}
+
+	else {
+		return 0;
 	}
 
 
