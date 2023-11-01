@@ -46,39 +46,29 @@ int main() {
 
 }
 
-bool palindromeDetector(string text) {
+bool palindromeDetector(const string& STR, int s, int e) {
 
-	if (text.length() == 0) {
+	while (s < STR.length() && !isalpha(STR[s])) {
+		s++;
+	}
+	while (e >= 0 && !isalpha(STR[e])) {
+		e--;
+	}
+	if (s > e) {
 		return true;
 	}
-
-	else if (toupper(text.front()) != toupper(text.back())) {
-		return false;
-	}
-	
 	else {
-
-		text.erase(0, 1);
-
-		if (text.length() > 1) {
-			text.erase(text.length()-1, 1);
-		}
-
-		palindromeDetector(text);
-
-	}	
+		return ((toupper(STR[s]) == toupper(STR[e])) &&
+			palindromeDetector(STR, s + 1, e - 1));
+	}
 
 }
 
 void isPalindrome(string text) {
 
-	string new_text;
-
-	new_text = onlyLettersAndNumbers(text);
-
 	cout << "\"" << text << "\"";
 
-	if (palindromeDetector(new_text)) {
+	if (palindromeDetector(text, 0, text.length())) {
 		cout << " IS"; 
 	}
 	else {
@@ -88,20 +78,5 @@ void isPalindrome(string text) {
 	cout << " a palindrome.\n";
 
 	cout << "\n";
-
-}
-
-string onlyLettersAndNumbers(string text) {
-
-	for (int i = 0; i < text.length(); i++) {
-
-		if (!isalnum(text[i])) {
-			text.erase(i, 1);
-			i--;
-		}
-
-	}
-
-	return text;
 
 }
