@@ -22,9 +22,8 @@ using std::cin;
 using std::numeric_limits;
 using std::streamsize;
 
-bool palindromeDetector(string);
+bool palindromeDetector(const string&, int, int);
 void isPalindrome(string);
-string onlyLettersAndNumbers(string);
 
 int main() {
 
