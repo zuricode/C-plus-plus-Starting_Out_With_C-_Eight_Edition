@@ -101,7 +101,10 @@ void BinaryTreeTemplate<T>::remove(T value) {
 	}
 	else {
 		deleteNode(root, value);
+		cout << "Value \"" << value << "\" was revoed from the binary tree.\n";
 	}
+
+	cout << "\n";
 
 }
 

@@ -52,4 +52,13 @@ int main() {
 	cout << "\n";
 	cout << "\n";
 
+	tree.remove(3);
+
+	cout << "BinaryTree displayed in pre-order format: ";
+	tree.displayPreOrder();
+	cout << "\n";
+	cout << "\n";
+
+
+
 }
