@@ -1,6 +1,7 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 
+#include "Queue.h"
 #include <iostream>
 
 using std::cout;
@@ -24,6 +25,10 @@ private:
 	void displayInOrder(const TreeNode*);
 	void displayPreOrder(const TreeNode*);
 	void displayPostOrder(const TreeNode*);
+	void deleteNode(TreeNode*&, const int);
+	void makeDeletion(TreeNode*&);
+	void exportQueue(const TreeNode*, Queue&);
+
 
 public:
 
@@ -39,6 +44,10 @@ public:
 	void displayInOrder();
 	void displayPreOrder();
 	void displayPostOrder();
+	void remove(const int);
+	void deleteTree();
+	void exportToQueue(Queue&);
+
 
 };
 

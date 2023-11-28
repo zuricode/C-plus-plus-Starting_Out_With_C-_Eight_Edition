@@ -6,16 +6,19 @@
 
 #include "BinaryTree.h"
 
+void displayAndDequeue(Queue& queue);
+
 using std::move;
 
 int main() {
 
-	cout << "=====================\n";
-	cout << "21-07 QUEUE CONVERTER\n";
-	cout << "=====================\n";
+	cout << "============================\n";
+	cout << "21-07 QUEUE CONVERTER DRIVER\n";
+	cout << "============================\n";
 	cout << "\n";
 
 	BinaryTree tree;
+	Queue queue;
 
 	tree.insert(4);
 	tree.insert(6);
@@ -25,19 +28,35 @@ int main() {
 	tree.insert(8);
 	tree.insert(1);
 	tree.insert(9);
+	cout << "\n";
 
-	tree.search(5);
-	tree.search(7);
+	tree.exportToQueue(queue);
+	displayAndDequeue(queue);
 
-	BinaryTree tree_2 = move(tree);
+	cout << "Ending the program...\n";
 
-	tree_2.displayInOrder();
-	tree_2.displayPreOrder();
-	tree_2.displayPostOrder();
+}
 
-	tree.displayInOrder();
-	tree.displayPreOrder();
-	tree.displayPostOrder();
+void displayAndDequeue(Queue& queue) {
 
+	int value;
+
+	cout << "QUEUE CONTENTS: ";
+
+	if (queue.isEmpty()) {
+		cout << "EMPTY";
+	}
+
+	else {
+
+		while (!queue.isEmpty()) {
+			queue.dequeue(value);
+			cout << value << " | ";
+		}
+
+	}
+
+	cout << "\n";
+	cout << "\n";
 
 }

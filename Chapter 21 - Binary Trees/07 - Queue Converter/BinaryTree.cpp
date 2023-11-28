@@ -2,18 +2,14 @@
 
 
 BinaryTree::BinaryTree() {
-	cout << "Default constructor activated.\n\n";
 	root = nullptr;
 }
 
 BinaryTree::~BinaryTree() {
-	cout << "Destructor activated...\n\n";
 	removeSubTree(root);
 }
 
 BinaryTree::BinaryTree(const BinaryTree& SOURCE) {
-
-	cout << "Copy constructor activated...\n\n";
 
 	if (SOURCE.root != nullptr) {
 		root = new TreeNode;
@@ -26,8 +22,6 @@ BinaryTree::BinaryTree(const BinaryTree& SOURCE) {
 }
 
 BinaryTree& BinaryTree::operator=(const BinaryTree& SOURCE) {
-
-	cout << "Copy assignment operator...\n\n";
 
 	if (SOURCE.root != nullptr) {
 		this->root = new TreeNode;
@@ -42,8 +36,6 @@ BinaryTree& BinaryTree::operator=(const BinaryTree& SOURCE) {
 }
 
 BinaryTree::BinaryTree(BinaryTree&& source) {
-
-	cout << "Move constructor activated...\n\n";
 
 	root = source.root;
 	source.root = nullptr;
@@ -111,6 +103,7 @@ void BinaryTree::insertNode(TreeNode*& currentNode, TreeNode*& newNode) {
 
 	if (currentNode == nullptr) {
 		currentNode = newNode;
+		cout << "NEW NODE: " << newNode->value << "\n";
 	}
 	else if (newNode->value < currentNode->value) {
 		insertNode(currentNode->left, newNode);
@@ -233,6 +226,92 @@ void BinaryTree::displayPostOrder(const TreeNode* CURRENTNODE) {
 		displayPostOrder(CURRENTNODE->left);
 		displayPostOrder(CURRENTNODE->right);
 		cout << CURRENTNODE->value << " | ";
+
+	}
+
+}
+
+void BinaryTree::remove(const int VALUE) {
+	deleteNode(root, VALUE);
+}
+
+void BinaryTree::deleteNode(TreeNode*& currentNode, const int VALUE) {
+
+	if (currentNode != nullptr) {
+
+		if (VALUE == currentNode->value) {
+			makeDeletion(currentNode);
+		}
+		else if (VALUE < currentNode->value) {
+			deleteNode(currentNode->left, VALUE);
+		}
+		else {
+			deleteNode(currentNode->right, VALUE);
+		}
+
+	}
+	else {
+		cout << "ERROR: Deletion function failed. No node with value \"" << VALUE << "\" was found.\n";
+		cout << "\n";
+	}
+
+	
+
+}
+
+void BinaryTree::makeDeletion(TreeNode*& node) {
+
+	TreeNode* temp = nullptr;
+
+	if (node == nullptr) {
+		cout << "ERROR: This node contains no value. Deletion function has failed.\n";
+		cout << "\n";
+	}
+
+	else if (node->left == nullptr && node->right == nullptr) {
+		removeSubTree(node);
+	}
+
+	else if (node->left == nullptr) {
+		temp = node->right;
+		delete node;
+		node = temp;
+	}
+	else if (node->right == nullptr) {
+		temp = node->left;
+		delete node;
+		node = temp;
+	}
+	else {
+
+		temp = node->right;
+		while (temp->left != nullptr) {
+			temp = temp->left;
+		}
+		temp->left = node->left;
+		temp = node->right;
+		delete node;
+		node = temp;
+
+	}
+
+}
+
+void BinaryTree::deleteTree() {
+	removeSubTree(root);
+}
+
+void BinaryTree::exportToQueue(Queue& queue) {
+	exportQueue(root, queue);
+}
+
+void BinaryTree::exportQueue(const TreeNode* node, Queue& queue) {
+
+	if (node != nullptr) {
+
+		exportQueue(node->left, queue);
+		queue.enqueue(node->value);
+		exportQueue(node->right, queue);
 
 	}
 
