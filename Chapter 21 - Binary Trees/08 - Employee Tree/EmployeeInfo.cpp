@@ -32,8 +32,6 @@ EmployeeInfo& EmployeeInfo::operator=(const EmployeeInfo& SOURCE) {
 
 	if (this != &SOURCE) {
 
-		delete this;
-
 		this->name = SOURCE.name;
 		this->id = SOURCE.id;
 
@@ -71,8 +69,8 @@ EmployeeInfo& EmployeeInfo::operator=(EmployeeInfo&& source) {
 
 ostream& operator<<(ostream& strm, const EmployeeInfo& SOURCE) {
 
-	strm << "Employee Name: " << SOURCE.name << " | ID: " << SOURCE.id << "\n";
-	strm << "\n";
+	strm << left;
+	strm << "ID: " << setw(10) << SOURCE.id << " | Name: " << SOURCE.name;
 
 	return strm;
 
@@ -96,6 +94,40 @@ istream& operator>>(istream& strm, EmployeeInfo& employee) {
 	strm.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	return strm;
+
+}
+
+bool EmployeeInfo::operator >(const EmployeeInfo& RIGHT) {
+
+	if (id > RIGHT.getId()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+
+bool EmployeeInfo::operator <(const EmployeeInfo& RIGHT) {
+
+	if (id < RIGHT.getId()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+bool EmployeeInfo::operator ==(const EmployeeInfo& RIGHT) {
+
+	if (id == RIGHT.getId()) {
+		return true;
+	}
+	else {
+		return false;
+	}
 
 }
 

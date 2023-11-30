@@ -36,9 +36,33 @@ int main() {
 	cout << "==========================\n";
 	cout << "\n";
 
-	EmployeeInfo worker;
+	EmployeeTree<EmployeeInfo> tree;
+	EmployeeInfo worker_1(832, "Morson Schapiro");
+	EmployeeInfo worker_2(9324, "Akala");
+	EmployeeInfo worker_3(86, "PLO Lumumba");
+	EmployeeInfo worker_4(103, "Cheik Anta Diop");
 
-	cin >> worker;
-	cout << worker;
+	cout << "Worker #1: " << worker_1 << "\n";
+	cout << "Worker #2: " << worker_2 << "\n";
+	cout << "Worker #3: " << worker_3 << "\n";
+	cout << "Worker #4: " << worker_4 << "\n";
+	cout << "\n";
+
+	EmployeeInfo worker_5;
+	cin >> worker_5;
+
+	tree.insert(worker_3);
+	tree.insert(worker_1);
+	tree.insert(worker_5);
+	tree.insert(worker_4);
+	tree.insert(worker_2);
+	
+	tree.search();
+
+	tree.remove(103);
+
+	tree.displayInOrder();
+
+	cout << "Ending the program...\n";
 
 }
